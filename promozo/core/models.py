@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth import get_user_model
 from django_extensions.db.fields.json import JSONField
-User=get_user_model()
+from django.contrib.auth.models import User
 # Create your models here.
 
 class baseModel(models.Model):
@@ -13,7 +12,7 @@ class baseModel(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(User,related_name='updated_by')
+    updated_by = models.ForeignKey(User)
 
     class Meta:
         abstract=True
@@ -48,7 +47,7 @@ class University(baseModel):
     website = models.URLField()
     address = models.TextField()
     universityStaff = models.ManyToManyField(User,related_name='UniversityStaff',blank=True,null=True)
-    universityStudents = models.ManyToManyField(User,realated_name='UniversityStudents',blank=True,null=True)
+    universityStudents = models.ManyToManyField(User,related_name='UniversityStudents',blank=True,null=True)
 
     def __str__(self):
         return self.name
@@ -90,13 +89,17 @@ class Student(baseModel):
     def __str__(self):
         return "%s(%s)" % (self.user.get_username(),self.user.get_full_name())
 
-class BusinessUser(Student):
+class BusinessUser(baseModel):
     """
     business user details
     """
     user = models.OneToOneField(User,related_name='business_user')
     jobTitle = models.CharField(max_length=200,blank=True,null=True)
     department = models.CharField(max_length=200,blank=True,null=True)
+    tagline = models.CharField(max_length=500,blank=True)
+    description = models.TextField()
+    avatarImage = models.ImageField(upload_to='images/avatars')
+    settings = JSONField(blank=True,null=True)
 
 class Business(baseModel):
     """
