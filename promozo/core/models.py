@@ -46,8 +46,8 @@ class University(baseModel):
     description = models.TextField(blank=True)
     website = models.URLField()
     address = models.TextField()
-    universityStaff = models.ManyToManyField(User,related_name='UniversityStaff',blank=True,null=True)
-    universityStudents = models.ManyToManyField(User,related_name='UniversityStudents',blank=True,null=True)
+    universityStaff = models.ManyToManyField(User,related_name='UniversityStaff',blank=True)
+    universityStudents = models.ManyToManyField(User,related_name='UniversityStudents',blank=True)
 
     def __str__(self):
         return self.name
@@ -58,7 +58,7 @@ class Region(baseModel):
     """
     name = models.CharField(max_length=200)
     universities = models.ManyToManyField(University,related_name='universityRegion')
-    RegionStaff = models.ManyToManyField(User,related_name='Region_Staff',blank=True,null=True)
+    RegionStaff = models.ManyToManyField(User,related_name='Region_Staff',blank=True)
 
     def __str__(self):
         return self.name
@@ -111,7 +111,7 @@ class Business(baseModel):
     description = models.TextField(blank=True)
     logo = models.ImageField(upload_to='images/logos',null=True,blank=True)
     website = models.URLField(null=True,blank=True)
-    staff = models.ManyToManyField(User, related_name='business_staff')
+    staff = models.ManyToManyField(User, related_name='business_staff',blank=True)
 
     def __str__(self):
         return self.name

@@ -22,6 +22,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '41!oluq6fyg(!64f)sezfg%p)sb)vv#vf*qh&mx@bkn=v0co^r'
 
+# The has stalt key is used to code and decode the hash codes for emails. Set this an an env variable
+HASH_SALT_KEY = 'test1 test2 test3'
+
+# This should be set to the base Url pointing to the user api urls. Its added to the urls in email sends
+BASE_URL ="localhost:8000/api/user"
+
+# This is the number of days a url sent in an email is considered valid
+REGISTRATION_TIME = 2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
