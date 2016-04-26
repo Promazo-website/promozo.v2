@@ -1,0 +1,53 @@
+    <md-card style="padding: 20px;">
+
+            <md-card-title>
+                <md-card-title-text class="md-card-title-text">
+                    ProMazo SignUp
+                </md-card-title-text>
+            </md-card-title>
+        <md-card-content>
+        <form name="loginForm">
+            <md-input-container class="md-block">
+                <label>Username</label>
+                <input type="text" name="username" ng-model="formdata.username" required ng-minlength="4" ng-maxlength="100" placeholder="" username-validator/>
+                <div ng-messages="loginForm.username.$error">
+                    <div ng-message="required">Please enter a Username</div>
+                    <div ng-message="username">Username already in use</div>
+                    <div ng-message="minlength">username is too short</div>
+                    <div ng-message="maxlength">username is too long</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" name="email" ng-model="formdata.email" required placeholder=""/ email-validator>
+                <div ng-messages="loginForm.email.$error">
+                    <div ng-message="required">Please enter you email address</div>
+                    <div ng-message="email">Not a valid email address</div>
+                    <div ng-message="validemail">Your email has to be from a ProMazo registered University</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>First Name</label>
+                <input type="text" name="first_name" ng-model="formdata.first_name" required ng-minlength="2" ng-maxlength="100" placeholder=""/>
+                <div ng-messages="loginForm.first_name.$error">
+                    <div ng-message="required">Please enter you first name</div>
+                    <div ng-message="minlength">Name is too short</div>
+                    <div ng-message="maxlength">Name is too long</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Last Name</label>
+                <input type="text" name="last_name" ng-model="formdata.last_name" required ng-minlength="2" ng-maxlength="100" placeholder=""/>
+                <div ng-messages="loginForm.last_name.$error">
+                    <div ng-message="required">Please enter you last name</div>
+                    <div ng-message="minlength">Name is too short</div>
+                    <div ng-message="maxlength">Name is too long</div>
+                </div>
+            </md-input-container>
+
+            <md-button flex class="md-raised row-button"  ng-click="signup(formdata)" >Send</md-button>
+
+        </form>
+        </md-card-content>
+
+    </md-card>

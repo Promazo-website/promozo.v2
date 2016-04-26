@@ -1,0 +1,7 @@
+A request has been made to reset the password on your ProMazo account. \n\n
+
+copy and paste the link below into your browsers address bar to confirm and reset your account password. \n\n
+
+
+{{ reset_url}}
+=======

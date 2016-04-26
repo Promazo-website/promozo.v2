@@ -84,7 +84,7 @@ class NewUserReg():
         :param user:
         :return:
         """
-        return '%s/register/validate/%s/%s/' % (self.BASE_URL, self.__generate_date_hash(),
+        return '%s/validate/%s/%s/' % (self.BASE_URL, self.__generate_date_hash(),
                                                  self.__generate_user_hash(user))
     def __generate_reset_url(self, user):
         """
@@ -93,7 +93,7 @@ class NewUserReg():
         :param user:
         :return:
         """
-        return '%s/password/reset/%s/%s/' % (self.BASE_URL, self.__generate_date_hash(),
+        return '%s/validate/%s/%s/' % (self.BASE_URL, self.__generate_date_hash(),
                                                  self.__generate_user_hash(user))
 
 

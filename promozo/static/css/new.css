@@ -1,0 +1,119 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800);
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+
+}
+md-toolbar {
+    text-transform: capitalize;
+    font-size: 20px;
+    font-weight: 300;
+    color:whitesmoke;
+    background-color: rgba(0,0,0,0.4) !important;
+}
+md-toolbar .md-button {
+    text-transform: capitalize;
+    font-size: 20px;
+    font-weight: 300;
+    color:whitesmoke;
+}
+.right_page {
+    position: absolute;
+    width:100%;
+    height:100%;}
+
+.right_page.ng-enter {
+  animation: slideInRight 2s;
+}
+
+.right_page.ng-leave {
+  animation: slideOutRight 2s;
+}
+ .student_page {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     background: url('/static/images/balloon_background.jpg') no-repeat center fixed;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+ }
+.left_page {
+    position: absolute;
+    width:100%;
+    height:100%;}
+
+.left_page.ng-enter {
+  animation: slideInLeft 2s;
+}
+
+.left_page.ng-leave {
+  animation: slideOutLeft 2s;
+}
+
+.transparent_black {
+    background-color: rgba(0,0,0,0.4) !important;
+}
+
+md-content {
+    background-color: transparent;
+}
+
+.signup {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     background: url('/static/images/university-1.jpg') no-repeat center fixed;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+}
+
+.form-group {
+    position: relative;
+    padding: 15px 15px 0px 15px;
+    background: rgba(255, 255, 255, 0.33) none repeat scroll 0% 0%;
+    transition: all 0.3s ease-in 0s;
+    border-radius: 3px;
+}
+
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.33) !important;
+    border-radius: 0px !important;
+    height: auto;
+    border: 0px none;
+}
+
+.md-card-title-text {
+    font-size: 36px;
+    font-weight: 300;
+    border-bottom: solid black 1px;
+    padding-bottom: 15px;
+}
+
+md-card {
+    border-radius: 5px;
+}
+
+form label {font-size: x-large}
+
+.row-button {;
+    width: 95%;
+    border: solid #ccc 1px;
+}
+
+.link-button {
+    text-transform: capitalize;
+    font-size: 12px;
+    line-height: 15px;
+    min-height: 0px;
+}

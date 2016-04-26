@@ -26,7 +26,7 @@ SECRET_KEY = '41!oluq6fyg(!64f)sezfg%p)sb)vv#vf*qh&mx@bkn=v0co^r'
 HASH_SALT_KEY = 'test1 test2 test3'
 
 # This should be set to the base Url pointing to the user api urls. Its added to the urls in email sends
-BASE_URL ="localhost:8000/api/user"
+BASE_URL ="localhost:8000/api/core/user/"
 
 # This is the number of days a url sent in an email is considered valid
 REGISTRATION_TIME = 2
@@ -69,7 +69,7 @@ ROOT_URLCONF = 'promozo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,4 +132,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = (BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+# Temp setting pushes email output to the console during development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

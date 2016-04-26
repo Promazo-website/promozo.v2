@@ -1,0 +1,44 @@
+    <md-card style="padding: 20px;">
+
+            <md-card-title>
+                <md-card-title-text class="md-card-title-text">
+                    ProMazo
+                </md-card-title-text>
+            </md-card-title>
+        <md-card-content>
+        <form name="loginForm">
+            <md-input-container class="md-block">
+                <label>Username</label>
+                <input type="text" name="username" ng-model="formdata.username" required ng-minlength="4" ng-maxlength="100" placeholder=""/>
+                <div ng-messages="loginForm.username.$error">
+                    <div ng-message="required">Please enter a Username</div>
+                    <div ng-message="minlength">username is too short</div>
+                    <div ng-message="maxlength">username is too long</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input type="password" name="password" ng-model="formdata.password" required minlength="4" placeholder=""/>
+
+                <div ng-messages="loginForm.password.$error">
+                    <div ng-message="required">Please enter a password</div>
+                    <div ng-message="minlength">Password is too short</div>
+                    <div ng-message="maxlength">Password is too long</div>
+                </div>
+
+            </md-input-container>
+                <div layout="row" layout-align="center">
+                    <md-button class="md-primary link-button"  ng-click="$parent.$parent.pageview='forgot'">forgotten your password Click here</md-button>
+                </div>
+            <div layout="row">
+            <md-button flex class="md-raised row-button"  ng-click="login(formdata)" >Login</md-button>
+            </div>
+                <div layout="row" layout-align="center">
+                    <md-button class="md-primary link-button" ng-click="$parent.$parent.pageview='sign-up'">Don't have a profile yet? Sign Up</md-button>
+                </div>
+
+
+        </form>
+        </md-card-content>
+
+    </md-card>

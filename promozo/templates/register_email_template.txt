@@ -1,0 +1,11 @@
+Hi,\n\n
+
+Your email has been used to sign up to ProMazo. Please follow the link below to complete your registration
+\n\n\n
+Thanks
+
+ProMazo Admin
+
+	{{ register_url }}\n\n\n\n\n
+
+=======
