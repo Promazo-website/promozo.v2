@@ -1,0 +1,158 @@
+ <md-content layout="column" flex>
+     <div layout="row" layout-sm="column" layout-xs="column" layout-wrap layout-fill>
+         <br>
+         <md-card class="user-cards" flex>
+             <md-toolbar layout="row" >
+                     <div><h4> My Profile</h4></div><div flex></div><md-button ng-hide="editprofile"  ng-click="edit_profile($parent.$parent.user_details);editprofile=true;">Edit</md-button>
+                    <md-button ng-show="editprofile"  ng-click="save_profile(userdata,student_details,business_user);editprofile=false;">save</md-button>
+
+             </md-toolbar>
+             <md-content class="md-card-content" layout="column">
+                 <form name="userForm" class="md-inline-form">
+                     <div  flex="100" layout-gt-sm="row" layout-padding>
+                         <md-input-container flex="100" layout="row">
+                            <div flex="30">First Name:</div>
+                            <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.first_name}}</div>
+                            <input flex="60" type="text" ng-model="userdata.first_name" ng-show="editprofile" class="inline-form">
+                         </md-input-container>
+                         <md-input-container flex="100" layout="row">
+                            <div flex="30">Last Name:</div>
+                         <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.last_name}}</div>
+                            <input flex="60" type="text" ng-model="userdata.last_name" ng-show="editprofile" class="inline-form">
+                         </md-input-container>
+                     </div>
+                 </form>
+                 <div ng-switch="$parent.$parent.user_details.user_type">
+                     <div ng-switch-when="business">
+                        <form name="busForm" class="md-inline-form" flex="100" layout-gt-sm="row" layout-padding layout-wrap>
+
+                                <md-input-container flex="100" layout="row">
+                                    <div flex="30">Job Title:</div>
+                                    <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.business_user.jobTitle}}</div>
+                                    <input flex="60" type="text" ng-model="business_user.jobTitle" ng-show="editprofile" class="inline-form">
+                                </md-input-container>
+                                <md-input-container flex="100" layout="row">
+                                    <div flex="30">Department:</div>
+                                  <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.business_user.department}}</div>
+                                    <input flex="60" type="text" ng-model="business_user.department" ng-show="editprofile" class="inline-form">
+                                </md-input-container>
+
+                                <md-input-container flex="100" layout="row">
+                                    <div flex="30">tagline:</div>
+                                    <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.business_user.tagline}}</div>
+                                    <input flex="60" type="text" ng-model="business_user.tagline" ng-show="editprofile" class="inline-form">
+                                </md-input-container>
+                                <md-input-container flex="100" layout="row">
+                                    <div flex="30">Address:</div>
+                                    <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.business_user.description}}</div>
+                                    <textarea flex="60" ng-model="business_user.tagline" ng-show="editprofile" class="inline-form">{{$parent.$parent.user_details.record.business_user.description}}</textarea>
+                                </md-input-container>
+                        </form>
+                     </div>
+                     <div ng-switch-when="student">
+                        <form name="busForm" class="md-inline-form" flex="100" layout-gt-sm="row" layout-padding layout-wrap>
+
+                                <md-input-container flex="100" layout="row">
+                                    <div flex="30">Tagline:</div>
+                                    <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.student_details.tagline}}</div>
+                                    <input flex="60" type="text" ng-model="student_details.tagline" ng-show="editprofile" class="inline-form">
+                                </md-input-container>
+
+
+                                <md-input-container flex="100" layout="row">
+                                    <div flex="30">Description:</div>
+                                    <div flex="60" ng-hide="editprofile">{{$parent.$parent.user_details.record.student_details.description}}</div>
+                                    <textarea flex="60" rows="3" ng-model="student_details.description" ng-show="editprofile" class="inline-form">{{$parent.$parent.user_details.record.student_details.description}}</textarea>
+                                </md-input-container>
+
+                                <md-input-container flex="100" layout="row">
+                                    <div flex="30">Address:</div>
+                                    <div flex="60" rows="4" ng-hide="editprofile">{{$parent.$parent.user_details.record.student_details.address}}</div>
+                                    <textarea flex="60" ng-model="student_details.address" ng-show="editprofile" class="inline-form">{{$parent.$parent.user_details.record.student_details.address}}</textarea>
+                                </md-input-container>
+                        </form>
+                     </div>
+                 </div>
+
+             </md-content>
+         </md-card>
+         <md-card  class="user-cards" flex ng-init="add_doc=false;">
+             <md-toolbar layout="row">
+                     <div ><h4>My Documents</h4></div><div flex></div><md-button ng-hide="add_doc" ng-click="add_doc=true;">Add New</md-button>
+
+
+             </md-toolbar>
+             <md-content class="md-card-content" layout="column">
+                 <div layout="row" ng-repeat="docs in $parent.$parent.user_documents" ng-hide="add_doc">
+                     <md-button class="md-fab md-warn" ng-click="deleteDoc(docs.id)"><md-icon>delete_forever</md-icon></md-button><a href="{{docs.document}}">{{docs.name}}</a>
+                 </div>
+                    <form name="myForm" ng-show="add_doc">
+                    <fieldset>
+
+                        <input type="text" name="Name" ng-model="formdata.name" required>
+                      <input type="file" ngf-select ng-model="picFile" name="file"  ngf-max-size="2MB" required >
+                      <button ng-disabled="!myForm.$valid" ng-click="uploadFile(picFile,formdata.name);add_doc=false;">Submit</button>
+                        <span class="progress" ng-show="picFile.progress >= 0">
+                            <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
+                        </span>
+                        <span ng-show="picFile.result">Upload Successful</span>
+      <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+    </fieldset>
+    <br>
+  </form>
+             </md-content>
+         </md-card>
+     </div>
+     <div layout="row" layout-sm="column" layout-xs="column" layout-wrap layout-fill>
+         <md-card  class="user-cards" flex>
+             <md-toolbar layout="row">
+                     <div ><h4>My Avatar</h4></div><div flex></div><md-button ngf-select ng-model="picFile" accept="image/*" ng-click="new_avatar=true;">Change</md-button>
+
+             </md-toolbar>
+             <md-content class="md-card-content" >
+                 <div ng-hide="new_avatar" layout="column" layout-align="space-around center">
+                     <img class="avatar" style="width:250px;" ng-src="{{$parent.$parent.avatar}}">
+                 </div>
+                <div ng-show="new_avatar">
+                <form name="myForm">
+                    <div layout="row" flex="100" layout-align="space-around center">
+                                <div flex="50" ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
+                                <img-crop image="picFile  | ngfDataUrl"
+                                    result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+                                        </img-crop>
+                            </div>
+
+                    <div layout="column">
+                        <img flex="50
+                        " ng-src="{{croppedDataUrl}}" />
+
+                    <md-button class="md-raised md-default" ng-click="upload(croppedDataUrl, picFile.name);">Submit</md-button>
+                    </div>
+                   </div>
+                    <span class="progress" ng-show="progress >= 0">
+                        <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+                    </span>
+                    <span ng-show="result">Upload Successful</span>
+                    <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                    </form>
+                </div>
+             </md-content>
+         </md-card>
+
+
+
+
+
+         <md-card class="user-cards" flex>
+             <md-toolbar layout="row">
+                     <div><h4>My Projects</h4></div><div flex></div><md-button>Edit</md-button>
+
+             </md-toolbar>
+             <md-content class="md-card-content">
+                 This is the content of this section
+             </md-content>
+         </md-card>
+
+
+     </div>
+ </md-content>

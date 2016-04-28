@@ -12,7 +12,7 @@ class baseModel(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(User)
+    updated_by = models.ForeignKey(User,null=True)
 
     class Meta:
         abstract=True
@@ -83,7 +83,7 @@ class Student(baseModel):
     address =models.TextField(null=True,blank=True)
     tagline = models.CharField(max_length=500,blank=True)
     description = models.TextField()
-    avatarImage = models.ImageField(upload_to='images/avatars')
+    avatarImage = models.ImageField(upload_to='images/avatars',null=True)
     settings = JSONField(blank=True,null=True)
 
     def __str__(self):
@@ -98,8 +98,11 @@ class BusinessUser(baseModel):
     department = models.CharField(max_length=200,blank=True,null=True)
     tagline = models.CharField(max_length=500,blank=True)
     description = models.TextField()
-    avatarImage = models.ImageField(upload_to='images/avatars')
+    avatarImage = models.ImageField(upload_to='images/avatars',null=True)
     settings = JSONField(blank=True,null=True)
+
+    def __str__(self):
+        return self.user.username
 
 class Business(baseModel):
     """
@@ -115,3 +118,14 @@ class Business(baseModel):
 
     def __str__(self):
         return self.name
+
+class BusinessEmailFormats(baseModel):
+    """
+    Lists of formats to be used to match a business users email address
+    with a business. If no match is found here, then they cannot sign up
+    """
+    business = models.ForeignKey(Business)
+    format = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.format

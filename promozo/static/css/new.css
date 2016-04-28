@@ -15,7 +15,7 @@ md-toolbar {
     font-size: 20px;
     font-weight: 300;
     color:whitesmoke;
-    background-color: rgba(0,0,0,0.4) !important;
+    background-color: rgba(0,0,0,0.6) !important;
 }
 md-toolbar .md-button {
     text-transform: capitalize;
@@ -58,9 +58,7 @@ md-toolbar .md-button {
   animation: slideOutLeft 2s;
 }
 
-.transparent_black {
-    background-color: rgba(0,0,0,0.4) !important;
-}
+
 
 md-content {
     background-color: transparent;
@@ -116,4 +114,54 @@ form label {font-size: x-large}
     font-size: 12px;
     line-height: 15px;
     min-height: 0px;
+}
+h4 {
+     margin-top:14px;
+     margin-bottom: 0;
+     margin-left:10px;
+}
+
+.user-cards {
+    background-color: transparent;
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+.md-card-content {
+    font-size: 20px;
+    font-weight: 300;
+    color:whitesmoke;
+    background-color: rgba(0,0,0,0.4) !important;
+}
+.inline-form {
+    font-size: 20px;
+    font-weight: 300;
+    color:whitesmoke !important;
+    border-color: whitesmoke !important;
+}
+
+
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:500px;
+    height:350px;
+}
+form .progress {
+    line-height: 15px;
+}
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
+
+.avatar {
+    border-radius: 100%;
+    border: solid 2px whitesmoke;
 }

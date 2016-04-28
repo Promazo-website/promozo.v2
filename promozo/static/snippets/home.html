@@ -6,30 +6,30 @@
     <md-button ng-click="pageview='sign-in'">sign in</md-button>
     <md-button ng-click="pageview='sign-up'">sign up</md-button>
 </md-toolbar>
-<md-content layout="column" layout-align="center center">
+<md-content layout="column" layout-align="center none">
 
-    <div ng-switch="pageview" style="padding:20px;">
+    <div ng-switch="pageview" style="padding:20px;" layout-align="center">
 
         <div layout="row" flex ng-switch-when="home">
-            <div flex layout="row" ng-include="'/static/snippets/home-1.html'"></div>
+            <div flex layout="row" layout-align="center none" ng-include="'/static/snippets/home-1.html'"></div>
         </div>
         <div layout="row" flex ng-switch-when="sign-in">
-            <div flex layout="row" ng-include="'/static/snippets/sign-in.html'"></div>
+            <div flex layout="row" layout-align="center none" ng-include="'/static/snippets/sign-in.html'"></div>
         </div>
         <div layout="row" flex ng-switch-when="forgot">
-            <div flex layout="row" ng-include="'/static/snippets/forgot-password.html'"></div>
+            <div flex layout="row" layout-align="center none"  ng-include="'/static/snippets/forgot-password.html'"></div>
         </div>
         <div layout="row" flex ng-switch-when="sign-up">
-            <div flex layout="row" ng-include="'/static/snippets/sign-up.html'"></div>
+            <div flex="100" layout="row" layout-align="center none" ng-include="'/static/snippets/sign-up.html'"></div>
         </div>
         <div layout="row" flex ng-switch-when="reset-email-sent">
-            <div flex layout="row" ng-include="'/static/snippets/reset-email-sent.html'"></div>
+            <div flex layout="row" layout-align="center none"  ng-include="'/static/snippets/reset-email-sent.html'"></div>
         </div>
         <div layout="row" flex ng-switch-when="registration-email-sent">
-            <div flex layout="row" ng-include="'/static/snippets/registration-email-sent.html'"></div>
+            <div flex layout="row"  layout-align="center none" ng-include="'/static/snippets/registration-email-sent.html'"></div>
         </div>
         <div layout="row" flex ng-switch-when="error-contact">
-            <div flex layout="row" ng-include="'/static/snippets/error-contact.html'"></div>
+            <div flex layout="row"  layout-align="center none" ng-include="'/static/snippets/error-contact.html'"></div>
         </div>
 
     </div>

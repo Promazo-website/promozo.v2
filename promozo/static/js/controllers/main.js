@@ -1,4 +1,4 @@
-var promazo = angular.module('promazo', ['ngAnimate' , 'ngRoute', 'ngSanitize','ngMessages','ngMaterial']);
+var promazo = angular.module('promazo', ['ngAnimate' , 'ngRoute', 'ngSanitize','ngMessages','ngMaterial','ngFileUpload', 'ngImgCrop']);
 
 promazo.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
@@ -7,12 +7,12 @@ promazo.config(function ($routeProvider, $locationProvider, $httpProvider) {
             templateUrl: '/static/snippets/home.html',
             controller: 'baseController'
         })
-        .when('/student/', {
-            templateUrl: '/static/snippets/student/home.html',
-            controller: 'baseController'
+        .when('/user/', {
+            templateUrl: '/static/snippets/user/home.html',
+            controller: 'userController'
         })
         .when('/validate/:code1/:code2/', {
-            templateUrl: '/static/snippets/validate.html',
+            templateUrl: '/static/snippets/validate/validate.html',
             controller: 'validateController',
             resolve:{parms:'$routeParams',type:function(){return 'validate';}}
         })
@@ -55,6 +55,27 @@ promazo.directive('emailValidator', function($http, $q) {
     };
 });
 
+promazo.directive('pwdCompare', function($http, $q) {
+    return {
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=pwdCompare"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.pwdCompare = function(modelValue) {
+                return modelValue == scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+                ngModel.$validate();
+            });
+        }
+    };
+});
+
+
+
 promazo.controller('base', function($scope,$http,$mdToast){
 
 });
@@ -66,11 +87,11 @@ promazo.controller( 'baseController' , function( $scope,$http,$mdToast){
     $scope.errorMessages={messages:'',status:''};
     $scope.headers={ headers: { 'X-CSRFToken': getCookie('csrftoken') }} ;
 
-    if(!$scope.user_details) {
+    if($scope.user_details==undefined) {
         $http.get('/api/core/user/details/')
             .success(function(data) {
                 $scope.user_details=data;
-                $scope.goto('#/student/');
+                $scope.goto('#/user/');
             })
             .error(function(){
                 $scope.goto('#/')
@@ -134,6 +155,7 @@ promazo.controller( 'baseController' , function( $scope,$http,$mdToast){
 
 promazo.controller( 'validateController' , function( $scope,$http,$mdToast){
     $scope.pageview='home';
+    $scope.headers={ headers: { 'X-CSRFToken': getCookie('csrftoken') }} ;
 
     $scope.setPageView = function(resolve) {
         $scope.code1=resolve.parms.code1;
@@ -150,12 +172,21 @@ promazo.controller( 'validateController' , function( $scope,$http,$mdToast){
 
     };
 
+
+    $scope.setPassword = function(formdata) {
+        $http.post('/api/core/user/registration/setpassword/'+ $scope.code2 +'/'+$scope.code1+'/', formdata,$scope.headers)
+            .success(function() {
+                $scope.pageview='passwordset';
+            })
+            .error(function(){
+                $scope.pageview='error-contact';
+            });
+
+    };
     $scope.goto=function(url){
         window.location.assign(url);
     };
 
 });
-
-
 
 function getCookie(cname){ var name = cname + "="; var ca = document.cookie.split(';'); for(var i=0; i<ca.length; i++) { var c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1); if (c.indexOf(name) == 0) return c.substring(name.length,c.length); } return ""; }

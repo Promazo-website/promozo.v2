@@ -21,18 +21,22 @@ class BusinessUserSerializer(serializers.ModelSerializer):
     class Meta:
         model =BusinessUser
 
+class UserDocumentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=UserDocuments
+
 
 class UserModelSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=False)
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
-    student = StudentSerializer(read_only=True,many=True)
+    student_details = StudentSerializer(read_only=True)
     business_user = BusinessUserSerializer(read_only=True)
     Business = BusinessSerializer(read_only=True,many=True,source='business_staff')
-    University = UniversitySerializer(read_only=True,many=True,source='universityStaff')
+    University = UniversitySerializer(read_only=True,many=True,source='UniversityStudents')
     class Meta:
         model = User
-        fields = ('id', 'first_name','last_name','username','email','password','student','business_user','Business','University')
+        fields = ('id', 'first_name','last_name','username','email','password','student_details','business_user','Business','University')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

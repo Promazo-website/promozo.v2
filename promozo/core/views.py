@@ -8,8 +8,21 @@ from rest_framework.views import APIView
 from .models import *
 from .serializers import *
 from .UserRegistration import NewUserReg
+from rest_framework import generics
 
 User = get_user_model()
+
+class StudentDetails(generics.RetrieveUpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = StudentSerializer
+    queryset = Student.objects.all()
+
+
+class BusinessUserDetails(generics.RetrieveUpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = BusinessUserSerializer
+    queryset = BusinessUser.objects.all()
+
 
 # Create your views here.
 class userDetails(APIView):
@@ -132,6 +145,19 @@ class UserRegistration(APIView):
                                     is_active=False)
         rec=NewUserReg()
         rec.GenerateUserEmail(newUser)
+        uniRecs=UniversityEmailFormats.objects.filter(format=request.data['email'].split('@')[1])
+        if uniRecs.exists():
+            studentRec=Student.objects.create(user=newUser,description="please fill in")
+            Uni=uniRecs[0]
+            Uni.university.universityStudents.add(newUser)
+            Uni.save()
+        else:
+            busRecs=BusinessEmailFormats.objects.filter(format=request.data['email'].split('@')[1])
+            if busRecs.exists():
+                newBusUser=BusinessUser.objects.create(user=newUser,description="please fill in")
+                business=busRecs[0]
+                business.business.staff.add(newUser)
+                business.save()
         return Response('Email sent', status=status.HTTP_200_OK)
     def __verify__(self,request,code1,code2):
         rec=NewUserReg()
@@ -145,11 +171,10 @@ class UserRegistration(APIView):
     def __setPassword__(self,request,code1,code2):
         rec=NewUserReg()
         user=rec.Verify_url(code1,code2)
-        if type(user,User):
+        if isinstance(user,User):
             user.set_password(request.data['password'])
             user.is_active = True
             user.save()
-            login(request,user)
             return Response('done')
 
         else:
@@ -185,7 +210,8 @@ class UserRegistration(APIView):
 
     def get(self,request,type):
         if type =='email':
-            if UniversityEmailFormats.objects.filter(format=request.GET['email'].split('@')[1]).exists():
+            if UniversityEmailFormats.objects.filter(format=request.GET['email'].split('@')[1]).exists() \
+                    or BusinessEmailFormats.objects.filter(format=request.GET['email'].split('@')[1]).exists():
                 return Response('ok')
             else:
                 return Response('not Found', status=status.HTTP_406_NOT_ACCEPTABLE)
@@ -195,3 +221,58 @@ class UserRegistration(APIView):
                 return Response('Used',status=status.HTTP_406_NOT_ACCEPTABLE)
             else:
                 return Response('ok')
+class UserAvatar(APIView):
+    permission_classes = (IsAuthenticated,)
+    def user_type(self,user):
+        if Student.objects.filter(user=user).exists():
+            return 'student'
+        elif BusinessUser.objects.filter(user=user).exists():
+            return 'business'
+        elif user.is_staff:
+            return 'admin'
+        else:
+            return 'unknown'
+    def get(self,request,format=None):
+        if Student.objects.filter(user=request.user).exists():
+            return Response({'avatar':Student.objects.get(user=request.user).avatarImage})
+        elif BusinessUser.objects.filter(user=request.user).exists():
+            return Response({'avatar':BusinessUser.objects.get(user=request.user).avatarImage})
+        else:
+            return Response('Not found',status=status.HTTP_400_BAD_REQUEST)
+    def post(self,request,format=None):
+        rec=False
+        try:
+            rec=Student.objects.get(user=request.user)
+        except:
+            try:
+                rec=BusinessUser.objects.get(user=request.user)
+            except:
+                pass
+        if rec:
+            rec.avatarImage=request.data['file']
+            rec.save()
+            return Response({'avatar':rec.avatarImage.url})
+        else:
+            return Response('Not valid user',status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserDocumentationDetails(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self,request,format=None):
+        ser=UserDocumentsSerializer(UserDocuments.objects.filter(user=request.user),many=True)
+        return Response(ser.data)
+
+    def post(self,request,format=None):
+        newRec=UserDocuments.objects.create(user=request.user,
+                                            name=request.data['name'],
+                                            document=request.data['document'])
+        ser=UserDocumentsSerializer(UserDocuments.objects.filter(user=request.user),many=True)
+        return Response(ser.data)
+    def delete(self,request, pk,format=None):
+        if UserDocuments.objects.filter(id=pk,user=request.user).exists():
+            rec=UserDocuments.objects.get(id=pk)
+            rec.delete()
+            ser=UserDocumentsSerializer(UserDocuments.objects.filter(user=request.user),many=True)
+            return Response(ser.data)
+        else:
+            return Response('Bad record',status=status.HTTP_400_BAD_REQUEST)

@@ -1,0 +1,30 @@
+
+<div class="signup">
+<md-toolbar layout="row" >
+    <md-button ng-click="goto('#/')">ProMazo</md-button>
+    <div flex>
+    </div>
+<div ng-init="setPageView($resolve)"></div>
+</md-toolbar>
+<md-content layout="column" layout-align="center center">
+
+    <div ng-switch="pageview" style="padding:20px;">
+
+        <div layout="row" flex ng-switch-when="setpassword">
+            <div flex layout="row" ng-include="'/static/snippets/validate/newuser-setpassword.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="badValidation">
+            <div flex layout="row" ng-include="'/static/snippets/validate/newuser-badvalidation.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="passwordset">
+            <div flex layout="row" ng-include="'/static/snippets/validate/newuser-passwordset.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="error-contact">
+            <div flex layout="row" ng-include="'/static/snippets/error-contact.html'"></div>
+        </div>
+    </div>
+
+
+
+</md-content>
+    </div>

@@ -1,0 +1,17 @@
+<div class="student_page">
+<md-toolbar layout="row">
+
+        <md-button ng-click="pageview='home'"><img class="avatar" style="height:40px;width:40px;" ng-src="{{avatar}}"></md-button>
+        <div flex></div>
+        <md-button ng-click="pageview='profile'">my profile</md-button>
+        <md-button ng-click="logout()">Sign Out</md-button>
+
+</md-toolbar>
+
+<div ng-switch="pageview" flex >
+    <div flex layout="row" ng-switch-when="home" >
+        <div flex layout="row" ng-include="'/static/snippets/user/overview.html'"></div>
+
+    </div>
+</div>
+</div>
