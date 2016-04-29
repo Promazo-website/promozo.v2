@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.1.0"> <infoTributaria>
+                                                <ambiente>2</ambiente>
+                                                <tipoEmision>1</tipoEmision>
+                                                <razonSocial>CLINICA PASTEUR</razonSocial>
+                                                <nombreComercial>CLINICA PASTEUR</nombreComercial>
+                                                <ruc>1790100170001</ruc>
+                                                <claveAcceso>1102201601179010017000120011030000087781234567812</claveAcceso>
+                                                <codDoc>01</codDoc>
+                                                <estab>001</estab>
+                                                <ptoEmi>103</ptoEmi>
+                                                <secuencial>000008778</secuencial>
+                                                <dirMatriz>AV. ELOY ALFARO N29-248 E ITALIA</dirMatriz>
+                                       </infoTributaria><infoFactura> <fechaEmision>11/02/2016</fechaEmision><contribuyenteEspecial>636</contribuyenteEspecial><obligadoContabilidad>SI</obligadoContabilidad>
+                                                         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>            <razonSocialComprador>CRIOLLO RODRIGUEZ ALEXANDRA</razonSocialComprador>
+                                                         <identificacionComprador>1716511199001</identificacionComprador>
+                                                         <totalSinImpuestos>78.43</totalSinImpuestos>
+                                                         <totalDescuento>0.00</totalDescuento>
+                                                         <totalConImpuestos><totalImpuesto>
+                                                        <codigo>2</codigo>
+                                                        <codigoPorcentaje>2</codigoPorcentaje>
+                                                        <baseImponible>7.33</baseImponible>
+                                                        <valor>0.88</valor>
+                                                    </totalImpuesto><totalImpuesto>
+                                                        <codigo>2</codigo>
+                                                        <codigoPorcentaje>0</codigoPorcentaje>
+                                                        <baseImponible>71.1</baseImponible>
+                                                        <valor>0.00</valor>
+                                                      </totalImpuesto>	</totalConImpuestos>
+                                                         <propina>0.00</propina>
+                                                         <importeTotal>79.31</importeTotal>
+                                                         <moneda>DOLAR</moneda>
+                                                     </infoFactura>
+                                            <detalles><detalle>
+                                               <codigoPrincipal>ECO033</codigoPrincipal>
+                                               <codigoAuxiliar>ECO033</codigoAuxiliar>
+                                               <descripcion>HIGADO Y VIAS BILIARES (ABDOMEN SUPERIOR)</descripcion>
+                                               <cantidad>1.0</cantidad>
+                                               <precioUnitario>48</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>48</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>0</codigoPorcentaje>
+                                                       <tarifa>0.0</tarifa>
+                                                       <baseImponible>48</baseImponible>
+                                                       <valor>0</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle><detalle>
+                                               <codigoPrincipal>1775</codigoPrincipal>
+                                               <codigoAuxiliar>1775</codigoAuxiliar>
+                                               <descripcion>INTROCAN  24</descripcion>
+                                               <cantidad>1.0</cantidad>
+                                               <precioUnitario>1.7</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>1.7</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>2</codigoPorcentaje>
+                                                       <tarifa>12.0</tarifa>
+                                                       <baseImponible>1.7</baseImponible>
+                                                       <valor>0.2</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle><detalle>
+                                               <codigoPrincipal>2223</codigoPrincipal>
+                                               <codigoAuxiliar>2223</codigoAuxiliar>
+                                               <descripcion>SAFSITE</descripcion>
+                                               <cantidad>1.0</cantidad>
+                                               <precioUnitario>3.48</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>3.48</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>2</codigoPorcentaje>
+                                                       <tarifa>12.0</tarifa>
+                                                       <baseImponible>3.48</baseImponible>
+                                                       <valor>0.42</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle><detalle>
+                                               <codigoPrincipal>1639</codigoPrincipal>
+                                               <codigoAuxiliar>1639</codigoAuxiliar>
+                                               <descripcion>TEGADERM PEQUENO 6 CM x 7 CM</descripcion>
+                                               <cantidad>1.0</cantidad>
+                                               <precioUnitario>0.81</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>0.81</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>2</codigoPorcentaje>
+                                                       <tarifa>12.0</tarifa>
+                                                       <baseImponible>0.81</baseImponible>
+                                                       <valor>0.1</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle><detalle>
+                                               <codigoPrincipal>1658</codigoPrincipal>
+                                               <codigoAuxiliar>1658</codigoAuxiliar>
+                                               <descripcion>ALCOHOL PREP PAD SOBRE</descripcion>
+                                               <cantidad>5.0</cantidad>
+                                               <precioUnitario>0.15</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>0.75</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>2</codigoPorcentaje>
+                                                       <tarifa>12.0</tarifa>
+                                                       <baseImponible>0.75</baseImponible>
+                                                       <valor>0.09</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle><detalle>
+                                               <codigoPrincipal>2096</codigoPrincipal>
+                                               <codigoAuxiliar>2096</codigoAuxiliar>
+                                               <descripcion>GUANTE DE MANEJO MEDIUM</descripcion>
+                                               <cantidad>2.0</cantidad>
+                                               <precioUnitario>0.13</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>0.26</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>2</codigoPorcentaje>
+                                                       <tarifa>12.0</tarifa>
+                                                       <baseImponible>0.26</baseImponible>
+                                                       <valor>0.03</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle><detalle>
+                                               <codigoPrincipal>1953</codigoPrincipal>
+                                               <codigoAuxiliar>1953</codigoAuxiliar>
+                                               <descripcion>VENDA DE GASA RIB CURE 2P</descripcion>
+                                               <cantidad>1.0</cantidad>
+                                               <precioUnitario>0.33</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>0.33</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>2</codigoPorcentaje>
+                                                       <tarifa>12.0</tarifa>
+                                                       <baseImponible>0.33</baseImponible>
+                                                       <valor>0.04</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle><detalle>
+                                               <codigoPrincipal>2412</codigoPrincipal>
+                                               <codigoAuxiliar>2412</codigoAuxiliar>
+                                               <descripcion>CONSULTA EMERGENCIA</descripcion>
+                                               <cantidad>1.0</cantidad>
+                                               <precioUnitario>23.1</precioUnitario>
+                                               <descuento>0.00</descuento>
+                                               <precioTotalSinImpuesto>23.1</precioTotalSinImpuesto>
+                                               <impuestos>
+                                                   <impuesto>
+                                                       <codigo>2</codigo>
+                                                       <codigoPorcentaje>0</codigoPorcentaje>
+                                                       <tarifa>0.0</tarifa>
+                                                       <baseImponible>23.1</baseImponible>
+                                                       <valor>0</valor>
+                                                   </impuesto>
+                                               </impuestos>
+                                           </detalle></detalles><infoAdicional><campoAdicional nombre="Direccion">TUMBACO GONZALO PIZARRO N 3-88 Y GONZALO MENESES</campoAdicional><campoAdicional nombre="Telefono">0996815407</campoAdicional><campoAdicional nombre="Email">vhac@myself.com</campoAdicional></infoAdicional><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature234672">
+<ds:SignedInfo Id="Signature-SignedInfo28498">
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:Reference Id="SignedPropertiesID89813" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature234672-SignedProperties176147">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>m7vCqh8s2nh23wo6a2dAq9oVaT4=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference URI="#Certificate1760394">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>0nZ9xIUyUXPm1G6Ve2xhtZoU1jY=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Id="Reference-ID-1014969" URI="#comprobante">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>YT2Xk1HuLAogTMdy3hyZljzGp54=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="SignatureValue753354">
+bU9SIVA9fpeAVq7HMO4QNWXW7s6V6gm4MfanefVUxKAGeFqB8LrjdetjrfJBTtp2o0DZ/dkuxVNO
+sgoNrPRxQK7mh+AYIllFwAVP74AkCtPFSsw/KA3+sHot2R2oUWKJksFkIUjDmcP9n1oOYghjD1Oz
+yrf89HjDpfpRQCZQUzaHN4o2A+ur04LdTgUsRKDLrdOOIShYJmUIhi/ns/X5U18WO9vI1nW6Z7HT
+qYGGTh6GjqZwT+YD7BEJtfmWLl/7Z99w6sEJmspXlh7xixrDsj7+b+uw/J9f8br+I+lRhFJr9nbN
+WnAXa7n5jCsLLCS2b1PLSJm5Fh+w6IiWQo70FQ==
+</ds:SignatureValue>
+<ds:KeyInfo Id="Certificate1760394">
+<ds:X509Data>
+<ds:X509Certificate>
+MIIJ8jCCB9qgAwIBAgIETkR2UTANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
+BAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREUgQ0VSVElG
+SUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQDExxB
+QyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMB4XDTE1MDQxNzE1NDAxOFoXDTE2MDQxNzE2MTAx
+OFowga8xCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMTcw
+NQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQkNFMQ4w
+DAYDVQQHEwVRVUlUTzEzMBEGA1UEBRMKMDAwMDExNDExMTAeBgNVBAMTF05PSEVNWSBNQVJUSU4g
+Q0lGVUVOVEVTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzpwNGn5dKWKFjlhrBnxV
+DjvIjgdS0SH9xfqC7Ol4D4aAQHL3V+ZlQh/JQN8beDBXGp0hXKdOjwh0M6r70P18kcevzivzWXmC
+C8QamNjjbxwulHv+vz8/V+CHIpfsSWth7g/yHt9H9sCbRYPkAZnVvZelGsfhAG46j03D3SC9mEtS
+bTpEoH2+WSSY3sao8siiZkwpr0mtpUXaa//zIK7ZqLKDZAOnZHhEgugfJ20bZXlPm3DGitrLmyE3
+Vec7K/9ZnjMaIVYWQF2JiUv3KXSA0qG0vQ7NJKgzCvzH7GidCeNl9sdSNkhsibEyKd1a5PCg3py2
+IJORfFSPAkWJ20XcewIDAQABo4IFIDCCBRwwCwYDVR0PBAQDAgeAMGcGA1UdIARgMF4wXAYLKwYB
+BAGCqDsCAgEwTTBLBggrBgEFBQcCARY/aHR0cDovL3d3dy5lY2kuYmNlLmVjL3BvbGl0aWNhLWNl
+cnRpZmljYWRvL3BlcnNvbmEtanVyaWRpY2EucGRmMIGRBggrBgEFBQcBAQSBhDCBgTA+BggrBgEF
+BQcwAYYyaHR0cDovL29jc3AuZWNpLmJjZS5lYy9lamJjYS9wdWJsaWN3ZWIvc3RhdHVzL29jc3Aw
+PwYIKwYBBQUHMAGGM2h0dHA6Ly9vY3NwMS5lY2kuYmNlLmVjL2VqYmNhL3B1YmxpY3dlYi9zdGF0
+dXMvb2NzcDAfBgorBgEEAYKoOwMKBBETD0NMSU5JQ0EgUEFTVEVVUjAdBgorBgEEAYKoOwMLBA8T
+DTE3OTAxMDAxNzAwMDEwGgYKKwYBBAGCqDsDAQQMEwoxNzUzMzUwNTkyMBYGCisGAQQBgqg7AwIE
+CBMGTk9IRU1ZMBYGCisGAQQBgqg7AwMECBMGTUFSVElOMBkGCisGAQQBgqg7AwQECxMJQ0lGVUVO
+VEVTMCEGCisGAQQBgqg7AwUEExMRRElSRUNUT1JBIEdFTkVSQUwwLQYKKwYBBAGCqDsDBwQfEx1B
+VkVMT1kgQUxGQVJPIE4yOTI0OCBFIElUQUxJQTAZBgorBgEEAYKoOwMIBAsTCTAyMjk5MjQwMDAV
+BgorBgEEAYKoOwMJBAcTBVF1aXRvMBcGCisGAQQBgqg7AwwECRMHRUNVQURPUjAgBgorBgEEAYKo
+OwMzBBITEFNPRlRXQVJFLUFSQ0hJVk8wNAYDVR0RBC0wK4EpZGVwX2NvbnRhYmlsaWRhZEBjbGlu
+aWNhcGFzdGV1ci5vcmcuZWNkaXIwggHfBgNVHR8EggHWMIIB0jCCAc6gggHKoIIBxoaB1WxkYXA6
+Ly9iY2VxbGRhcHN1YnAxLmJjZS5lYy9jbj1DUkwyMjEsY249QUMlMjBCQU5DTyUyMENFTlRSQUwl
+MjBERUwlMjBFQ1VBRE9SLGw9UVVJVE8sb3U9RU5USURBRCUyMERFJTIwQ0VSVElGSUNBQ0lPTiUy
+MERFJTIwSU5GT1JNQUNJT04tRUNJQkNFLG89QkFOQ08lMjBDRU5UUkFMJTIwREVMJTIwRUNVQURP
+UixjPUVDP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZYY0aHR0cDovL3d3dy5lY2kuYmNl
+LmVjL0NSTC9lY2lfYmNlX2VjX2NybGZpbGVjb21iLmNybKSBtTCBsjELMAkGA1UEBhMCRUMxIjAg
+BgNVBAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREUgQ0VS
+VElGSUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQD
+ExxBQyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMQ8wDQYDVQQDEwZDUkwyMjEwKwYDVR0QBCQw
+IoAPMjAxNTA0MTcxNTQwMThagQ8yMDE2MDQxNzE2MTAxOFowHwYDVR0jBBgwFoAUGPnw++YyHJlm
+OSrKi7JpfUknv84wHQYDVR0OBBYEFO8GdQmfmvZxTGmsd5UFfjYRm0YnMAkGA1UdEwQCMAAwGQYJ
+KoZIhvZ9B0EABAwwChsEVjguMQMCBLAwDQYJKoZIhvcNAQELBQADggIBAJ3aQpG1nTZILrOEAYYv
++DveST55/W0M33c5PRiDyBWXvsArsBxsUdMAkz+4pmPX2esNcLs2kWdkG8sZDMxqWNZ2PgOhsHkO
+5KBlFKsvMepyx+wGVM8mD6o9m2/ekLMGdMaM4wWz+VDPXWWqMszSXU0t/YBAwciWQhAmGa12OqVu
+VrDFoc+lOsD2F6tpT0C2WtTseBs5869/E+jgL/6KYJgJdu1h0v2ebjcOyV7lPRR6xYjZA6pii5C5
+Lud8pPQWOfBlR8H5Qx6x4gbnxiUTnuwNZmMnosF2tn1Xnu9O2mCbitKBj4pVlO5JKwo1xE9yEcqa
+o+/lNHje8SZtQ5UEFQv7yoaatHvEupWX4isrgPv2rMasy+wdtfCXCjLSHD8sXybZbL/osAAMFHjg
+pNNFZhbubjvMQL7HTqzOmdjUGJUePv11Y0UZHUbaXk/TuW4J9Jf1yWPlou7VGRKbKS2guazUTjA5
+yC5Lia3mPXTfpYmZh2YtvZcRRZ5RIHv7dweevPWUZ4neKGtXWOtTJ+eLKmy4AJzfb2zYrFD2p5aj
+5cVO62y8nHaZHbdp6Mz4xxjOphxxt3PQtuVxd1ErMfzDELWBn5yOE6JNop0vepisBGpv4ifJ9qz6
+bqyTKyfcAiI8zbib/1maq+3cotLeLMxmMp3lOyF9IQMdQK6WvwyIMZgx
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+zpwNGn5dKWKFjlhrBnxVDjvIjgdS0SH9xfqC7Ol4D4aAQHL3V+ZlQh/JQN8beDBXGp0hXKdOjwh0
+M6r70P18kcevzivzWXmCC8QamNjjbxwulHv+vz8/V+CHIpfsSWth7g/yHt9H9sCbRYPkAZnVvZel
+GsfhAG46j03D3SC9mEtSbTpEoH2+WSSY3sao8siiZkwpr0mtpUXaa//zIK7ZqLKDZAOnZHhEgugf
+J20bZXlPm3DGitrLmyE3Vec7K/9ZnjMaIVYWQF2JiUv3KXSA0qG0vQ7NJKgzCvzH7GidCeNl9sdS
+NkhsibEyKd1a5PCg3py2IJORfFSPAkWJ20Xcew==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+<ds:Object Id="Signature234672-Object565705"><etsi:QualifyingProperties Target="#Signature234672"><etsi:SignedProperties Id="Signature234672-SignedProperties176147"><etsi:SignedSignatureProperties><etsi:SigningTime>2016-02-11T14:51:13-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>klderx1560C7I4BJxSB6ykLebEo=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1313109585</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-1014969"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
