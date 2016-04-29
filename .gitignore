@@ -7,22 +7,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-dev/
-lib/
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -58,9 +42,6 @@ target/
 
 # Jetbrains
 .idea
-env/
 
 uploads/
 localdb.sqlite
-db.sqlite3
-local_settings.py
