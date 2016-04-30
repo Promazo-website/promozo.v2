@@ -84,7 +84,6 @@ class Student(baseModel):
     tagline = models.CharField(max_length=500,blank=True)
     description = models.TextField()
     avatarImage = models.ImageField(upload_to='images/avatars',null=True)
-    settings = JSONField(blank=True,null=True)
 
     def __str__(self):
         return "%s(%s)" % (self.user.get_username(),self.user.get_full_name())
@@ -99,7 +98,6 @@ class BusinessUser(baseModel):
     tagline = models.CharField(max_length=500,blank=True)
     description = models.TextField()
     avatarImage = models.ImageField(upload_to='images/avatars',null=True)
-    settings = JSONField(blank=True,null=True)
 
     def __str__(self):
         return self.user.username
