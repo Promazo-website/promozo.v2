@@ -1,0 +1,50 @@
+Promazo basic deployment details
+
+ProMazo on test has been deployed on an EC2 instance using postgresql, static and media files all served from that
+instance. It has also be deployed to run using nginx, Gunicorn and Supervisorctl. This is based on the deployment
+on the current test server. For full deployment with S3 and RDS, new instructions will be required
+
+Instructions on how this was done can be found at
+
+http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/
+
+
+Updating Promazo
+
+Step 1: Login to the EC2 Instance. You should have the pem file to do so and the command will be something like...
+
+ ssh -i Documents/PM_testserver.pem.txt ubuntu@test.promazo.com
+
+
+depending where you keep the pem file.
+
+Step 2: Once logged in switch to the promazo user
+
+sudo su - promazo
+
+Step 3: go to the promazo directory
+
+cd /webapps/promazo/
+
+Step 4: activate the virtualenv
+
+source env/bin/activate
+
+Step 5: move to the code directory
+
+cd promazo
+
+Step 6: Update the code base
+
+git pull origin master
+
+Please be aware that this command might change if you are using a different branch
+
+Step 7: If an update has been made to the DB, run a migrate
+
+python manage.py migrate --settings=promazo.settings-test-server
+
+Step 8: Exit the promazo user and restart the service
+
+exit
+sudo supervisorctl restart promazo
