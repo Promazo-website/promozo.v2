@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^user/avatar/$', UserAvatar.as_view()),
     url(r'^user/documents/$', UserDocumentationDetails.as_view()),
     url(r'^user/documents/(?P<pk>[0-9]+)/$', UserDocumentationDetails.as_view()),
+    url(r'^university/$', UniversityCreate.as_view()),
+    url(r'^business/$', BusinessCreate.as_view())
 ]

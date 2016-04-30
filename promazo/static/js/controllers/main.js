@@ -151,6 +151,44 @@ promazo.controller( 'baseController' , function( $scope,$http,$mdToast){
                 $scope.pageview='error-contact';
             });
     };
+
+    $scope.findOrganisation = function(views,formdata){
+      $http.get('/api/core/user/registration/organisation/?email='+formdata.email)
+          .success(function(data){
+              formdata.type=data.type;
+              formdata.organisation=data.organisation;
+              views.find_organisation=true;
+              views.select_organisation=true;
+          })
+          .error(function(){
+              views.select_organisation=true;
+          });
+    };
+
+    $scope.CreateOrganisation = function(views,formdata) {
+        if(formdata.type =='University'){
+            $http.post('/api/core/uiversity/',{name:formdata.organisation_name},$scope.headers)
+                .success(function(data){
+                    formdata.orgainsation=data;
+                    views.stage=2;
+                })
+                .error(function(){
+                    $scope.openToast('Creation of University Failed')
+                });
+        };
+        if(formdata.type =='Business'){
+            $http.post('/api/core/business/',{name:formdata.organisation_name},$scope.headers)
+                .success(function(data){
+                    formdata.organisation=data;
+                    views.stage=2;
+                })
+                .error(function(){
+                    $scope.openToast('Creation of Business Failed')
+                });
+        };
+
+    }
+
 });
 
 promazo.controller( 'validateController' , function( $scope,$http,$mdToast){

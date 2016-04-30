@@ -143,21 +143,22 @@ class UserRegistration(APIView):
                                     last_name=request.data['last_name'],
                                     email=request.data['email'],
                                     is_active=False)
+
+
+        orgData=request.data['organisation']
+        if request.data['type']=='University':
+            Uni=University.objects.get(id=int(orgData['id']))
+            studentRec=Student.objects.create(user=newUser,description="please fill in")
+            Uni.universityStudents.add(newUser)
+            Uni.save()
+
+        else:
+            business=Business.objects.get(id=int(orgData['id']))
+            businessUser=BusinessUser.objects.create(user=newUser,description="please fill in")
+            business.staff.add(newUser)
+            business.save()
         rec=NewUserReg()
         rec.GenerateUserEmail(newUser)
-        uniRecs=UniversityEmailFormats.objects.filter(format=request.data['email'].split('@')[1])
-        if uniRecs.exists():
-            studentRec=Student.objects.create(user=newUser,description="please fill in")
-            Uni=uniRecs[0]
-            Uni.university.universityStudents.add(newUser)
-            Uni.save()
-        else:
-            busRecs=BusinessEmailFormats.objects.filter(format=request.data['email'].split('@')[1])
-            if busRecs.exists():
-                newBusUser=BusinessUser.objects.create(user=newUser,description="please fill in")
-                business=busRecs[0]
-                business.business.staff.add(newUser)
-                business.save()
         return Response('Email sent', status=status.HTTP_200_OK)
     def __verify__(self,request,code1,code2):
         rec=NewUserReg()
@@ -216,11 +217,22 @@ class UserRegistration(APIView):
             else:
                 return Response('not Found', status=status.HTTP_406_NOT_ACCEPTABLE)
             pass
+        if type =='organisation':
+            if UniversityEmailFormats.objects.filter(format=request.GET['email'].split('@')[1]).exists():
+                ser=UniversitySerializer(UniversityEmailFormats.objects.filter(format=request.GET['email'].split('@')[1])[0].university)
+                return Response({'type':'University','organisation':ser.data})
+            elif BusinessEmailFormats.objects.filter(format=request.GET['email'].split('@')[1]).exists():
+                ser=BusinessSerializer(BusinessEmailFormats.objects.filter(format=request.GET['email'].split('@')[1])[0].business)
+                return Response({'type':'Business','organisation':ser.data})
+            else:
+                return Response('not Found', status=status.HTTP_406_NOT_ACCEPTABLE)
+            pass
         elif type == 'username':
             if User.objects.filter(username=request.GET['username']).exists():
                 return Response('Used',status=status.HTTP_406_NOT_ACCEPTABLE)
             else:
                 return Response('ok')
+
 class UserAvatar(APIView):
     permission_classes = (IsAuthenticated,)
     def user_type(self,user):
@@ -276,3 +288,13 @@ class UserDocumentationDetails(APIView):
             return Response(ser.data)
         else:
             return Response('Bad record',status=status.HTTP_400_BAD_REQUEST)
+
+class BusinessCreate(generics.CreateAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = BusinessSerializer
+    queryset = Business.objects.all()
+
+class UniversityCreate(generics.CreateAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = UniversitySerializer
+    queryset = University.objects.all()

@@ -44,8 +44,8 @@ class University(baseModel):
     name = models.CharField(max_length=200)
     logo = models.ImageField(upload_to='images/logos',blank=True,null=True)
     description = models.TextField(blank=True)
-    website = models.URLField()
-    address = models.TextField()
+    website = models.URLField(blank=True)
+    address = models.TextField(blank=True)
     universityStaff = models.ManyToManyField(User,related_name='UniversityStaff',blank=True)
     universityStudents = models.ManyToManyField(User,related_name='UniversityStudents',blank=True)
 
