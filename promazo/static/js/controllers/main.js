@@ -167,7 +167,7 @@ promazo.controller( 'baseController' , function( $scope,$http,$mdToast){
 
     $scope.CreateOrganisation = function(views,formdata) {
         if(formdata.type =='University'){
-            $http.post('/api/core/uiversity/',{name:formdata.organisation_name},$scope.headers)
+            $http.post('/api/core/university/',{name:formdata.organisation_name},$scope.headers)
                 .success(function(data){
                     formdata.orgainsation=data;
                     views.stage=2;
