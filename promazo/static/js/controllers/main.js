@@ -39,6 +39,7 @@ promazo.directive('usernameValidator', function($http, $q) {
     };
 });
 
+
 promazo.directive('emailValidator', function($http, $q) {
     return {
         require: 'ngModel',
@@ -54,7 +55,6 @@ promazo.directive('emailValidator', function($http, $q) {
         }
     };
 });
-
 promazo.directive('pwdCompare', function($http, $q) {
     return {
         require: "ngModel",
