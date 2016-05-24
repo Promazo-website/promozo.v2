@@ -1,0 +1,6 @@
+Creating test database for alias 'default'...
+{"detail":"Method \"PATCH\" not allowed."}
+403
+{"detail":"Authentication credentials were not provided."}
+<h1>Not Found</h1><p>The requested URL /api/core/user/reset/ was not found on this server.</p>
+Destroying test database for alias 'default'...

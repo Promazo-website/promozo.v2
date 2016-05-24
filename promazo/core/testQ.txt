@@ -1,0 +1,17 @@
+1. Is there university data created for testing?
+    Is it the same as the other 2 or do we need to treat it differently
+
+2. Why does business have a user type of admin?
+
+3. Should we test access on every user type? Or is just business enough?
+
+4. Same as 3
+
+5. Same as 3
+
+6. Same as 3
+
+*Should we test validity of password entered for change and security of new password?
+
+*Should we be testing the validity of registering businesses and schools separately?
+7.
