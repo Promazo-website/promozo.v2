@@ -145,8 +145,11 @@ class UserTestCase(TestCase):
     def test_registerInvalidStudent(self):
         #todo attempt to register a student with an invalid email
         payload = {'first_name':'unitTest', 'last_name':'test01', 'username':'test01',
-                   'email':'test@invalid.ac.com','password':'test0001'}
-        resp = self.student_user.post('/api/core/user/details/', payload)
+                   'email':'test@invalid.ac.com','password':'test0001', 'confirm_password':'test0001'}
+
+        resp = self.student_user.put('/api/core/user/details/', payload)
+        print(resp)
+        print(resp.status_code)
         self.assertContains(resp, 'Invalid University email address')
     '''
     #Test login for every type of user
