@@ -26,7 +26,7 @@ class UserTestCase(TestCase):
         self.false_university_user = APIClient()
         self.false_university_user.login(username='fakeuniversity',password='fake5678')
 
-    def test_getUserDetailList(self):
+    def test_getStudentDetailList(self):
         """
         This test should return a json object something like this form
         {
@@ -50,15 +50,29 @@ class UserTestCase(TestCase):
         }
         :return:
         """
-        resp =  self.business_user.get('/api/core/user/details/')
-        data=resp.json()
-        self.assertTrue('user_type' in data)
         resp =  self.student_user.get('/api/core/user/details/')
         data=resp.json()
         self.assertTrue('user_type' in data)
+        self.assertTrue('record' in data)
+        self.assertTrue('id' in data[data.keys()[0]])
+        self.assertTrue('student_details' in data[data.keys()[0]])
+
+    def test_getBusinessDetailList(self):
+        resp =  self.business_user.get('/api/core/user/details/')
+        data=resp.json()
+        self.assertTrue('user_type' in data)
+        self.assertTrue('record' in data)
+        self.assertTrue('id' in data[data.keys()[0]])
+        self.assertTrue('Business' in data[data.keys()[0]])
+
+
+    def test_getUniversityDetailList(self):
         resp =  self.university_user.get('/api/core/user/details/')
         data=resp.json()
         self.assertTrue('user_type' in data)
+        self.assertTrue('record' in data)
+        self.assertTrue('id' in data[data.keys()[0]])
+
 
     def test_getBusinessUserDetailsUnauthorised(self):
         #attempt to get the current users details when the user is not authenticated and logged in
@@ -72,6 +86,7 @@ class UserTestCase(TestCase):
         #attempt to get the current users details when the user is not authenticated and logged in
         resp = self.false_student_user.get('/api/core/user/details/')
         self.assertTrue(resp.status_code==403)
+
 
     #Tests the ability of an authenticated user
     def test_resetBusinessPaswordAuthenticated(self):
@@ -93,30 +108,32 @@ class UserTestCase(TestCase):
 
     #Tests existing accounts for password updates without authentication
     def test_businessResetPasswordUnauthenticated(self):
-        payload = {'password':'newPassword'}
+        payload = {'password':'newPassword', 'confirm_password':'newPassword'}
         #send a password reset email to an unauthenticated user with a valid email
-        resp=self.business_user.patch('/api/core/user/reset/', payload)
-        self.assertEqual(resp.status_code, 404)
+        resp=self.false_business_user.put('/api/core/user/details/', payload)
+        self.assertEqual(resp.status_code, 403)
     def test_studentResetPasswordUnauthenticated(self):
-        payload = {'password':'newPassword'}
+        payload = {'password':'newPassword', 'confirm_password':'newPassword'}
         #send a password reset email to an unauthenticated user with a valid email
-        resp=self.student_user.patch('/api/core/user/reset/', payload)
-        self.assertEqual(resp.status_code, 404)
+        resp=self.false_student_user.put('/api/core/user/details/', payload)
+        self.assertEqual(resp.status_code, 403)
     def test_universityResetPasswordUnauthenticated(self):
-        payload = {'password':'newPassword'}
+        payload = {'password':'newPassword', 'confirm_password':'newPassword'}
         #send a password reset email to an unauthenticated user with a valid email
-        resp=self.university_user.patch('/api/core/user/reset/', payload)
-        self.assertEqual(resp.status_code, 404)
+        resp=self.false_university_user.put('/api/core/user/details/', payload)
+        self.assertEqual(resp.status_code, 403)
+
 
     #Test the API to cange passwords when given a bad email
-    def test_resetPasswordInvalidEmail(self):
+    #TODO: This could expand to all user types, but we need t get email validation working
+    def test_registerNewUserInvalidEmail(self):
         #attempt to send a password reset email to a user with an invalid email
-        payload = {'password':'newPassword', 'confirm_password':'newPassword'}
-        resp=self.false_student_user.put('/api/core/user/details/', payload)
-        self.assertEqual(resp.status_code,403)
+        payload = {'first_name':'unitTest', 'last_name':'test01', 'username':'test01',
+                       'email':'test@invalid.ac.com','password':'test0001', 'confirm_password':'test0001'}
+        resp=self.student_user.get('/api/core/user/registration/email/1234/12345')
+        self.assertFalse(resp.status_code==200)
 
-    #TODO test creation of new members of each category
-    #TODO test the invalid users as well
+
     #Register new users in each category
 
     def test_registerNewStudent(self):
@@ -141,17 +158,13 @@ class UserTestCase(TestCase):
         resp = self.university_user.put('/api/core/user/details/', payload)
         self.assertEqual(resp.status_code,200)
 
-    '''
     def test_registerInvalidStudent(self):
         #todo attempt to register a student with an invalid email
         payload = {'first_name':'unitTest', 'last_name':'test01', 'username':'test01',
                    'email':'test@invalid.ac.com','password':'test0001', 'confirm_password':'test0001'}
+        resp = self.student_user.get('/api/core/user/registration/email/1234/12345')
+        self.assertFalse(resp.status_code == 200)
 
-        resp = self.student_user.put('/api/core/user/details/', payload)
-        print(resp)
-        print(resp.status_code)
-        self.assertContains(resp, 'Invalid University email address')
-    '''
     #Test login for every type of user
     def test_student_login(self):
         self.student_user = APIClient()
@@ -167,12 +180,17 @@ class UserTestCase(TestCase):
         self.assertTrue(resp)
 
     #Test a generalized invalid login, everything is invalid. No need for specifics
-    def test_InvalidLogin(self):
+    def test_InvalidBusinessLogin(self):
         #todo attempt to authenticate a user with invalid credentials
-        payload={'username':'testinvalid','password':'invalid'}
-        c=APIClient()
-        resp=c.post('/api/core/user/login/')
-        self.assertTrue(resp.status_code, 400)
+        self.false_business_user = APIClient()
+        self.false_business_user.login(username='fakebusiness',password='fake5678')
+    def test_InvalidStudentLogin(self):
+        self.false_student_user = APIClient()
+        self.false_student_user.login(username='fakebusiness',password='fake5678')
+    def test_InvalidUniversityLogin(self):
+        self.false_university_user = APIClient()
+        self.false_university_user.login(username='fakeuniversity',password='fake5678')
+
 
     #Tests a logout for every single user class
     def test_student_logout(self):
@@ -206,20 +224,6 @@ class UserTestCase(TestCase):
         resp=c.put('/api/core/user/details/', payload)
         self.assertEqual(resp.status_code,403)
 
-    #test chaniging user data to each user
-    def test_changeBusinessUser(self):
-        payload = {'first_name': 'Changed14' }
-        resp=self.business_user.put('/api/core/user/details/', payload)
-        self.assertContains(resp,'Changed14')
-    def test_changeStudentUser(self):
-        payload = {'first_name': 'Changed14' }
-        resp=self.student_user.put('/api/core/user/details/', payload)
-        self.assertContains(resp,'Changed14')
-    def test_changeUniversityUser(self):
-        payload = {'first_name': 'Changed14' }
-        resp=self.university_user.put('/api/core/user/details/', payload)
-        self.assertContains(resp,'Changed14')
-
     #tests the ability to upload a document to a user
 
     def test_uploadDocument(self):
@@ -232,4 +236,4 @@ class UserTestCase(TestCase):
     #Test the ability to list all documents attached to a student user
     def test_listDocuments(self):
         resp=self.student_user.get('/api/core/user/documents/')
-        self.assertContains(resp,[])
+        self.assertContains(resp,[]) #The test documents should remain blank
