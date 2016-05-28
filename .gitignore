@@ -45,3 +45,6 @@ target/
 
 uploads/
 localdb.sqlite
+
+#Doug's virtualenv
+prmzo
