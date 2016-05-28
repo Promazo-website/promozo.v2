@@ -1,5 +1,7 @@
-
-    <md-card style="padding: 20px;" flex="30" ng-init="views={};views.stage=1;views.select_organisation=false;views.find_organisation=false;">
+            <md-card style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100" ng-controller="registerController" >
 
             <md-card-title>
                 <md-card-title-text class="md-card-title-text">
@@ -8,7 +10,7 @@
             </md-card-title>
 
 
-        <md-card-content ng-show="views.stage==1">
+        <md-card-content ng-show="views.stage==1" class="register">
         <form name="loginEmailForm">
             <md-input-container class="md-block">
                 <label>Email</label>
@@ -19,7 +21,7 @@
                 </div>
             </md-input-container>
 
-            <md-button class="md-raised row-button"  ng-click="findOrganisation(views,formdata)" >proccess</md-button>
+            <md-button class="md-raised row-button"  ng-click="FindOrganisation(formdata.email)" >proccess</md-button>
 
         </form>
 
@@ -52,7 +54,7 @@
                                     <label>{{formdata.type}} Name</label>
                                     <input type="text" ng-model="formdata.organisation_name">
                                 </md-input-container>
-                                <md-button class="md-raised row-button" ng-click="CreateOrganisation(views,formdata)">Create</md-button>
+                                <md-button class="md-raised row-button" ng-click="CreateOrganisation(formdata)">Create</md-button>
                             </form>
 
                     </div>
@@ -78,7 +80,7 @@
                     <div ng-message="minlength">username is too short</div>
                     <div ng-message="maxlength">username is too long</div>
                 </div>
-            </md-input-container><div ng-controller="authenticationController" class="ng-scope">…</div>
+            </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
                 <label>First Name</label>
                 <input type="text" name="first_name" ng-model="formdata.first_name" required ng-minlength="2" ng-maxlength="100" placeholder=""/>
@@ -101,6 +103,12 @@
             <md-button flex class="md-raised row-button"  ng-click="signup(formdata)" >Send</md-button>
 
         </form>
+            <br>
+            <md-divider></md-divider>
+            <br>
+            <div ng-if="registerMessage">
+                <md-button ng-class="registerClass">{{registerMessage}}</md-button>
+            </div>
         </md-card-content>
 
     </md-card>
