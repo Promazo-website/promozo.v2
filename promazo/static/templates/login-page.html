@@ -1,0 +1,123 @@
+<div class="signup" ng-controller="authenticationController">
+<md-toolbar layout="row" >
+    <md-button ng-click="setCurrentPage('home')">ProMazo</md-button>
+    <div flex>
+    </div>
+    <md-button ng-click="setCurrentPage('sign-in')">sign in</md-button>
+    <md-button ng-click="setCurrentPage('sign-up')">sign up</md-button>
+</md-toolbar>
+<md-content layout="column" layout-align="center none">
+
+    <div ng-switch="currentPage" style="padding:20px;" layout-align="center">
+
+        <div layout="row" flex ng-switch-when="home">
+            <div flex layout="row" layout-align="center none" ng-include="'/static/snippets/home-1.html'"></div>
+        </div>
+            <md-card ng-switch-when="sign-in" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+
+                    <md-card-title>
+                        <md-card-title-text class="md-card-title-text">ProMazo</md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <form name="loginForm">
+                            <md-input-container class="md-block">
+                                <label>Username</label>
+                                    <input type="text" name="username" ng-model="credentials.username" required ng-minlength="4" ng-maxlength="100" placeholder=""/>
+                                    <div ng-messages="loginForm.username.$error">
+                                        <div ng-message="required">Please enter a Username</div>
+                                        <div ng-message="minlength">username is too short</div>
+                                        <div ng-message="maxlength">username is too long</div>
+                                    </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Password</label>
+                                <input type="password" name="password" ng-model="credentials.password" required minlength="4" placeholder=""/>
+
+                                <div ng-messages="loginForm.password.$error">
+                                    <div ng-message="required">Please enter a password</div>
+                                    <div ng-message="minlength">Password is too short</div>
+                                    <div ng-message="maxlength">Password is too long</div>
+                                </div>
+
+                            </md-input-container>
+                            <div ng-show="credentials.error" class="md-warn">
+                                <md-divider></md-divider>
+                                <div>{{credentials.error_message}} Try again</div>
+                            </div>
+                            <div layout="row">
+                                <md-button flex class="md-raised md-primary"  ng-click="login(credentials)" >Login</md-button>
+                            </div>
+                            <br>
+
+                            <md-divider></md-divider>
+                            <br>
+                            <div layout="column">
+                                <md-button class="md-raised md-default" ng-click="setCurrentPage('sign-up')">Don't have a profile yet? Sign Up</md-button>
+                            </div>
+                            <md-divider></md-divider>
+                            <div layout="column">
+                                <md-button class="md-raised md-accent"  ng-click="setCurrentPage('forgot')">forgotten your password Click here</md-button>
+                            </div>
+
+
+                        </form>
+                    </md-card-content>
+
+                </md-card>
+
+
+
+
+
+            <md-card ng-switch-when="forgot" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+
+                <md-card-title>
+                    <md-card-title-text class="md-card-title-text">Forgot Password</md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <form>
+                        <md-input-container class="md-block">
+                            <label>Email</label>
+                            <input type="text" ng-model="credentials.email" required minlength="4" md-maxlength="100" placeholder=""/>
+                        </md-input-container>
+                        <div layout="column">
+                            <md-button ng-click="forgot_password(credentials.email)" class="md-raised md-primary">Continue</md-button>
+                        </div>
+                        <div ng-show="resetMessage">
+                            <br>
+                            <md-divider></md-divider>
+                            <br>
+                            <md-button ng-class="resetClass">{{resetMessage}}</md-button>
+                        </div>
+
+
+                    </form>
+                </md-card-content>
+            </md-card>
+
+
+        <div layout="row" flex ng-switch-when="sign-up">
+            <div flex ng-include="'/static/snippets/sign-up.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="reset-email-sent">
+            <div flex layout="row" layout-align="center none"  ng-include="'/static/snippets/reset-email-sent.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="registration-email-sent">
+            <div flex layout="row"  layout-align="center none" ng-include="'/static/snippets/registration-email-sent.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="error-contact">
+            <div flex layout="row"  layout-align="center none" ng-include="'/static/snippets/error-contact.html'"></div>
+        </div>
+
+    </div>
+
+
+
+</md-content>
+    </div>

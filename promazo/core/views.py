@@ -59,6 +59,7 @@ class userDetails(APIView):
             User Details
 
         '''
+        user=request.user
         if 'password' in request.data:
             try:
                 if not request.data['password'] == request.data['confirm_password']:
@@ -66,8 +67,10 @@ class userDetails(APIView):
             except KeyError:
                 return Response("confirm_password was not found in form data", status=status.HTTP_400_BAD_REQUEST)
         ser=UserModelSerializer(request.user,data=request.data,partial=True)
+
         if ser.is_valid():
             ser.save()
+            #login(request, user)
             return Response(ser.data)
         else:
             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -115,7 +118,10 @@ class userLogin(APIView):
                                 password=request.data['password'])
             if user:
                 login(request,user)
+                if not user.is_active:
+                    return Response('Inactive User', status=status.HTTP_400_BAD_REQUEST)
                 ser=UserModelSerializer(user)
+
                 return Response({'user_type':self.user_type(user),'record':ser.data})
 
             else:

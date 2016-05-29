@@ -35,7 +35,7 @@ md-toolbar .md-button {
 .right_page.ng-leave {
   animation: slideOutRight 2s;
 }
- .student_page {
+ .user_page {
      position: absolute;
      width: 100%;
      height: 100%;
@@ -164,4 +164,30 @@ form .progress {
 .avatar {
     border-radius: 100%;
     border: solid 2px whitesmoke;
+}
+
+.avatar_toolbar {
+    margin: 10px 10px 0px 10px;
+    border-radius: 5%;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.register {
+    overflow: hidden;
+
+}
+
+.register.ng-enter,
+.register.ng-show {
+    animation: flipInX 1s;
+
+}
+
+.regsiter.ng-leave,
+.register.ng-hide {
+    animation: flipOutX 1s;
 }

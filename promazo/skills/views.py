@@ -28,8 +28,15 @@ class userSkills(APIView):
             return_data.append({'skill':items,'assigned':Assigned,'validated':Validated})
         ser=UserSkillsSerializer(return_data, many=True)
         return ser.data
-    def get(self,request,format=None):
-        return Response(self.__getList__(request))
+    def __getSimpleList__(self,request):
+        userSkill=[x.skill for x in skillScores.objects.filter(user=request.user)]
+        ser=skillsSerializer(userSkill, many=True)
+        return ser.data
+    def get(self,request,type=None, format=None):
+        if type=='simple':
+            return Response(self.__getSimpleList__(request))
+        else:
+            return Response(self.__getList__(request))
 
     def post(self,request,format=None):
         for items in request.data['skills']:
@@ -41,7 +48,7 @@ class userSkills(APIView):
         recs = skillScores.objects.filter(skill__id__in=request.data['skills'],user=request.user)
         if recs.exists():
             recs.delete()
-            return Response(self.__getList__(request))
+            return Response('record removed')
         else:
             return Response('No records', status=status.HTTP_400_BAD_REQUEST)
 
@@ -53,6 +60,9 @@ class newSkills(userSkills):
             newrec=skills.objects.create(name=request.data['name'],type='TypeB')
             newrec2=skillScores.objects.create(skill=newrec,user=request.user)
         return Response(self.__getList__(request))
+    def get(self,request):
+        ser=skillsSerializer(skills.objects.all(), many=True)
+        return Response(ser.data)
 
 class QuestionAPI1(APIView):
     permission_classes = (IsAuthenticated,)

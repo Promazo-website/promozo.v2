@@ -1,0 +1,123 @@
+<div ng-switch="currentPage" ng-controller="updateUserController">
+    <!-- Main User forms -->
+
+    <!-- User edit form -->
+    <md-card ng-switch-when="edit_user" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+        <md-car-title class="md-headline md-padding">Edit User Details</md-car-title>
+        <md-content layout="column" class="md-padding">
+            <form>
+                     <md-input-container class="md-block">
+                        <label>First Name:</label>
+                        <input type="text" ng-model="currentUser.first_name" placeholder="">
+                     </md-input-container>
+                     <md-input-container class="md-block">
+                        <label>Last Name:</label>
+                        <input type="text" ng-model="currentUser.last_name" placeholder="">
+                     </md-input-container>
+            <div layout="column">
+                <md-button class="md-raised md-primary" ng-click="updateUser(currentUser)">save</md-button>
+            </div>
+            </form>
+        </md-content>
+    </md-card>
+
+
+
+    <!-- Profiler edit form -->
+    <md-card ng-switch-when="edit_profile" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+        <md-car-title class="md-headline md-padding">Edit Profile Details</md-car-title>
+        <md-content layout="column" class="md-padding">
+            <form>
+                     <md-input-container class="md-block">
+                        <label>Tagline:</label>
+                        <input type="text" ng-model="currentProfile.tagline" placeholder="">
+                     </md-input-container>
+                     <md-input-container class="md-block">
+                        <label>Description:</label>
+                        <textarea rows="4" ng-model="currentProfile.description" placeholder=""></textarea>
+                     </md-input-container>
+                    <md-input-container ng-show="currentType='business'">
+                        <label>Job Title</label>
+                        <input type="text" ng-model="currentProfile.jobtitle">
+                    </md-input-container>
+                    <md-input-container ng-show="currentType='business'">
+                        <label>Department</label>
+                        <input type="text" ng-model="currentProfile.department">
+                    </md-input-container>
+                    <md-input-container ng-show="currentType='student'">
+                        <label>Address</label>
+                        <textarea rows="4" ng-model="currentProfile.address"></textarea>
+                    </md-input-container>
+            <div layout="column">
+                <md-button class="md-raised md-primary" ng-click="">save</md-button>
+            </div>
+            </form>
+        </md-content>
+    </md-card>
+
+
+
+
+
+    <!-- Avatar edit form -->
+    <md-card ng-switch-when="edit_avatar" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+        <md-card-title class="md-headline md-padding">Change Avatar</md-card-title>
+            <md-card-content>
+                <div layout="column" layout-align="space-around center">
+                    <img class="avatar" style="width:250px;" ng-src="{{formdata.avatarImage}}"></div>
+                <br>
+                <md-divider></md-divider>
+                        <form name="myForm">
+                            <div layout="row" flex="100" layout-align="space-around center">
+                                <div flex="50" ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
+                                    <img-crop image="picFile  | ngfDataUrl" result-image="croppedDataUrl" ng-init="croppedDataUrl=''"></img-crop>
+                                </div>
+
+                                <div layout="column">
+                                    <img ng-src="{{croppedDataUrl}}" />
+                                    <md-button ngf-select ng-model="picFile" accept="image/*">Select New Image</md-button>
+                                    <md-button class="md-raised md-primary" ng-click="avatarUpload(croppedDataUrl, picFile.name);">Upload New Image</md-button>
+                                </div>
+                            </div>
+                        </form>
+                     </md-card-content>
+         </md-card>
+
+    <!-- Skills edit form -->
+    <md-card ng-switch-when="edit_skills" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+        <md-card-title class="md-headline md-padding">Manage Skills</md-card-title>
+        <md-card-content>
+            <fieldset class="standard" >
+                <legend>Select from skills Currently defined in the system</legend>
+                <div layout="row" layout-wrap flex>
+                    <div flex="50" ng-repeat="item in skills">
+                        <md-checkbox ng-checked="exists(item, userskills)" ng-click="toggle(item, userskills)">
+                            {{ item.name }}
+                        </md-checkbox>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset><legend>Or create a new one</legend>
+            <md-input-container class="md-block">
+                <input type="text" placeholder="enter skill" ng-model="newSkill">
+            </md-input-container>
+            <div layout="column">
+                <md-button class="md-raised md-primary" ng-click="addNew(newSkill);newSkill='';">Add Skill</md-button>
+            </div>
+            </fieldset>
+        </md-card-content>
+    </md-card>
+</div>
+

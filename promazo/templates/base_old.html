@@ -21,37 +21,13 @@
     <link rel="stylesheet" href="/static/node_modules/ngImgCrop/compile/minified/ng-img-crop.css">
 
 
-    <script src="/static/scripts/controllers/module.js"></script>
-    <script src="/static/scripts/controllers/homeController.js"></script>
-    <script src="/static/scripts/controllers/authenticationController.js"></script>
-    <script src="/static/scripts/controllers/registerController.js"></script>
-    <script src="/static/scripts/controllers/toolbarController.js"></script>
-    <script src="/static/scripts/controllers/SideNavLeftController.js"></script>
-    <script src="/static/scripts/controllers/updateUserController.js   "></script>
-
-    <script src="/static/scripts/directives/directives.js"></script>
-    <script src="/static/scripts/factories/Authfactory.js"></script>
-    <script src="/static/scripts/factories/ProfileFactory.js"></script>
-    <script src="/static/scripts/factories/OrgFactory.js"></script>
-    <script src="/static/scripts/factories/Skillsfactory.js"></script>
-
-
+    <script src="/static/js/controllers/main.js"></script>
+    <script src="/static/js/controllers/user.js"></script>
 </head>
-{% verbatim %}
-<body ng-app="promazo" ng-controller="homeController">
 
-<!-- if logged in -->
-    <div ng-if="currentUser">
-        <div class="user_page" ng-include="'/static/templates/user_main.html'"></div>
-    </div>
+<body ng-app="promazo" ng-controller="base">
 
-<!-- if not logged in -->
-
-    <div ng-if="!currentUser">
-        <div ng-include="'/static/templates/login-page.html'"></div>
-    </div>
-
+<div ng-view > </div>
 
 </body>
-{% endverbatim %}
 </html>
