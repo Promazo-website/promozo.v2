@@ -64,7 +64,7 @@ class newSkills(userSkills):
         ser=skillsSerializer(skills.objects.all(), many=True)
         return Response(ser.data)
 
-class QuestionAPI1(APIView):
+class Questions(APIView):
     permission_classes = (IsAuthenticated,)
     def __getQuestions__(self,request):
         answers = userSkillAnswers.objects.filter(user=request.user)
@@ -75,8 +75,11 @@ class QuestionAPI1(APIView):
         Returns a list of unanswered skills questions
         """
         questions=skillQuestion.objects.all().exclude(id__in=userSkillAnswers.objects.filter(user=request.user).values_list('answer__question__id',flat=True))
-        ser=skillQuestionsSerializer(questions,many=True)
-        return Response(ser.data)
+        if questions.exists():
+            ser=skillQuestionsSerializer(questions[0])
+            return Response(ser.data)
+        else:
+            return Response('no questions left',status=status.HTTP_400_BAD_REQUEST)
     def post(self,request,format=None):
         answer=skillQuestionAnswers.objects.get(id=request.data['answer'])
         user_answers = userSkillAnswers.objects.filter(user=request.user, answer__question=answer.question)
@@ -85,3 +88,14 @@ class QuestionAPI1(APIView):
         newRec=userSkillAnswers.objects.create(user=request.user, answer=answer)
         return Response(self.__getQuestions__(request))
 
+class questionsList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = userSkillAnswersSerializer()
+    def get_queryset(self):
+        return userSkillAnswers.objects.filter(user=self.request.user)
+
+class questionsDetails(generics.DestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = userSkillAnswersSerializer()
+    def get_queryset(self):
+        return userSkillAnswers.objects.filter(user=self.request.user)

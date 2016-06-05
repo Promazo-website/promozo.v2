@@ -1,0 +1,45 @@
+<!-- snippet for answering a new question upon ligin if the user has not answered ** questions -->
+<div ng-switch="currentPage" ng-controller="skillsController">
+
+    <md-card ng-switch-when="login_question" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+
+        <md-card-title class="md-headline">Skills Question</md-card-title>
+        <md-card-content>
+            <div ng-hide="nextQuestion">
+            <div>{{loginQuestion.Question.question}}</div>
+            <md-divider></md-divider>
+            <form ng-submit="answerQuestion(loginQuestion.UserAnswer)">
+                <md-radio-group ng-model="loginQuestion.UserAnswer">
+                    <md-radio-button ng-repeat="answers in loginQuestion.Answers" value="{{answers.id}}">{{answers.Answer}}</md-radio-button>
+
+                </md-radio-group>
+                <div layout="column">
+                    <md-button type="submit" class="md-raised md-primary">submit</md-button>
+                </div>
+            </form>
+            </div>
+            <div ng-show="nextQuestion">
+                <md-divider></md-divider>
+                <div class="md-title">Thx. Do you want to do another Question</div>
+                <div layout="column">
+                    <md-button class="md-raised md-primary" ng-click="newQuestion()">Yes</md-button>
+                    <md-button class="md-raised md-primary" ng-click="endQuestions()">No</md-button>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+
+    <md-card ng-switch-when="no_questions" style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100">
+
+        <md-card-title class="md-headline">No Skills Questions left to answer</md-card-title>
+        <div layout="column">
+            <md-button class="md-raised md-primary" ng-click="endQuestions()">ok</md-button>
+        </div>
+    </md-card>
+</div>

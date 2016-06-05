@@ -49,6 +49,39 @@ promazo.factory('SkillsService', function ($http) {
                 return data.data;
             });
     };
+    
+    skillService.getLoginQuestion =  function() {
+        return $http.get('/api/skills/questions/')
+            .then(function (data) {
+                return data.data;
+                
+            });
+    };
+    skillService.answerQuestion = function (Userid, UserAnswer) {
+        postdata={user:Userid,answer: UserAnswer};
+        return $http.post('/api/skills/questions/', postdata)
+            .then(function (data) {
+                return data.data;
+                
+            });
+    };
+    
+    skillService.deleteAnswer = function(answerid) {
+        return $http.delete('/api/skills/answer/' + answerid + '/')
+            .then(function (data) {
+                return data.data;
+
+            });
+    };
+    
+    skillService.listUserAnswers = function () {
+        return $http.get('/api/skills/answer/')
+            .then(function (data) {
+                return data.data;
+                
+            });
+        
+    };
 
     return skillService;
 });
