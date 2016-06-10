@@ -71,17 +71,6 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
         $scope.setCurrentUser(null);
     };
 
-  $scope.showScoreToast = function() {
-    $mdToast.show({
-      scope: $scope,
-      templateUrl: '/static/templates/score-tips.html',
-      hideDelay: 10000,
-      position : 'top left'
-    });
-  };
-
-    $scope.showScoreToast();
-
     $scope.currentScoreClass="";
     
     if ($scope.currentScore < 40) {

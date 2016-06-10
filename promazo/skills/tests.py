@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 User=get_user_model()
 # Create your tests here.
 class SkillsTestCase(TestCase):
+    #Test access a database fixture
+    #fixtures = ['testdata.json']
     '''
     Tests manipulating skills for the base user
     '''

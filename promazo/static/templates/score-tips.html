@@ -1,0 +1,31 @@
+<md-toast>
+    <div style="height:auto;" class="md-capsule md-toast-content">
+        <div  ng-if="currentScore < 25">
+            <h3>Your current profile score is
+            not high enough to apply for
+            vacancies.</h3> Add some experience,
+            education, skill, or course records
+            to improve it.
+        </div>
+        <div ng-if="currentScore < 40 && currentScore > 24">
+            <h3>Your profile score is not great.</h3>
+            Add more profile details such as
+            experience, skills, courses, and
+            activities.
+        </div>
+        <div ng-if="currentScore < 70 && currentScore > 39">
+            You profile score is ok, but could
+            be better.<br>The higher the score, the
+            higher you appear on lists to employers.
+        </div>
+        <div ng-if="currentScore < 110 && currentScore > 69">
+            Good score! , but do remember that the
+            better your score, the higher you are
+            ranked in employers lists.
+        </div>
+        <div ng-if="currentScore > 109">
+            Fab score. Keep up the good work
+        </div>
+    </div>
+</md-toast>
+

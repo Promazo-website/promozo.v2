@@ -6,7 +6,7 @@
 
         <md-button ng-click="SideNavOpen('right')" layout="row" layout-align="space-between center" >
             <div><img ng-src="{{ currentProfile.avatarImage }}" class="avatar_toolbar"></div>
-            <div> {{currentUser.username}}</div>
+            <div> {{currentUser.username}} ({{currentScore}})</div>
 
         </md-button>
 
@@ -22,6 +22,7 @@
     <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_profile')">Edit Profile</md-button>
     <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_avatar')">change avatar</md-button>
     <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_skills')">manage skills</md-button>
+    <md-button class="md-raised md-primary" ng-click="skillsQuestion()" ng-controller="skillsController">Skills Question</md-button>
     <md-button class="md-raised md-primary">manage projects</md-button>
 </div>
 </md-sidenav>
@@ -98,6 +99,7 @@
 </md-sidenav>
 <md-content>
     <div ng-include="'/static/templates/edit_profile_forms.html'"></div>
+    <div ng-include="'/static/templates/skillQuestions.html'"></div>
 </md-content>
 
 
