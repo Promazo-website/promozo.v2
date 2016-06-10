@@ -71,4 +71,3 @@ class userSkillAnswers(models.Model):
         return skillQuestionAnswers.objects.filter(question=self.answer.question)
     def question(self):
         return self.answer.question
-

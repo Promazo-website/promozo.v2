@@ -45,6 +45,7 @@ class userSkills(APIView):
                 newrec = skillScores.objects.create(skill=skill,user=request.user)
         return Response(self.__getList__(request))
     def delete(self,request,format=None):
+
         recs = skillScores.objects.filter(skill__id__in=request.data['skills'],user=request.user)
         if recs.exists():
             recs.delete()
@@ -84,4 +85,3 @@ class QuestionAPI1(APIView):
             user_answers.delete()
         newRec=userSkillAnswers.objects.create(user=request.user, answer=answer)
         return Response(self.__getQuestions__(request))
-
