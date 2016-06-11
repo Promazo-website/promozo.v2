@@ -164,7 +164,7 @@ class UserTestCase(TestCase):
                    'email':'test@invalid.ac.com','password':'test0001', 'confirm_password':'test0001'}
         resp = self.student_user.get('/api/core/user/registration/email/1234/12345')
         self.assertFalse(resp.status_code == 200)
-
+    '''
     #Test login for every type of user
     def test_student_login(self):
         self.student_user = APIClient()
@@ -178,7 +178,7 @@ class UserTestCase(TestCase):
         self.university_user = APIClient()
         resp = self.university_user.login(username='testuniversity',password='test1234')
         self.assertTrue(resp)
-
+    '''
     #Test a generalized invalid login, everything is invalid. No need for specifics
     def test_InvalidBusinessLogin(self):
         #todo attempt to authenticate a user with invalid credentials
@@ -227,7 +227,7 @@ class UserTestCase(TestCase):
     #tests the ability to upload a document to a user
 
     def test_uploadDocument(self):
-        file = open('testdata.json')
+        file = open('test.json')
         payload={'name':'document1','document':file}
         resp= self.student_user.post('/api/core/user/documents/', payload)
         self.assertContains(resp,'document1')

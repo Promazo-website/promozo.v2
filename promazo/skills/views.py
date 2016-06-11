@@ -47,6 +47,7 @@ class userSkills(APIView):
     def delete(self,request,format=None):
 
         recs = skillScores.objects.filter(skill__id__in=request.data['skills'],user=request.user)
+
         if recs.exists():
             recs.delete()
             return Response('record removed')
