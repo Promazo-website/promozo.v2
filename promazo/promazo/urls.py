@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^api/docs/', include('rest_framework_swagger.urls')),
     url(r'^api/core/', include('core.urls')),
     url(r'^api/skills/', include('skills.urls')),
+    url(r'^api/pod/', include('pod.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^validate/(?P<DateHash>[^/]+)/(?P<UserHash>[^/]+)/$', Verification),
     url(r'^$',Main)
