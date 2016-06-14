@@ -93,12 +93,12 @@ class Questions(APIView):
 
 class questionsList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = userSkillAnswersSerializer()
+    serializer_class = userSkillAnswersSerializer
     def get_queryset(self):
         return userSkillAnswers.objects.filter(user=self.request.user)
 
 class questionsDetails(generics.DestroyAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = userSkillAnswersSerializer()
+    serializer_class = userSkillAnswersSerializer
     def get_queryset(self):
         return userSkillAnswers.objects.filter(user=self.request.user)

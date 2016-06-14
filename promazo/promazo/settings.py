@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'django_extensions',
     'core',
-    'skills'
+    'skills',
+    'pod',
 
 
 ]

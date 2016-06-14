@@ -5,6 +5,11 @@ from django_extensions.db.fields.json import JSONField
 from django.contrib.auth.models import User
 # Create your models here.
 
+class userModel(models.Model):
+    user = models.ForeignKey(User,null=True)
+    class Meta:
+        abstract = True
+
 class baseModel(models.Model):
     """
     This is an abstract model. No table is created for this, Instead it
