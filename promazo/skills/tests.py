@@ -64,7 +64,6 @@ class SkillsTestCase(TestCase):
         self.assertContains(resp,'"actions":')
         #record an answer to a question
 
-
     def test_answerQuestion(self):
         resp =self.student_user.post('/api/skills/questions/',{'answer':1})
         self.assertContains(resp,'"ChangeToScore":10')
