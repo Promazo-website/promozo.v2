@@ -81,7 +81,7 @@ class Questions(APIView):
             ser=skillQuestionsSerializer(questions[0])
             return Response(ser.data)
         else:
-            return Response('no questions left',status=status.HTTP_400_BAD_REQUEST)
+            return Response('no_questions')
     def post(self,request,format=None):
         answer=skillQuestionAnswers.objects.get(id=request.data['answer'])
         user_answers = userSkillAnswers.objects.filter(user=request.user, answer__question=answer.question)

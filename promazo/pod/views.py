@@ -29,7 +29,7 @@ class userPodList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = podSerializer
     def get_queryset(self):
-        return [x.pod for x in podMembers.objects.filter(role__user=self.request.user)]
+        return [x.pod for x in podMembers.objects.filter(member=self.request.user)]
 
 # has user permission * for pod *
 

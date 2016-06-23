@@ -1,5 +1,6 @@
 
-<md-toolbar layout="row" ng-controller="toolbarController">
+
+<md-toolbar layout="row" style="position: fixed; top: 0;" md-whiteframe="2"  ng-controller="toolbarController">
     <md-button ng-click="SideNavOpen('left')"><md-icon>menu</md-icon></md-button>
 
         <div flex></div>
@@ -11,98 +12,18 @@
         </md-button>
 
 </md-toolbar>
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-<div layout="column">
-    <br>
-    <div layout="column" layout-align="center center">
-         <div class="md-headline" flex>Edit Menu</div>
-    </div>
-           <md-divider> </md-divider>
-    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_user')">Edit User</md-button>
-    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_profile')">Edit Profile</md-button>
-    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_avatar')">change avatar</md-button>
-    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_skills')">manage skills</md-button>
-    <md-button class="md-raised md-primary" ng-click="skillsQuestion()" ng-controller="skillsController">Skills Question</md-button>
-    <md-button class="md-raised md-primary">manage projects</md-button>
-</div>
+
+<div flex layout="row" style="margin-top: 65px;">
+<md-sidenav md-component-id="left" md-whiteframe="1" md-is-locked-open="$mdMedia('min-width:900px')">
+    <div flex ng-include="'/static/templates/left_menu.html'"></div>
 </md-sidenav>
 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-    <div layout="column">
-        <md-button class="md-raised" ng-click="logout()">logout</md-button>
-        <md-card class="md-whiteframe-z1">
-            <md-card-title layout="column" layout-align="center center">
-                <div class="md-headline" flex>My Profile</div>
-            </md-card-title>
-            <md-divider></md-divider>
-            <md-card-content>
-                <div layout="row" layout-align="center center">
-                    <img class="avatar" ng-src="{{currentProfile.avatarImage}}">
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>User:</div><div>{{ currentUser.username}}</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>Name:</div><div>{{currentUser.first_name}} {{currentUser.last_name}}</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>Email:</div><div>{{currentUser.email}}</div>
-                </div>
-
-            <div ng-if="currentBusiness!=null">
-                <div layout="row" layout-align="space-between center">
-                    <div>Job Title:</div><div>{{currentProfile.jobTitle}}</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>Department:</div><div>{{currentProfile.department}}</div>
-                </div>
-            </div>
-
-                <div layout="row" layout-align="space-between center">
-                    <div>Tagline:</div><div>{{currentProfile.tagline}}</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>description:</div><div>{{currentProfile.description}}</div>
-                </div>
-
-            <div ng-if="currentBusiness!=null">
-           <md-divider></md-divider>
-                <br>
-                <div layout="row" layout-align="center center">
-                    <div class="md-headline">Business</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>Name:</div><div>{{currentBusiness.name}}</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>Description:</div><div>{{currentBusiness.description}}</div>
-                </div>
-            </div>
-
-            <div ng-if="currentUniversity!=null">
-            <md-divider></md-divider>
-                <br>
-                <div layout="row" layout-align="center center">
-                    <div class="md-headline">University</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>name:</div><div>{{currentUniversity.name}}</div>
-                </div>
-                <div layout="row" layout-align="space-between center">
-                    <div>description:</div><div>{{currentUniversity.desciption}}</div>
-                </div>
-            </div>
-            </md-card-content>
-        </md-card>
-
-    </div>
-
+    <div ng-include="'/static/templates/right_menu.html'"></div>
 </md-sidenav>
-<md-content>
-    <div ng-include="'/static/templates/edit_profile_forms.html'"></div>
+<md-content flex style="margin-top:10px;">
+
+    <div flex ng-include="'/static/templates/edit_profile_forms.html'"></div>
     <div ng-include="'/static/templates/skillQuestions.html'"></div>
+    <div flex ng-include="'/static/templates/home_page.html'"></div>
 </md-content>
-
-
-
-
-
+</div>

@@ -1,0 +1,57 @@
+<div ng-switch="currentPage">
+    <div layout="column" layout-gt-sm="row" ng-switch-when="home">
+        <div layout="column" flex>
+        <!-- column 1 -->
+            <md-card md-whiteframe="1">
+                <md-card-title class="md-headline">My Pods</md-card-title>
+                <md-divider></md-divider>
+                <md-list>
+                    <md-list-item ng-repeat="pod in currentPods">
+                        {{pod.name}}
+                    </md-list-item>
+                </md-list>
+
+            </md-card>
+
+            <md-card md-whiteframe="1">
+                <md-card-title class="md-headline">My Projects</md-card-title>
+                <md-divider></md-divider>
+                <md-list>
+                    <md-list-item ng-repeat="pod in currentPods">
+                        {{pod.name}}
+                    </md-list-item>
+                </md-list>
+
+            </md-card>
+
+        </div>
+
+        <div layout="column"flex>
+        <!-- column 2 -->
+            <md-card md-whiteframe="1">
+                <md-card-title class="md-headline">Messages</md-card-title>
+                <md-divider></md-divider>
+                <md-list>
+                    <md-list-item ng-repeat="pod in currentPods">
+                        {{pod.name}}
+                    </md-list-item>
+                </md-list>
+
+            </md-card>
+
+            <md-card md-whiteframe="1">
+                <md-card-title class="md-headline">Applications</md-card-title>
+                <md-divider></md-divider>
+                <md-list>
+                    <md-list-item ng-repeat="pod in currentPods">
+                        {{pod.name}}
+                    </md-list-item>
+                </md-list>
+
+            </md-card>
+        </div>
+
+
+    </div>
+
+</div>

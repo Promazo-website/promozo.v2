@@ -1,0 +1,13 @@
+<div layout="column">
+    <br>
+    <div layout="column" layout-align="center center">
+         <div class="md-headline" flex>Edit Menu</div>
+    </div>
+           <md-divider> </md-divider>
+    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_user')">Edit User</md-button>
+    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_profile')">Edit Profile</md-button>
+    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_avatar')">change avatar</md-button>
+    <md-button class="md-raised md-primary" ng-click="setCurrentPage('edit_skills')">manage skills</md-button>
+    <md-button class="md-raised md-primary" ng-click="skillsQuestion()" ng-controller="skillsController">Skills Question</md-button>
+    <md-button ng-if='currentPods' class="md-raised md-primary">manage projects</md-button>
+</div>

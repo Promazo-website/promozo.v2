@@ -35,21 +35,20 @@
     <script src="/static/scripts/factories/ProfileFactory.js"></script>
     <script src="/static/scripts/factories/OrgFactory.js"></script>
     <script src="/static/scripts/factories/Skillsfactory.js"></script>
+    <script src="/static/scripts/factories/PodsFactory.js"></script>
 
 
 </head>
 {% verbatim %}
-<body ng-app="promazo" ng-controller="homeController">
+<body ng-app="promazo" ng-controller="homeController" layout="column" >
 
 <!-- if logged in -->
-    <div ng-if="currentUser">
-        <div class="user_page" ng-include="'/static/templates/user_main.html'"></div>
-    </div>
+    <div ng-if="currentUser" flex class="user_page" layout="column" ng-include="'/static/templates/user_main.html'"></div>
 
 <!-- if not logged in -->
 
-    <div ng-if="!currentUser">
-        <div ng-include="'/static/templates/login-page.html'"></div>
+    <div ng-if="!currentUser" flex>
+        <div flex ng-include="'/static/templates/login-page.html'"></div>
     </div>
 
 
