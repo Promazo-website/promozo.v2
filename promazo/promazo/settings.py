@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'core',
     'skills',
     'pod',
+    'projects',
 
 
 ]
