@@ -57,6 +57,22 @@ promazo.factory('AuthService', function ($http, Session) {
           });
 
   };
+    
+  authService.validate = function(code1,code2) {
+      return $http.post('/api/core/user/registration/verify/'+ code2 +'/'+ code1+'/')
+          .then(function(data){
+              return data.data;
+          })
+  };
+   
+  authService.setPassword = function(code1,code2,formdata) {
+      return $http.post('/api/core/user/registration/setpassword/'+ code2 +'/'+ code1+'/', formdata)
+            .then(function(data) {
+                return data.data;
+            });
+
+    };
+    
 
   return authService;
 });

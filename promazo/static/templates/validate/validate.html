@@ -1,0 +1,30 @@
+
+<div class="signup" ng-controller="validationController" flex>
+<md-toolbar layout="row" class="login_toolbar" >
+    <div class="navbar-brand md-padding">ProMazo</div>
+    <div flex>
+    </div>
+    <md-button ng-click="setCurrentPage('sign-in');blankCallType();">sign in</md-button>
+    <md-button ng-click="setCurrentPage('sign-up');blankCallType()">sign up</md-button>
+</md-toolbar>
+<md-content layout="column" layout-align="center stretch" style="margin-top:60px;" flex>
+    <div ng-switch="pageview" style="padding:20px;" flex>
+
+        <div layout="row"  layout-align="center center" flex ng-switch-when="setpassword">
+            <div flex ng-include="'/static/templates/validate/newuser-setpassword.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="badValidation">
+            <div flex layout="row" ng-include="'/static/templates/validate/newuser-badvalidation.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="passwordset">
+            <div flex layout="row" ng-include="'/static/templates/validate/newuser-passwordset.html'"></div>
+        </div>
+        <div layout="row" flex ng-switch-when="error-contact">
+            <div flex layout="row" ng-include="'/static/templates/validate/error-contact.html'"></div>
+        </div>
+    </div>
+
+
+
+</md-content>
+    </div>

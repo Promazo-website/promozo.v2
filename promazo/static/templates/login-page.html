@@ -1,16 +1,16 @@
-<div class="signup" ng-controller="authenticationController">
-<md-toolbar layout="row" >
-    <md-button ng-click="setCurrentPage('home')">ProMazo</md-button>
+<div class="signup" ng-controller="authenticationController" flex>
+<md-toolbar layout="row" class="login_toolbar" >
+    <div class="navbar-brand md-padding">ProMazo</div>
     <div flex>
     </div>
     <md-button ng-click="setCurrentPage('sign-in')">sign in</md-button>
     <md-button ng-click="setCurrentPage('sign-up')">sign up</md-button>
 </md-toolbar>
-<md-content layout="column" layout-align="center none">
+<md-content layout="column" layout-align="center none" style="margin-top:60px;">
 
-    <div ng-switch="currentPage" style="padding:20px;" layout-align="center">
+    <div ng-switch="currentPage" layout-align="center">
 
-        <div layout="row" flex ng-switch-when="home">
+        <div layout="row" flex ng-switch-when="login-page">
             <div flex layout="row" layout-align="center none" ng-include="'/static/snippets/home-1.html'"></div>
         </div>
             <md-card ng-switch-when="sign-in" style="margin-top: 60px;"

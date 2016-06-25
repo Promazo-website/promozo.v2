@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ProMazo</title>
+<title>ProMazo</title>
+<meta name="description" content="ProMazo connects companies with talented college students to perform project-based work during the academic year." />
+<meta name="keywords" content="ProMazo,Internships,Students,Company,Notre Dame,University of Notre Dame,Pro Mazo">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/static/images/PM-favicon3.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="/static/node_modules/angular/angular.js"></script>
     <script src="/static/node_modules/angular-animate/angular-animate.js"></script>
@@ -16,7 +20,8 @@
     <script src="/static/node_modules/ngImgCrop/compile/minified/ng-img-crop.js"></script>
 
     <link rel="stylesheet" href="/static/css/animate.css">
-    <link rel="stylesheet" href="/static/css/new.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="/static/node_modules/angular-material/angular-material.css">
     <link rel="stylesheet" href="/static/node_modules/ngImgCrop/compile/minified/ng-img-crop.css">
 
@@ -29,6 +34,7 @@
     <script src="/static/scripts/controllers/SideNavLeftController.js"></script>
     <script src="/static/scripts/controllers/updateUserController.js"></script>
     <script src="/static/scripts/controllers/skillsController.js"></script>
+    <script src="/static/scripts/controllers/ValidationController.js"></script>
 
     <script src="/static/scripts/directives/directives.js"></script>
     <script src="/static/scripts/factories/Authfactory.js"></script>
@@ -39,19 +45,20 @@
 
 
 </head>
-{% verbatim %}
-<body ng-app="promazo" ng-controller="homeController" layout="column" >
+
+<body ng-app="promazo" ng-controller="homeController" layout="column" ng-init="{{initData}}">
 
 <!-- if logged in -->
+<div ng-if="callType"  class="login_body" layout="column" flex ng-include="'/static/templates/validate/validate.html'"></div>
+<div ng-if="!callType" layout="column">
     <div ng-if="currentUser" flex class="user_page" layout="column" ng-include="'/static/templates/user_main.html'"></div>
 
 <!-- if not logged in -->
 
-    <div ng-if="!currentUser" flex>
-        <div flex ng-include="'/static/templates/login-page.html'"></div>
-    </div>
 
+    <div ng-if="!currentUser" flex ng-include="'/static/templates/login-page.html'" layout="column" class="login_body"></div>
+</div>
 
 </body>
-{% endverbatim %}
+
 </html>

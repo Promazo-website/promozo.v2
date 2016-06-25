@@ -17,27 +17,27 @@ promazo.controller('registerController',function( $scope,$http,$mdToast,$timeout
               $scope.views.find_organisation=true;
               $scope.views.select_organisation=true;
           });
-          views.select_organisation=true;
+          $scope.views.select_organisation=true;
     };
     
-    $scope.CreateOrganisation = function(views,formdata) {
+    $scope.CreateOrganisation = function(formdata) {
         if(formdata.type =='University'){
             OrgService.createUniversity(formdata.organisation_name)
-                .success(function(data){
-                    $scope.formdata.orgainsation=data;
+                .then(function(data){
+                    $scope.formdata.organisation=data;
                     $scope.views.stage=2;
-                })
-                .error(function(){
+                },
+                function(){
                     $scope.openToast('Creation of University Failed')
                 });
         };
         if(formdata.type =='Business'){
             OrgService.createBusiness(formdata.organisation_name)
-                .success(function(data){
+                .then(function(data){
                     $scope.formdata.organisation=data;
                     $scope.views.stage=2;
-                })
-                .error(function(){
+                }
+                ,function(){
                     $scope.openToast('Creation of Business Failed')
                 });
         };
@@ -46,11 +46,11 @@ promazo.controller('registerController',function( $scope,$http,$mdToast,$timeout
     
     $scope.signup = function(formdata) {
         AuthService.register(formdata)
-            .success(function() {
+            .then(function() {
                 $scope.registerMessage = 'Please Check your inbox for a validation email';
                 $scope.registerClass = "md-primary"
-            })
-            .error(function(){
+            },
+            function(){
                 $scope.registerMessage = 'Sorry, An error has occured in signup';
                 $scope.registerClass = "md-warn";
             });

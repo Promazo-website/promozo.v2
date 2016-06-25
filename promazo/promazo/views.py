@@ -9,8 +9,9 @@ def Main(request):
     '''
     return render_to_response('base.html',{}, context_instance=RequestContext(request))
 
-def Verification(request):
+def Verification(request,DateHash,UserHash):
     """
     Render an Angular Interface to validate a user and allow them to set their password
     """
-    return render_to_response('validation.html',{}, context_instance=RequestContext(request))
+    c={'initData':"callType='validate';DateHash='%s';UserHash='%s';" % (DateHash,UserHash)}
+    return render_to_response('base.html',c, context_instance=RequestContext(request))
