@@ -15,14 +15,23 @@ class projectRoleTypes(baseModel):
 class projectRoles(baseModel):
     name = models.CharField(max_length=200)
     roleType = models.ForeignKey(projectRoleTypes)
-    numHours = models.SmallIntegerField() #there should not be hours estimates over 32767 hrs.
+    numHours = models.IntegerField() #there should not be hours estimates over 32767 hrs.
 ####################################################
 #Project Place
 class projectPlaces(baseModel):
+    name = models.CharField(max_length=200)
     projectRole = models.ManyToManyField(projectRoles,related_name="Is_a_part")
     userStartDate = models.DateField(auto_now=True,auto_now_add=False)
     endDate = models.DateField()
-    #status = #TODO select or a text field
+    #Setup Status options
+    status = models.CharField(
+        max_length = 50,
+        choices = (
+            ('Inactive','Inactive'),
+            ('Active','Active')
+        ),
+        default='Active' #Upon creation, a place will probably be active
+    )
     numHours = models.SmallIntegerField()
     notes = models.TextField()
 ####################################################
@@ -43,4 +52,3 @@ class projectTasks(baseModel):
     taskName = models.CharField(max_length=200)
     #status = #TODO what is status? is it select or text field
     #PercentageCompleted #TODO, should we calculate or just enter a number
-####################################################

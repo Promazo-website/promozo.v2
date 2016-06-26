@@ -19,20 +19,21 @@ class projectRoles(baseModel):
 ####################################################
 #Project Place
 class projectPlaces(baseModel):
-    #projectRole = models.ManayToManyField(projectRole)
+    name = models.CharField(max_length=200)
+    projectRole = models.ManyToManyField(projectRoles,related_name="Is_a_part")
     userStartDate = models.DateField(auto_now=True,auto_now_add=False)
     endDate = models.DateField()
     #status = #TODO select or a text field
-    #numHours = SmallIntegerField()
+    numHours = models.SmallIntegerField()
     notes = models.TextField()
 ####################################################
 #Project
 class projects(baseModel):
-    #profile = models.ManayToManyField(User,related_name='member_of')
+    profile = models.ManyToManyField(User,related_name='Is_member',blank=True)
     #TODO how do we relate users to projects (shouldn't it be MANYTOMANY?
     #TODO what is the related field
     #owner #TODO who are the actual owners
-    #roles = models.ForeignKey() #TODO, create a one_to_many
+    roles = models.ForeignKey(projectRoles) #TODO, create a one_to_many
     name = models.CharField(max_length=200)
     description = models.TextField()
     #status #TODO: what are statuses
