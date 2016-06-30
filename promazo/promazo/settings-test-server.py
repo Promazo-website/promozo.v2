@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'super_inlines',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,8 +51,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'core',
     'skills',
-
-
+    'pod',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -139,8 +139,15 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+
 STATICFILES_DIRS = (BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Temp setting pushes email output to the console during development
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}

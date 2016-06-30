@@ -53,8 +53,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'core',
     'skills',
-    'pod',
     'projects',
+    'pod',
 
 
 ]

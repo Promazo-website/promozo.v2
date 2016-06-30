@@ -1,0 +1,50 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800);
+
+body, html {
+    background-color: gainsboro !important;
+}
+
+md-content {
+    background-color: transparent;
+}
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:500px;
+    height:350px;
+}
+
+.avatar {
+    width:200px;
+    height:200px;
+    border-radius: 100%;
+}
+
+.avatar_toolbar {
+    margin: 10px 10px 0px 10px;
+    border-radius: 5%;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-position: center;
+}
+
+.register {
+    overflow: hidden;
+
+}
+
+.register.ng-enter,
+.register.ng-show {
+    animation: flipInX 1s;
+
+}
+
+.regsiter.ng-leave,
+.register.ng-hide {
+    animation: flipOutX 1s;
+}

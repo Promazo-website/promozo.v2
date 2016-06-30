@@ -1,7 +1,7 @@
 /**
  * Created by marc on 05/06/16.
  */
-promazo.controller('skillsController',function( $scope,$http,$mdToast,$timeout,SkillsService) {
+promazo.controller('skillsController',function( $scope,$http,$log,$mdToast,$timeout,SkillsService) {
     
     $scope.loginQuestion={Question:null,Answers:null,UserAnswer:null};
     $scope.nextQuestion=false;
@@ -10,6 +10,10 @@ promazo.controller('skillsController',function( $scope,$http,$mdToast,$timeout,S
     $scope.newQuestion = function() {
         SkillsService.getLoginQuestion()
             .then(function (data) {
+                if(data=='no_questions') {
+                    $scope.setCurrentPage("home");
+                    return;
+                }
                 $scope.loginQuestion.Question=data;
                 $scope.loginQuestion.Answers=data.answers;
                 $scope.loginQuestion.UserAnswer=null;

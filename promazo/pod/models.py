@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 class podPermissions(baseModel):
     permission = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.permission
+
 class podRole(baseModel):
     name = models.CharField(max_length=200)
     permssions = models.ManyToManyField(podPermissions)
@@ -28,7 +31,7 @@ class podMembers(baseModel):
     role = models.ForeignKey(podRole)
 
     def __str__(self):
-        return "Pod(%s) Role(%s) User(%s)" % (self.pod.name, self.role.name, self.user.username)
+        return "Pod(%s) Role(%s) User(%s)" % (self.pod.name, self.role.name, self.member.username)
 
     def permissions(self):
         return self.role.permissions.all()

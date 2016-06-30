@@ -1,26 +1,49 @@
 /**
  * Created by marc on 22/05/16.
  */
-promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,AuthService, ProfileService,$mdSidenav) {
+promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,AuthService, ProfileService,$mdSidenav,PodService,$mdMedia) {
     $scope.currentUser = null;
-    $scope.currentPage= null;
+    $scope.currentPage= 'home';
     $scope.currentProfile=null;
     $scope.currentType=null;
     $scope.currrentBusiness=null;
     $scope.currentUniversity=null;
     $scope.currentScore=0;
+    $scope.currentPods=null;
+    $scope.callType=null;
+    $scope.DateHash=null;
+    $scope.UserHash=null;
 
 
+
+
+    
     AuthService.user_details()
         .then(function(data){
             $scope.setCurrentUser(data);
         });
 
-    ProfileService.get_user_score()
-        .then( function (data){
-            $scope.setCurrentScore(data)
-        });
+    $scope.$watch('currentUser', function(New,Old) {
+        if(New!=null) {
+            PodService.get_user_pods()
+                .then(function (data) {
+                    $scope.currentPods = data;
+                });
+        }
+    });
+    
+    $scope.$watch('currentProfile',function(New,Old){
+        ProfileService.get_user_score()
+            .then(function(data){
+                $scope.currentScore=data;
+            })
+    });
 
+    $scope.blankCallType = function () {
+        $scope.callType=null;
+        $scope.goto('/');
+    };
+    
     $scope.setCurrentUser = function (user) {
         if (user==null){
             return $scope.deleteCurrentUser();
@@ -92,7 +115,10 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
     $scope.SideNavOpen = function(SideNav) {
         $mdSidenav(SideNav).open();
     };
-    
+
+    $scope.goto=function(url){
+        window.location.assign(url);
+    };
 });
 
 
