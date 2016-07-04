@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="/static/css/login.css">
     <link rel="stylesheet" href="/static/node_modules/angular-material/angular-material.css">
     <link rel="stylesheet" href="/static/node_modules/ngImgCrop/compile/minified/ng-img-crop.css">
+    <link href="/static/pm-sketch-icons/css/pm-icons-embedded.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/how-it-works.css" rel="stylesheet" type="text/css">
 
 
     <script src="/static/scripts/controllers/module.js"></script>
@@ -50,15 +52,22 @@
 
 <!-- if logged in -->
 <div ng-if="callType"  class="login_body" layout="column" flex ng-include="'/static/templates/validate/validate.html'"></div>
-<div ng-if="!callType" layout="column">
+<div ng-if="!callType" layout="column" flex>
     <div ng-if="currentUser" flex class="user_page" layout="column" ng-include="'/static/templates/user_main.html'"></div>
 
 <!-- if not logged in -->
 
 
-    <div ng-if="!currentUser" flex ng-include="'/static/templates/login-page.html'" layout="column" class="login_body"></div>
-</div>
-
+    <span ng-if="!currentUser" flex layout="column" flex>
+        <span ng-switch="micrositePage" layout="column" flex>
+        <span ng-switch-when="home" layout="column" flex><div ng-include="'/static/templates/login-page.html'" layout="column" class="login_body" flex></div></span>
+        <span ng-switch-when="stu_hiw" layout="column"><div ng-include="'/static/templates/microsite_stu_hiw.html'" layout="column" flex></div></span>
+        <span ng-switch-when="bus_hiw" layout="column"><div ng-include="'/static/templates/microsite_bus_hiw.html'" layout="column" class="bus_hiw" flex></div></span>
+        <span ng-switch-when="ss_main" layout="column"><div ng-include="'/static/templates/microsite_ss_page1.html'" layout="column" flex></div></span>
+        <span ng-switch-when="ss-stu-1" layout="column"><div ng-include="'/static/templates/microsite_ss_story1.html'" layout="column" flex></div></span>
+        </span>
+    </span>
+    </div>
 </body>
 
 </html>

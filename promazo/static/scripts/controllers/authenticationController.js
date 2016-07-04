@@ -2,7 +2,9 @@
  * Created by marc on 22/05/16.
  */
 promazo.controller('authenticationController',function( $scope,$rootScope,$http,$mdToast,$timeout,AUTH_EVENTS, AuthService) {
-    
+
+    $scope.ani_classes={pr1:'',pr2:'',pr3:'',pr4:'',pr5:'',pr6:'',pr7:'',pr8:''};    
+   
     $scope.credentials = {
         username: '',
         password: '',
@@ -32,6 +34,7 @@ promazo.controller('authenticationController',function( $scope,$rootScope,$http,
           .position('top left')
       );
     };
+    
 
     $scope.login = function(credentials) {
 
@@ -79,5 +82,42 @@ promazo.controller('authenticationController',function( $scope,$rootScope,$http,
                 $scope.resetClass = "md-warn"
             })
     };
+
+
+    $scope.addclasses=function (item) {
+        if(item=='') {
+            return 'show_info animated fadeIn'
+        } else {
+            return ''
+        }
+    };
+
+    $scope.toggleProjects = function(item) {
+        
+        if(item==1) {
+            $scope.ani_classes.pr1 = $scope.addclasses($scope.ani_classes.pr1);
+        } 
+        if(item==2) {
+            $scope.ani_classes.pr2 = $scope.addclasses($scope.ani_classes.pr2);
+        } 
+        if(item==3) {
+            $scope.ani_classes.pr3 = $scope.addclasses($scope.ani_classes.pr3);
+        }         
+        if(item==4) {
+            $scope.ani_classes.pr4 = $scope.addclasses($scope.ani_classes.pr4);
+        }  
+        if(item==5) {
+            $scope.ani_classes.pr5 = $scope.addclasses($scope.ani_classes.pr5);
+        }
+        if(item==6) {
+            $scope.ani_classes.pr6 = $scope.addclasses($scope.ani_classes.pr6);
+        }  
+        if(item==7) {
+            $scope.ani_classes.pr7 = $scope.addclasses($scope.ani_classes.pr7);
+        }  
+        if(item==8) {
+            $scope.ani_classes.pr8 = $scope.addclasses($scope.ani_classes.pr8);
+        }  
+    }
 
 });

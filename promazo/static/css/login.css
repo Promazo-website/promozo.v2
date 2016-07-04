@@ -5,6 +5,22 @@
     background-position: center;
 }
 
+.stu_hiw {
+    background: url("/static/images/student-group-1.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bus_hiw {
+    background: url("/static/images/office-3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
 .login_toolbar {
     background-color:  rgba(0,0,0,0.1) !important;
     position: fixed;
@@ -25,4 +41,18 @@
 }
 .text-white {
     color: whitesmoke;
+}
+
+.show_info {}
+
+.show_info ul {
+    opacity: 1 !important;
+}
+
+.show_info p {
+    opacity : 0 !important;
+}
+
+.show_info i {
+    font-size: 60px !important;
 }
