@@ -48,3 +48,151 @@ md-content {
 .register.ng-hide {
     animation: flipOutX 1s;
 }
+
+
+.student_toolbar {
+    position: fixed;
+
+}
+
+.user_page {
+    background: url("/static/images/balloon_background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.ss_main {
+    background: url("/static/images/student_stories_alt.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 5;
+}
+
+.sss-stu-1 {
+    background: #111 url("../images/ss-frank-bg.jpg") top center no-repeat;
+    background-size: cover;
+}
+.sss-stu-2 {
+    background: #111 url("../images/ss-sam-bg.jpg") top center no-repeat;
+}
+
+.sss-stu-2-crop {
+    background: #111 url("../images/ss-sam-crop.jpg") center center no-repeat;
+}
+
+.sss-stu-3 {
+    background: #111 url("../images/ss-mary-bg.jpg") top center no-repeat;
+}
+
+.sss-stu-1-quote {
+    background: #111 url("../images/ss-frank-quote.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+.sss-stu-2-quote {
+    background: #111 url("../images/ss-sam-bg.jpg") bottom center no-repeat;
+}
+
+.sss-stu-3-quote {
+    background: #111 url("../images/ss-mary-quote.jpg") center center no-repeat;
+}
+
+.sss-stu-1-t {
+    background: #111 url("../images/ss-frank-bg.jpg") center center no-repeat;
+}
+
+.sss-stu-2-t {
+    background: #111 url("../images/ss-sam-bg.jpg") center center no-repeat;
+}
+
+.sss-stu-3-t {
+    background: #111 url("../images/ss-mary-bg.jpg") center center no-repeat;
+}
+
+
+.work-story-entry {
+    height: 300px;
+    color: #fff;
+    padding: 0;
+    -moz-transition: -moz-transform 0.2s ease 0s;
+    -webkit-transition: -webkit-transform 0.2s ease 0s;
+    -o-transition: -o-transform 0.2s ease 0s;
+    transition: transform 0.2s ease 0s;
+}
+
+
+.work-story-entry:hover,
+.work-story-entry:focus,
+.work-story-entry:active {
+    -ms-transform: scale(0.96);
+    -moz-transform: scale(0.96);
+    -webkit-transform: scale(0.96);
+    -o-transform: scale(0.96);
+    transform: scale(0.96);
+}
+
+.work-story-entry .logo {
+    display: block;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+    font-family: Georgia, Cambria, serif;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: 400;
+    letter-spacing: -1px;
+}
+.teaser {
+    height: 200px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 70px;
+    z-index: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -moz-transition: -moz-transform 0.2s ease 0s;
+    -webkit-transition: -webkit-transform 0.2s ease 0s;
+    -o-transition: -o-transform 0.2s ease 0s;
+    transition: transform 0.2s ease 0s;
+}
+
+.teaser:hover,
+.teaser:focus,
+.teaser:active {
+    -ms-transform: scale(0.96);
+    -moz-transform: scale(0.96);
+    -webkit-transform: scale(0.96);
+    -o-transform: scale(0.96);
+    transform: scale(0.96);
+}
+
+
+.teaser i {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    right: 0px;
+    padding: 15px 0;
+    height: 50px;
+    text-align: center;
+    font-size: 32px;
+}
+
+
+.ms-headline {
+    color: #709900;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    padding-top:30px;
+}

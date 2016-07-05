@@ -13,11 +13,12 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
     $scope.callType=null;
     $scope.DateHash=null;
     $scope.UserHash=null;
+    $scope.micrositePage='home';    
 
-
-
-
-    
+    $scope.setMicrositePage = function (page) {
+        $scope.micrositePage=page;
+        
+    };
     AuthService.user_details()
         .then(function(data){
             $scope.setCurrentUser(data);

@@ -1,8 +1,15 @@
 <div layout="column" style="margin-top:100px; margin-bottom:300px;" flex layout-align="center stretch">
-<div layout="column" layout-align="center center" style="height:350px;">
+<div layout="column" layout-align="center center" style="height:200px;">
     <div class="tag-line md-display-3 text-white" style="text-align: center">Recruiting talent is difficult</div>
     <div class="tag-line md-headline text-white" style="text-align: center">ProMazo simplifies the process and enables companies to better evaluate prospective students.</div>
 </div>
+    <md-toolbar style="background-color:  rgba(0,0,0,0.5) !important;" class="md-toolbar-tools">
+        <div flex></div>
+        <div class="text-white tag-line" ng-mouseleave="unsetTestClasses()" style="font-style: italic">Where do you want to go?</div>
+        <md-button style="border:1px solid #f26f70;" ng-click="setMicrositePage('stu_hiw')"><div style="color:#f26f70;padding-left:20px;padding-right: 20px;">I'm A Student</div></md-button>
+        <md-button style="border:1px solid #f26f70;" ng-click="setMicrositePage('bus_hiw')"><div style="color:#f26f70;padding-left:20px;padding-right: 20px;">I'm A company</div></md-button><div flex></div>
+    </md-toolbar>
+    <br><br>
 <div style="background-color: whitesmoke;min-height:400px;" layout-align="center center" flex>
     <div layout="column" layout-align="center center" layout-gt-sm="row" flex-gt-sm="70" flex-offset-gt-sm="15">
         <img src="/static/images/pm-desk-4.png" style="max-width: 600px; padding:20px;">
@@ -13,7 +20,7 @@
     </div>
 </div>
 
-<div  flex style="background-image: url('/static/images/intro-promazo_flip.jpg');background-repeat: no-repeat;background-position:center; min-height:400px;" layout-align="center stretch">
+<div flex style="background-image: url('/static/images/intro-promazo_flip.jpg');background-repeat: no-repeat;background-position:center; min-height:400px;" layout-align="center stretch">
     <div layout="row" flex layout-xs="column" layout-sm="column" layout-align="center stretch" style="min-height:400px;">
         <div layout="column" flex-offset="5" layout-align="center start" class="md-padding">
             <div class="tag-line text-white md-display-1">Introducing ProMazo</div>
@@ -37,7 +44,7 @@
 </div>
 
 
-<div  flex style="background-image: url('/static/images/student_bg.png');background-repeat: repeat;background-position:center; min-height:400px;" layout-align="center center">
+<div flex style="background-image: url('/static/images/student_bg.png');background-repeat: repeat;background-position:center; min-height:400px;" layout-align="center center">
     <div layout="row" flex="90" layout-xs="column" layout-sm="column" layout-align="center center" style="min-height:400px;">
         <div layout="column" flex-offset="5" layout-align="center start" class="md-padding">
             <div class="tag-line text-white md-display-1">Connecting to Students</div>
