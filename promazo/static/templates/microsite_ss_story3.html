@@ -1,0 +1,99 @@
+<div class="signup" ng-controller="authenticationController" flex >
+<span ng-include="'/static/templates/login_toolbar.html'" ></span>
+<md-content layout="column" layout-align="center none" style="z-index:1;">
+
+    <div layout="column" flex layout-align="start stretch">
+        <div class="sss-stu-3">
+            <div style="height:150px"></div>
+        <div layout="column" layout-gt-sm="row" layout-align="start center" style="height:120px; margin-bottom: 50px;">
+            <img style="border-radius: 100%; height:200px; width: 200px;" src="/static/images/ss-mary-profile.jpg" flex-offset-gt-sm="10"/>
+            <div layout="column" flex flex-offset-gt-sm="5">
+                <div class="md-display-1 text-white tag-line">Mary Schlegel</div>
+                <div class="text-white tag-line md-headline">Class of 2016</div>
+                <div class="text-white tag-line md-headline">Mendoza College of Business</div>
+                <div class="text-white tag-line md-headline">ITM and Economics</div>
+            </div>
+
+        </div>
+            <div style="height:70px;"></div>
+        </div>
+        <div layout="column" layout-gt-sm="row" layout-align="center center" style="background-color: lightgray;height:70px;">
+            <div flex></div>
+            <div style="color: #709900;">INTERESTS:</div>
+            <div flex-offset="5">START-UPS</div>
+            <div flex-offset="5">ADVENTURES</div>
+            <div flex-offset="5">BOARD GAMES</div>
+            <div flex-offset="5">INNOVATION</div>
+            <div flex></div>
+        </div>
+        <div layout="column" layout-gt-sm="row" layout-align="center center" style="background-color: whitesmoke;height:90px;">
+            <div flex></div>
+            <div style="color: #709900;">FUN FACT:</div>
+            <div flex-offset="5" class="tag-line">Used to be asked by parents to show up as Lilo at their kids' parties.</div>
+            <div flex></div>
+        </div>
+    <div  layout="row" layout-align="center center" class="sss-stu-2-quote" flex>
+        <div flex></div>
+        <div layout="column" layout-align="center center" flex-gt-sm="50">
+            <p class="tag-line md-headline text-white" style="font-style: italic">I cannot decide whether the best part of this experience has been what I have learned or helping others learn. Either way, it continues to be an education unlike anything I have ever experienced before."</p>
+            <p class=" text-white md-headline">&mdash; Sam Melgar</p>
+        </div>
+        <div flex></div>
+    </div>
+
+    <div layout="row" layout-align="center center" style="background-color: whitesmoke">
+        <div flex></div>
+        <div flex-gt-sm="50" layout="column">
+            <div class="ms-headline">Why did you join ProMazo?</div>
+            <p class="tag-line" style="font-style: italic">I applied to an internship because I saw a lot of opportunity and value in applying my studies to solve real world problems. There were no other outlets for such hands-on professional development, and I wanted to challenge myself. I joined the council when I discovered that even as students, we had the ability to influence and build a company that could benefit our peers and countless others. The dynamic start-up nature of ProMazo was a natural environment for me to learn, grow, and unleash my own potential while enabling others to do the same.</p>
+            <div class="ms-headline">What have you learned?</div>
+            <p class="tag-line" style="font-style: italic">I have learned so much in my eight months with ProMazo. From working in an internship developing software I never would have believed I could create to honing my management skills, I am learning how to effectively collaborate and lead others. On the short list, I am learning how to give professional pitches, recruit and interview prospects, train others, streamline processes, write contracts, and interface with clients. My favorite part of ProMazo is that I actually have the power to influence change and implement my ideas rather than just discuss them. I have learned to speak up, believe in my ideas, and work hard to get the job done.</p>
+            <div class="ms-headline">What is the most interesting thing you have done?</div>
+            <p class="tag-line" style="font-style: italic">I would have to say there are two pretty interesting things I have done with ProMazo. One is developing management software and subsequently training managers at the company on how to use it. The other is implementing new committees and processes to support ProMazo’s future endeavors.</p>
+            <div class="ms-headline">How did ProMazo help you determine what you want to do?</div>
+            <p class="tag-line" style="font-style: italic">I gravitate towards start-ups and strive to start my own company one day, as well as a non-profit to help unlock women’s potential around the world. As we build ProMazo from the ground up, I am learning how to navigate and make the most of such a rapidly evolving environment. I also realized how much I love mentoring and helping my peers discover their own talents and passions. I now know that I need to work for a company that will create more opportunities for those around me; I want to serve as a catalyst that propels others toward successful, meaningful futures.</p>
+            <div class="ms-headline">How did ProMazo prepare you for life after college?</div>
+            <p class="tag-line" style="font-style: italic">ProMazo has prepared me professionally in multiple ways. I feel comfortable pitching and interfacing with clients. I can present my own ideas and products to managers and clients. Even my understanding of successful teamwork and management has grown remarkably, preparing me to better communicate and lead in the future. And though I thought I had pretty decent time management skills before, I now feel that I am better poised to manage myself and handle stressful deadlines.</p>
+        </div>
+        <div flex></div>
+    </div>
+
+    </div>
+
+
+
+
+</md-content>
+<div layout="column" flex style="height:300px; z-index:-9999">Hidden section</div>
+</div>
+
+
+
+<div layout="column" flex
+     style="background-image: url('/static/images/ss-frank-bg.jpg'); background-position: center; position: fixed;z-index:0;left:0; bottom:0; height:300px; width:100%"
+     layout="center center" ng-click="setMicrositePage('ss-stu-1')">
+    <div flex></div>
+    <div layout="row" layout-align="center center" >
+    <div class="text-white tag-line md-headline">Up Next&emsp;Frank Somich</div>
+    </div>
+    <div layout="row" layout-align="center center">
+    <div class="tag-line text-white md-headline" style="padding-bottom: 50px; padding-top: 10px;"  ng-click="setMicrositePage('ss-stu-1')">Promazo continues to be an education unlike anything I have ever experienced before</div>
+    </div>
+    <div layout="row" layout-align="center center" class="md-padding">
+    <md-icon class="text-white" style="font-size: 50px;">keyboard_arrow_down</md-icon>
+    </div>
+    <div style="background-color: black;">
+        <div layout="row">
+            <md-icon md-svg-icon="Extras:facebook-box" style="color:lightgray;font-size: 30px;"></md-icon>
+            <md-icon md-svg-icon="Extras:tumblr" style="color:lightgray;font-size: 30px;"></md-icon>
+            <md-icon md-svg-icon="Extras:linkedin-box" style="color:lightgray;font-size: 30px;"></md-icon>
+            <div flex></div>
+            <div layout="column" class="text-white md-padding" layout-align="end end">
+                <div><md-icon style="color:lightgray">copyright</md-icon>2015  questions@promazo.com  Notre Dame, IN 46556</div>
+                <div>(858) 245-9965</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>

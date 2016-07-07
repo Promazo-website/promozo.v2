@@ -1,0 +1,122 @@
+<div class="signup" ng-controller="authenticationController" flex >
+<span ng-include="'/static/templates/login_toolbar.html'" ></span>
+<md-content layout="column" layout-align="center none" style="margin-top:60px;">
+
+    <div layout-align="center">
+            <md-card style="margin-top: 60px;"
+                  class="md-padding" md-whiteframe="5"
+                  flex-gt-md="40" flex-offset-gt-md="30" flex-md="70"
+                  flex-offset-md="15" flex-sm="80" flex-offset-sm="10" flex="100" ng-controller="registerController" >
+
+            <md-card-title>
+                <md-card-title-text class="md-card-title-text">
+                    ProMazo SignUp
+                </md-card-title-text>
+            </md-card-title>
+
+
+        <md-card-content ng-show="views.stage==1">
+        <form name="loginEmailForm">
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" name="email" ng-model="formdata.email" ng-change="formdata.type='';formdata.organisation='';views.select_organisation=false;views.find_organisation=false;" required placeholder="">
+                <div ng-messages="loginEmailForm.email.$error">
+                    <div ng-message="required">Please enter you email address</div>
+                    <div ng-message="email">Not a valid email address</div>
+                </div>
+            </md-input-container>
+
+            <md-button class="md-raised row-button"  ng-click="FindOrganisation(formdata.email)" >proccess</md-button>
+
+        </form>
+
+            <div ng-show="views.select_organisation">
+                <div ng-show="views.find_organisation">
+                    <br><br>
+                    <div md-whiteframe="4" style="=border.radius:10px;padding:15px;">
+                        <div>Our Records show that your email is registered with ProMazo to a {{formdata.type}} called</div>
+
+                        <h3>{{formdata.organisation.name}}</h3>
+
+                    <md-button class="md-raised row-button" ng-click="views.stage=2">This is Correct</md-button>
+                        <br><br>
+                     <md-button class="md-primary">If not, please enter a new email, or contact support</md-button>
+                     </div>
+                </div>
+                <div ng-hide="views.find_organisation">
+                    <div md-whiteframe="4" style="=border.radius:10px;padding:15px;">
+                        <div>Your email does not match any records in our database. Please fill in the form below to
+                            register a new University or Business. Also be aware that this organisation will need to be
+                        verfified by ProMazo before selected functionality becomes available</div>
+                        <br><br>
+                            <form name="organisationForm">
+                                <label>Select Your Organisation Type</label>
+                                <md-radio-group ng-model="formdata.type">
+                                    <md-radio-button value="University">University</md-radio-button>
+                                    <md-radio-button value="Business">Business</md-radio-button>
+                                </md-radio-group>
+                                <md-input-container class="md-block">
+                                    <label>{{formdata.type}} Name</label>
+                                    <input type="text" ng-model="formdata.organisation_name">
+                                </md-input-container>
+                                <md-button class="md-raised row-button" ng-click="CreateOrganisation(formdata)">Create</md-button>
+                            </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </md-card-content>
+
+
+        <md-card-content ng-show="views.stage==2">
+            <h4>Thanks</h4>
+            <h4>Please enter details needed to create a user for {{formdata.organisation_name}}</h4>
+            <br>
+        <form name="loginForm">
+            <md-input-container class="md-block">
+                <label>Username</label>
+                <input type="text" name="username" ng-model="formdata.username" required ng-minlength="4" ng-maxlength="100" placeholder="" username-validator/>
+                <div ng-messages="loginForm.username.$error">
+                    <div ng-message="required">Please enter a Username</div>
+                    <div ng-message="username">Username already in use</div>
+                    <div ng-message="minlength">username is too short</div>
+                    <div ng-message="maxlength">username is too long</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>First Name</label>
+                <input type="text" name="first_name" ng-model="formdata.first_name" required ng-minlength="2" ng-maxlength="100" placeholder=""/>
+                <div ng-messages="loginForm.first_name.$error">
+                    <div ng-message="required">Please enter you first name</div>
+                    <div ng-message="minlength">Name is too short</div>
+                    <div ng-message="maxlength">Name is too long</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Last Name</label>
+                <input type="text" name="last_name" ng-model="formdata.last_name" required ng-minlength="2" ng-maxlength="100" placeholder=""/>
+                <div ng-messages="loginForm.last_name.$error">
+                    <div ng-message="required">Please enter you last name</div>
+                    <div ng-message="minlength">Name is too short</div>
+                    <div ng-message="maxlength">Name is too long</div>
+                </div>
+            </md-input-container>
+
+            <md-button flex class="md-raised row-button"  ng-click="signup(formdata)" >Send</md-button>
+
+        </form>
+            <br>
+            <md-divider></md-divider>
+            <br>
+            <div ng-if="registerMessage">
+                <md-button ng-class="registerClass">{{registerMessage}}</md-button>
+            </div>
+        </md-card-content>
+
+    </md-card>
+        </div>
+   </md-content>
+ </div>

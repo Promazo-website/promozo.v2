@@ -1,9 +1,11 @@
 <div class="signup" ng-controller="authenticationController" flex >
 <span ng-include="'/static/templates/login_toolbar.html'" ></span>
-<md-content layout="column" layout-align="center none" style="margin-top:60px; z-index:1;">
+<md-content layout="column" layout-align="center none">
 
 
-<div layout="column" style="margin-top:100px; " flex layout-align="center stretch">
+<div layout="column" style="z-index:1; " flex layout-align="center stretch">
+  <div class="bus_hiw">
+   <div style="height:150px;"></div>
 <div layout="column" layout-align="center center" style="height:200px;">
     <div class="tag-line md-headline text-white" style="text-align: center">THERE's ALWAYS MORE WORK THAN TIME IN THE DAY</div>
     <div class="tag-line md-display-2 text-white" style="text-align: center; border-top:1px solid white;border-bottom:1px solid white;">Reinvent how you get work done</div>
@@ -18,6 +20,7 @@
             <div class="tag-line md-display-1">Introducing ProMazo:</div>
             <div class="tag-line md-headline">A new way to get work done</div>
     </div>
+</div>
 </div>
 <div layout="column" layout-align="center center" flex>
 <div layout="column" layout-gt-sm="row" id="how-it-works-diagram" layout-align="center center" flex style="background-color: whitesmoke">
@@ -165,9 +168,12 @@
 </div>
 </md-content>
 
-<div layout="column" style="height:300px; z-index: -9999"></div>
+<div layout="column" flex style="height:300px; z-index:-9999">Hidden section</div>
+
+
 <div layout="column" flex
-     style="background-image: url('/static/images/city-1-bw.jpg'); background-position: center; position: fixed;z-index:0;left:0; bottom:0; height:300px; width:100%" layout="center center">
+     style="background-image: url('/static/images/city-1-bw.jpg'); background-position: center; position: fixed;z-index:0;left:0; bottom:0; height:300px; width:100%"
+     layout="center center" ng-click="setMicrositePage('cw_main')">
     <div flex></div>
     <div layout="row" layout-align="center center">
     <div class="text-white tag-line md-headline">UP NEXT CASE STUDIES</div>

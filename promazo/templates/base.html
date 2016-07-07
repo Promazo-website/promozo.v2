@@ -60,11 +60,51 @@
 
     <span ng-if="!currentUser" flex layout="column" flex>
         <span ng-switch="micrositePage" layout="column" flex>
-        <span ng-switch-when="home" layout="column" flex><div ng-include="'/static/templates/login-page.html'" layout="column" class="login_body" flex></div></span>
-        <span ng-switch-when="stu_hiw" layout="column"><div ng-include="'/static/templates/microsite_stu_hiw.html'" layout="column" flex></div></span>
-        <span ng-switch-when="bus_hiw" layout="column"><div ng-include="'/static/templates/microsite_bus_hiw.html'" layout="column" class="bus_hiw" flex></div></span>
-        <span ng-switch-when="ss_main" layout="column"><div ng-include="'/static/templates/microsite_ss_page1.html'" layout="column" flex></div></span>
-        <span ng-switch-when="ss-stu-1" layout="column"><div ng-include="'/static/templates/microsite_ss_story1.html'" layout="column" flex></div></span>
+
+            <span ng-switch-when="home" layout="column" flex>
+                <div ng-include="'/static/templates/microsite_home.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="sign-in" layout="column" flex>
+                <div ng-include="'/static/templates/login-page.html'" layout="column" class="login_body" flex></div>
+            </span>
+            <span ng-switch-when="sign-up" layout="column" flex>
+                <div ng-include="'/static/templates/signup-page.html'" layout="column" class="login_body" flex></div>
+            </span>
+            <span ng-switch-when="stu_hiw" layout="column" flex>
+                <div ng-include="'/static/templates/microsite_stu_hiw.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="ss_main" layout="column">
+                <div ng-include="'/static/templates/microsite_ss_main.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="ss-stu-1" layout="column">
+                <div ng-include="'/static/templates/microsite_ss_story1.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="ss-stu-2" layout="column">
+                <div ng-include="'/static/templates/microsite_ss_story2.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="ss-stu-3" layout="column">
+                <div ng-include="'/static/templates/microsite_ss_story3.html'" layout="column" flex></div>
+            </span>
+
+
+            <span ng-switch-when="bus_hiw" layout="column" flex>
+                <div ng-include="'/static/templates/microsite_bus_hiw.html'" layout="column" class="bus_hiw" flex></div>
+            </span>
+            <span ng-switch-when="cw_main" layout="column">
+                <div ng-include="'/static/templates/microsite_cw_main.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="cw-corp-1" layout="column">
+                <div ng-include="'/static/templates/microsite_cw_corp_1.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="cw-corp-2" layout="column">
+                <div ng-include="'/static/templates/microsite_cw_corp_2.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="cw-corp-3" layout="column">
+                <div ng-include="'/static/templates/microsite_cw_corp_3.html'" layout="column" flex></div>
+            </span>
+            <span ng-switch-when="cw-corp-4" layout="column">
+                <div ng-include="'/static/templates/microsite_cw_corp_4.html'" layout="column" flex></div>
+            </span>
         </span>
     </span>
     </div>

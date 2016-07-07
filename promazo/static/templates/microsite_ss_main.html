@@ -1,9 +1,9 @@
-<div class="signup" ng-controller="authenticationController"  flex layout-align="center stretch">
+<div class="signup" ng-controller="authenticationController" flex >
 <span ng-include="'/static/templates/login_toolbar.html'" ></span>
-<md-content layout="column" layout-align="center none" >
+<md-content layout="column" layout-align="center none">
 
 
-<div layout="column" flex layout-align="center stretch" style="z-index:5;">
+<div layout="column" style="z-index:1" flex layout-align="center stretch" >
     <div class="ss_main">
     <div style="height:150px;"></div>
 <div layout="column" layout-gt-sm="row" layout-align="center center" style="height:120px; margin-bottom: 50px;">
@@ -23,7 +23,7 @@
 </div>
 </div>
 <div layout="column" layout-align="center stretch" style="background-color: black" flex>
-    <div  layout="column" layout-align="start center" class="work-story-entry sss-stu-2-crop">
+    <div  layout="column" layout-align="start center" class="work-story-entry sss-stu-2-crop" flex ng-click="setMicrositePage('ss-stu-2')">
         <div class="logo">
             <p class="white-w-shadow"><i class="icon-pm-students-c7" style="font-size: 75px"></i>Sam Melgar</p>
         </div>
@@ -31,7 +31,7 @@
 </div>
 
 <div layout="column" layout-align="center stretch" style="background-color: black" flex>
-    <div  layout="column" layout-align="start center" class="work-story-entry sss-stu-3">
+    <div  layout="column" layout-align="start center" class="work-story-entry sss-stu-3" flex ng-click="setMicrositePage('ss-stu-3')">
         <div class="logo">
             <p class="white-w-shadow">Mary Schlegel<i class="icon-pm-students-c5" style="font-size: 75px"></i></p>
         </div>

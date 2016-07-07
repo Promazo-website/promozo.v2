@@ -104,13 +104,52 @@ md-content {
 
 .sss-stu-2-t {
     background: #111 url("../images/ss-sam-bg.jpg") center center no-repeat;
+
 }
 
 .sss-stu-3-t {
     background: #111 url("../images/ss-mary-bg.jpg") center center no-repeat;
 }
 
+.cw_main {
+    background: url("/static/images/ibm-1-watson.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 5;
+}
+.cw-corp-1 {
+    background: #111 url("/static/images/kmc-1-controls.jpg") center center no-repeat;
+}
 
+.cw-corp-2 {
+    background: #111 url("/static/images/ninestone-1.jpg") center center no-repeat;
+    background-size: cover;
+}
+
+.cw-corp-3 {
+    background: #111 url("/static/images/5-guys-1-meal.jpg") center center no-repeat;
+}
+
+.quote-ibm {
+    background: #111 url("../images/bkgrnds/ibm-2-office.jpg") center center no-repeat;
+    height:300px;
+ }
+
+.quote-kmc {
+    background: #111 url("../images/bkgrnds/kmc-2-rooftop-unit.jpg") center center no-repeat;
+    background-size: cover;
+   height:300px;
+ }
+
+.quote-ninestone {
+    background: #111 url("../images/bkgrnds/ninestone-2-boston.jpg") center center no-repeat;
+   height:300px;
+}
+
+.quote-5-guys {
+    background: #111 url("../images/bkgrnds/5-guys-2-sign.jpg") center center no-repeat;
+   height:300px;
+}
 .work-story-entry {
     height: 300px;
     color: #fff;
@@ -195,4 +234,39 @@ md-content {
     text-transform: uppercase;
     padding-bottom: 20px;
     padding-top:30px;
+}
+
+.partner_logo {
+    height:170px;
+    margin-top:30px;
+
+}
+
+
+.skills-list li {
+    text-indent: -1.6em;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    -ms-transform: scale(1,0.9);
+    -moz-transform: scale(1,0.9);
+    -webkit-transform: scale(1,0.9);
+    -o-transform: scale(1,0.9);
+    transform: scale(1,0.9);
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 0px 0px 0px 20px;
+    margin: 0px 0px 20px;
+    list-style: outside none none;
+}
+
+ul.skills-list li:before {
+    font-family: "pm-icons";
+    content: "\e803";
+    float: left;
+    width: 1.6em;
+    color: #8eb425;
 }
