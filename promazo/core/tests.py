@@ -7,7 +7,6 @@ class UserTestCase(TestCase):
     """
     Tests for the base User record
     """
-    fixtures = ['testdata']
 
     def setUp(self):
         #Logs in real generic user accounts

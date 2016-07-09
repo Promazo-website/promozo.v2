@@ -1,35 +1,46 @@
 from rest_framework import serializers
+from .models import *
 
-class projectRoleSerializer(serializers.ModelSerializer):
+class ProjectRoleTypeSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=200)
-    roleType = serializers.StringRelatedField(many=True)
-    numHours = serializers.IntegerField()
-
-class projectPlaceSerializer(serializers.ModelSerializer):
+    #There is no current part of the program that depends on this length limit, making it flexible
+    class Meta:
+        model=projectRoleTypes()
+####################################################
+# Project Role
+class ProjectRoleSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=200)
-    projectRole = serializers.StringRelatedField(many=True)
+    roleType = ProjectRoleTypeSerializer(read_only=True)
+    numHours = serializers.IntegerField() #there should not be hours estimates over 32767 hrs.
+    class Meta:
+        model=projectRoles()
+####################################################
+#Project Place
+class ProjectPlaceSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=200)
+    projectRole = ProjectRoleSerializer(read_only=True)
     userStartDate = serializers.DateField()
     endDate = serializers.DateField()
-    status = serializers.CharField(max_length=50)
+    status = serializers.CharField()
     numHours = serializers.IntegerField()
     notes = serializers.CharField()
+    class Meta:
+        model=projectPlaces()
 
-'''
-#Project Place
-class projectPlaces(baseModel):
-    name = models.CharField(max_length=200)
-    projectRole = models.ManyToManyField(projectRoles,related_name="Is_a_part")
-    userStartDate = models.DateField(auto_now=True,auto_now_add=False)
-    endDate = models.DateField()
-    #Setup Status options
-    status = models.CharField(
-        max_length = 50,
-        choices = (
-            ('Inactive','Inactive'),
-            ('Active','Active')
-        ),
-        default='Active' #Upon creation, a place will probably be active
-    )
-    numHours = models.SmallIntegerField()
-    notes = models.TextField()
-'''
+####################################################
+#Project
+class ProjectSerializer(serializers.ModelSerializer):
+    #TODO find user serializer
+    #profile = serializers.ManyToManyField(User,related_name='Is_member',blank=True)
+    roles = ProjectRoleSerializer(read_only=True,many=True)
+    name = serializers.CharField(max_length=200)
+    description = serializers.CharField()
+    class Meta:
+        model=projects()
+####################################################
+#Project Tasks
+class ProjectTaskSerializer(serializers.ModelSerializer):
+    project = ProjectSerializer(read_only=True)
+    taskName = serializers.CharField(max_length=200)
+    class Meat:
+        model=projectTasks()

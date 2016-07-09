@@ -45,13 +45,9 @@ class projectPlaces(baseModel):
 #Project
 class projects(baseModel):
     profile = models.ManyToManyField(User,related_name='Is_member',blank=True)
-    #TODO how do we relate users to projects (shouldn't it be MANYTOMANY?
-    #TODO what is the related field
-    #owner #TODO who are the actual owners
     roles = models.ForeignKey(projectRoles) #TODO, create a one_to_many
     name = models.CharField(max_length=200)
     description = models.TextField()
-    #status #TODO: what are statuses
 
     def __str__(self):
         return self.name

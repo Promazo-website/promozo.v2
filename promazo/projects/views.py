@@ -12,7 +12,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-
+return_data=[]
 
 #Getting a project list
     #Get
@@ -20,9 +20,10 @@ class listProjects(APIView):
     def __getList__(self,request):
         proj_recs = projects.objects.all()
         reurn_data=[]
-        for items in proj_recs:
+        for item in proj_recs:
             return_data.append({'project':item})
-        #ser=ProjectsSerializer(return_data,many=True)
+        ser=ProjectSerializer()
+        return ser.data
     def get(self,request,format=None):
         return Response(self.__getList__(request))
 
