@@ -50,7 +50,7 @@ class UserTestCase(TestCase):
         self.assertEqual(resp.status_code,200)
     #Now test without permissions
     def test_deleteProject_Unauthenticated
-        resp = self.student_user.delete('/api/projects/1234',{'permissions':{'pod':{'modify':True}}})
+        resp = self.student_user.delete('/api/projects/1234',{'permissions':{}})
         self.assertEqual(resp.status_code,404)
 
     # PATCH /api/project/{pk}/ to update a project
@@ -123,27 +123,27 @@ class UserTestCase(TestCase):
         self.assertEqual(resp.status_code,200)
 
 
-        
+
     # POST /api/project/place/ to create a new place within project_role_id
     def test_makeProjectPlace_Authenticated(self):
-        resp = self.student_user.post('/api/project/place',{,'permissions':{'project':{'modify':True}},'place':{}})
+        resp = self.student_user.put('/api/project/place',{'permissions':{'project':{'modify':True}},'place':{}})
         self.assertEqual(resp.status_code,200)
     def test_makeProjectPlace_Unauthenticated(self):
-        resp = self.student_user.post('/api/project/place',{,'permissions':{},'place':{}})
+        resp = self.student_user.put('/api/project/place',{'permissions':{},'place':{}})
         self.assertEqual(resp.status_code,404)
 
     #PATCH /api/project/place/{pk} modify a specific rpoject place
     def test_modifyProjectPlace_Authenticated(self):
-        resp = self.student_user.post('/api/project/place/'+pk,{,'permissions':{'project':{'modify':True}},'place':{}})
+        resp = self.student_user.post('/api/project/place/'+pk,{'permissions':{'project':{'modify':True}},'place':{}})
         self.assertEqual(resp.status_code,200)
     def test_modifyProjectPlace_Unauthenticated(self):
-        resp = self.student_user.post('/api/project/place/'+pk,{,'permissions':{},'place':{}})
+        resp = self.student_user.post('/api/project/place/'+pk,{'permissions':{},'place':{}})
         self.assertEqual(resp.status_code,404)
 
     #DELETE /api/project/place/{pk} don't delete the project place, but do mark it as disabled
     def test_deleteProjectPlace_Authenticated(self):
-        resp = self.student_user.post('/api/project/place/'+pk,{,'permissions':{'project':{'modify':True}},'place':{}})
+        resp = self.student_user.delete('/api/project/place/'+pk,{'permissions':{'project':{'modify':True}},'place':{}})
         self.assertEqual(resp.status_code,200)
     def test_deleteProjectPlace_Unauthenticated(self):
-        resp = self.student_user.post('/api/project/place/'+pk,{,'permissions':{},'place':{}})
+        resp = self.student_user.delete('/api/project/place/'+pk,{'permissions':{},'place':{}})
         self.assertEqual(resp.status_code,404)

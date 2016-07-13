@@ -31,11 +31,17 @@ class listProjects(APIView):
 class modifyProject(APIView):
     permission_classes = (IsAuthenticated,)
     def post(self,request,format=None):
-        for items in request.data['projects']:
-            proj = projects.objects.get(id=items)
-            if not projects.objects.filter(project=proj,user=request.user):
-                newproj = projects.objects.create(project=proj,user=request.user)
-        return Response(self.__getList__(request))
+        if request.data['permissions']['pod']['modify']:
+            for items in request.data['projects']:
+                proj = projects.objects.get(id=items)
+                if not projects.objects.filter(project=proj,user=request.user):
+                    newproj = projects.objects.create(project=proj,user=request.user)
+            return Response(self.__getList__(request))
+    def delete(self,request, format=None):
+        if request.data['permissions']['pod']['modify']:
+            proj = projects.objects.get(id=pk)
+            proj.delete()
+            return Response(proj)
 
 #Get all role Types
 class roleList(APIView):
@@ -82,7 +88,8 @@ class listProjectRoles(APIView):
             return_data.append({'project':item})
         #ser=ProjectsSerializer(return_data,many=True)
     def get(self,request,format=None):
-        return Response(self.__getList__(request))
+        if data['permissions']['project']['modify']:
+            return Response(self.__getList__(request))
 #Generates newPlaces
 class newPlaces(APIView):
     permission_classes = (IsAuthenticated,)
@@ -99,8 +106,9 @@ class newPlaces(APIView):
 class modifyProjectPlace(APIView):
     permission_classes = (IsAuthenticated,)
     def put(self,request,pk,format=None):
-        places=request.data['places']
-        ser=projectPlaceSerializer(request.user,data=request.data,partial=True)
+        if data['permissions']['project']['modify']:
+            places=request.data['places']
+            ser=projectPlaceSerializer(request.user,data=request.data,partial=True)
 
         if ser.is_valid():
             ser.save()
@@ -111,9 +119,11 @@ class modifyProjectPlace(APIView):
 
     def delete(self,request,pk,format=None):
         #check existance
-        place = projectPlaces.objects.filter(name=pk,user=request.user)
-        place.status = "Inactive"
-        ser = projectPlaceSerializer(request.user,data=place)
+        if data['permissions']['project']['modify']:
+            place = projectPlaces.objects.filter(name=pk,user=request.user)
+            place.status = "Inactive"
+            ser = projectPlaceSerializer(request.user,data=place)
+
         if ser.is_valid():
             ser.save()
             #login(request, user)
@@ -135,7 +145,7 @@ class listPlaces(APIView):
     def get(self,request,format=None):
         if (project in request):
             return(self.__getProjectPlacesList__(places))
-        elif (role in request):
+        elif (project_role in request):
             return(self.__getRolePlacesList__(places))
         else:
             return(self.__getUserPlacesList__(places))
