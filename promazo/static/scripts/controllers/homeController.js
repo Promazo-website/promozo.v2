@@ -63,6 +63,13 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
 
     };
     
+    $scope.updateCurrentUser = function(){
+        AuthService.user_details()
+            .then(function(data){
+                $scope.setCurrentUser(data);
+            })
+    };
+    
     $scope.deleteCurrentUser = function(){
         $scope.currentUser=null;
         $scope.currentType=null;
@@ -78,6 +85,7 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
     $scope.getCurrentProfile = function () {
         return $scope.currentProfile;
     };
+    
     
     $scope.setCurrentProfile = function (profile) {
         $scope.currentProfile=profile;

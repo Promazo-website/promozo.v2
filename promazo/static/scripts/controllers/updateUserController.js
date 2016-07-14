@@ -65,6 +65,14 @@ promazo.controller('updateUserController',function( $scope,$http,$mdToast,$timeo
         return found;
     };
 
+    $scope.saveProfile = function() {
+        $scope.openToast('updating');
+        ProfileService.update_profile($scope.currentProfile,$scope.currentType)
+            .then(function(data){
+                $scope.updateCurrentUser();
+            })
+
+    };
 
     $scope.addNew = function(newSkill) {
         SkillsService.new({name:newSkill})
@@ -105,10 +113,7 @@ promazo.controller('updateUserController',function( $scope,$http,$mdToast,$timeo
 
         }).then(function (response) {
             $scope.formcounter+=1;
-            ProfileService.update_profile(postdata)
-                .then(function(data){
-                    $scope.setCurrentProfile(data);
-                });
+            $scope.updateCurrentUser();
         });
     };
 

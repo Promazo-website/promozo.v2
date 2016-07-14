@@ -21,13 +21,15 @@ promazo.factory('ProfileService', function ($http) {
     }
     
     profileService.update_profile = function (profiledata,type) {
+        postdata = profiledata;
+        delete postdata.avatarImage;
         if(type=='business') {
-            profile_url = '/api/core/user/business/';
+            profile_url = '/api/core/user/business/' + profiledata.id +'/';
         }
         else {
-            profile_url = '/api/core/user/student/';
+            profile_url = '/api/core/user/student/' +profiledata.id +'/';
         };
-        return $http.put(profile_url, profiledata)
+        return $http.put(profile_url, postdata)
               .then( function(data){
                   return data.data;
               });
