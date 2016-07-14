@@ -131,23 +131,23 @@ md-content {
 }
 
 .quote-ibm {
-    background: #111 url("../images/bkgrnds/ibm-2-office.jpg") center center no-repeat;
+    background: #111 url("../images/ibm-2-office.jpg") center center no-repeat;
     height:300px;
  }
 
 .quote-kmc {
-    background: #111 url("../images/bkgrnds/kmc-2-rooftop-unit.jpg") center center no-repeat;
+    background: #111 url("../images/kmc-2-rooftop-unit.jpg") center center no-repeat;
     background-size: cover;
    height:300px;
  }
 
 .quote-ninestone {
-    background: #111 url("../images/bkgrnds/ninestone-2-boston.jpg") center center no-repeat;
+    background: #111 url("../images/ninestone-2-boston.jpg") center center no-repeat;
    height:300px;
 }
 
 .quote-5-guys {
-    background: #111 url("../images/bkgrnds/5-guys-2-sign.jpg") center center no-repeat;
+    background: #111 url("../images/5-guys-2-sign.jpg") center center no-repeat;
    height:300px;
 }
 .work-story-entry {

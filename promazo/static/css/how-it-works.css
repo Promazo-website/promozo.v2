@@ -375,7 +375,7 @@ h1.introducing span {
 }
 
 .company-benefits {
-	background: #111 url(../images/bkgrnds/Companies-Red.jpg) no-repeat;
+	background: #111 url(../images/Companies-Red.jpg) no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -383,7 +383,7 @@ h1.introducing span {
 }
 
 .student-benefits {
-	background: #111 url(../images/bkgrnds/Students-Green.jpg) no-repeat;
+	background: #111 url(../images/Students-Green.jpg) no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
