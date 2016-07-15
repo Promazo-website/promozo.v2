@@ -1,0 +1,28 @@
+{% extends 'student/home.html' %}
+
+{% block subpage %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">{{ model_title }} <td><a href="/student/{{ model }}/create/"><i class="fa fa-plus"></i> </a></td></div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-8">
+                    {% for object in object_list %}
+                    <table class="table">
+                        <tr>
+                            <td>{{ object }}</td>
+                            <td class="col-xs-3"><a href="/student/{{ model }}/{{ object.id }}/update/" class="btn btn-primary btn-block">Update</a></td>
+                            <td class="col-xs-3"><a href="/student/{{ model }}/{{ object.id }}/delete/" class="btn btn-danger btn-block">Delete</a></td>
+                        </tr>
+                    </table>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

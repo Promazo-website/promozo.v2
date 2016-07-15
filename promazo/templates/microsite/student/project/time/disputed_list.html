@@ -1,0 +1,56 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <form class="form form-inline" action="" method="get">
+                <a href="/student/project/{{ project.id }}/time/" class="btn btn-primary">LOGGED</a>
+
+                <select name="status" class="form-control">
+                  <option value="0" {% if status == 0 %}selected{% endif %}>Pending</option>
+                  <option value="1" {% if status == 1 %}selected{% endif %}>Approved</option>
+                  <option value="-1" {% if status == -1 %}selected{% endif %}>Denied</option>
+                </select>
+
+                <button class="btn btn-primary">GO</button>
+            </form>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th class="col-xs-3">Date</th>
+                    <th class="col-xs-1">Current</th>
+                    <th class="col-xs-1">New</th>
+                    <th>Note</th>
+                    <th class="col-xs-1"></th>
+                    <th class="col-xs-1"></th>
+                </tr>
+            {% for dispute in dispute_list %}
+                <tr>
+                    <td>{{ dispute.project_student_logged_hours.date }}</td>
+                    <td>{{ dispute.project_student_logged_hours.amount }}</td>
+                    <td>{{ dispute.new_hours }}</td>
+                    <td>{{ dispute.note }}</td>
+                    <td>
+                        {% if status == 0 %}
+                        <a href="/student/project/{{ project.id }}/time/dispute/{{ dispute.id }}/approve/" class="btn btn-success btn-block">Approve</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if status == 0 %}
+                        <a href="/student/project/{{ project.id }}/time/dispute/{{ dispute.id }}/deny/" class="btn btn-danger btn-block">Deny</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

@@ -1,0 +1,59 @@
+{% load base_extras %}
+
+<div class="col-md-5">
+    <div id="project_list" class="box shadowEffect">
+        <div class="content">
+            {% for project in project_list %}
+                <div class="project" data-id="{{ project.id }}">
+                    <div style="display: inline-block; width: 30%; vertical-align: top;">
+                        <img style="vertical-align: top;" src="/uploads/{{ project.corporation.picture }}"/>
+                        <span data-type="corporation_name" style="vertical-align: bottom;">{{ project.corporation.name }}</span>
+                    </div>
+
+                    <div style="display: inline-block; width: 69%;">
+                        <h3 data-type="project_info">{{ project.title }}</h3>
+                    </div>
+                    <br />
+
+                    <div style="display: inline-block;">
+                    <!--<div class="project_info"> -->
+                        <i class="fa fa-clock-o"
+                           style="margin-right:3px; color:orange"></i>{{ project.hours }} hours<br/>
+                        <i class="fa fa-users "
+                           style="margin-right: 3px; color:orange"></i>{{ project.member_count }} member{{ project.member_count|pluralize }}<br/>
+                        <i class="fa fa-calendar "
+                           style="margin-right:3px; color:orange"></i>{{ project.start_date }}
+                        - {{ project.end_date }}
+                    <!-- </div> -->
+                    </div>
+                    <div style="display: inline-block; margin-left: 15px; text-align: right; float: right; vertical-align: top;">
+                        <em data-type="project_category">{{ project.categories.all|join:", " }}</em>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+//when a project is clicked on make an ajax call to
+// show project details
+$('#project_list .project').click(function () {
+    $('div.selected').removeClass("selected");
+    $(this).addClass("selected");
+
+    var project_id = $(this).data('id');
+
+    $.ajax({
+        url: '/student/get_project_details',
+        data: {project_id: project_id},
+        dataType: 'html',
+        success: function (data) {
+            $('#project_display').html(data)
+        },
+        error: function () {
+            alert("Failed to find the project!")
+        }
+    });
+});
+</script>

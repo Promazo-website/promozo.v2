@@ -1,0 +1,268 @@
+{% extends 'student/base_onepage.html' %}
+{% load staticfiles %}
+
+
+{% block body %}
+
+<h1 class="page-header">Edit profile</h1>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Basic info</a></li>
+    <li><a href="#tab2" data-toggle="tab">Change Password</a></li>
+    <li><a href="#tab3" data-toggle="tab">Profile and Background Pictures</a></li>
+</ul>
+<div class="tab-content shadowEffect" style="background:#fff; padding:20px 40px 30px 40px; width:80%">
+    <br/><br/>
+
+    <div id="tab1" class="tab-pane active">
+        <div class="row">
+                {% if form.non_field_errors %}
+                    <div class="alert alert-dismissable alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <form class="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="username" value="{{ user.username }}"/>
+
+                    <h2>Basic Info</h2>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.mobile_number }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <hr/>
+
+                    <h2>Home address</h2>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.addr_street }}
+                            <div class="help-block">{{ form.addr_street.help_text }}</div>
+
+                            {% if form.addr_street.errors %}
+                                <div class="help-block danger">{{ form.addr_street.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            {{ form.addr_city }}
+                            <div class="help-block">{{ form.addr_city.help_text }}</div>
+
+                            {% if form.addr_city.errors %}
+                                <div class="help-block danger">{{ form.addr_city.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form.addr_state }}
+                            <div class="help-block">{{ form.addr_state.help_text }}</div>
+
+                            {% if form.addr_state.errors %}
+                                <div class="help-block danger">{{ form.addr_state.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form.addr_zip }}
+                            <div class="help-block">{{ form.addr_zip.help_text }}</div>
+
+                            {% if form.addr_zip.errors %}
+                                <div class="help-block danger">{{ form.addr_zip.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <h2>University</h2>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.university }}
+                            <div class="help-block">{{ form.university.help_text }}</div>
+
+                            {% if form.university.errors %}
+                                <div class="help-block danger">{{ form.university.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <h2>Academic Info</h2>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form.college }}
+                            <div class="help-block">{{ form.college.help_text }}</div>
+
+                            {% if form.college.errors %}
+                                <div class="help-block danger">{{ form.college.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.major }}
+                            <div class="help-block">{{ form.major.help_text }}</div>
+
+                            {% if form.major.errors %}
+                                <div class="help-block danger">{{ form.major.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.minor }}
+                            <div class="help-block">{{ form.minor.help_text }}</div>
+
+                            {% if form.minor.errors %}
+                                <div class="help-block danger">{{ form.minor.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form.grad_year }}
+                            <div class="help-block">{{ form.grad_year.help_text }}</div>
+
+                            {% if form.grad_year.errors %}
+                                <div class="help-block danger">{{ form.grad_year.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form.major_gpa }}
+                            <div class="help-block">{{ form.major_gpa.help_text }}</div>
+
+                            {% if form.major_gpa.errors %}
+                                <div class="help-block danger">{{ form.major_gpa.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form.overall_gpa }}
+                            <div class="help-block">{{ form.overall_gpa.help_text }}</div>
+
+                            {% if form.overall_gpa.errors %}
+                                <div class="help-block danger">{{ form.overall_gpa.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br/>
+
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <button class="btn btn-default btn-block">Update</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="/student/home/" class="btn btn-warning btn-block">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+    <div id="tab2" class="tab-pane">
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="old_password">Old Password: </label><br/><br/><input type="password" id="old_password"
+                                                                                 class="form-control"/>
+            </div>
+        </div>
+        <br/><br/>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="new_password">New Password: </label><br/><br/><input type="password" id="new_password"
+                                                                                 class="form-control"/>
+            </div>
+        </div>
+        <br/><br/>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="new2_password">New Password (Again): </label><br/><br/><input type="password"
+                                                                                          id="new2_password"
+                                                                                          class="form-control"/>
+            </div>
+        </div>
+
+        <br/><br/>
+        <button type="button" class="btn btn-success" style="margin-left: 20px;" id="save_password"><i
+                class="fa fa-save"></i> Save
+        </button>
+    </div>
+    <div id="tab3" class="tab-pane">
+        <div class="row">
+            <iframe src="/student/{{ student.id }}/update/profile/image/"  frameborder="0" scrolling="no"  class="col-lg-6" style="height: 650px;"></iframe>
+
+            <iframe src="/student/{{ student.id }}/update/background/image/"  frameborder="0" scrolling="no" class="col-lg-6" style="height: 650px;"></iframe>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function () {
+
+        $("input[type=text], input[type=password], input[type=email], select, textarea").addClass('form-control');
+
+        $('#save_password').click(function () {
+            // check if the passwords match
+            if ($('#new_password').val() != $('#new2_password').val()) {
+                alert("Your new passwords don't match!");
+                return;
+            }
+
+            $.ajax({
+                url: '../save_password/',
+                method: 'POST',
+                data: {
+                    old_password: $('#old_password').val(),
+                    new_password: $('#new_password').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    if (data != 'Invalid')
+                        alert("Password updated!");
+                    else
+                        alert("Incorrect password authentication - your old password was incorrect!");
+                },
+                error: function (data) {
+
+                    alert("Failed to save new password.");
+                    console.log(data);
+                    window.document.write(data.responseText);
+                    window.document.close();
+
+                }
+            });
+        });
+    });
+
+</script>
+{% endblock %}

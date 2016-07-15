@@ -1,0 +1,399 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% if request.user == student.user %}
+                <span class="edit_info" id="edit_basic">Edit</span>
+                <!-- Added 'Cancel' button CLWJR -->
+                <span class="cancel_edit" id="cancel_basic">Cancel</span>
+                {% endif %}
+                <div class="panel-title">BASIC</div>
+                <hr class="info-card" />
+            </div>
+            <div class="panel-body" id="basic_info">
+                <div class="info-lg" style="margin-bottom: 10px">
+                    <span id="city">{{ student.addr_city }}</span>
+                    <span id="comma">, </span>
+                    <span id="state">{{ student.addr_state }}</span>
+                </div>
+
+                <table class="table borderless no-margin">
+                    <tr>
+                        <td class="info-left">Major:</td>
+                        <td class="info-right">{{ student.major }}</td>
+                    </tr>
+                    <tr>
+                        <td class="info-left">Minor:</td>
+                        <td class="info-right">{{ student.minor }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="info-left">GPA:</td>
+                        <td class="info-right">{{ student.overall_gpa }}</td>
+                    </tr>
+                    <tr>
+                        <td class="info-left">Major GPA:</td>
+                        <td class="info-right">{{ student.major_gpa }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% if request.user == student.user %}
+                <span class="edit_info" id="edit_likes">Edit</span>
+                <!-- Added 'Cancel' button CLWJR -->
+                <span class="cancel_edit" id="cancel_likes">Cancel</span>
+                {% endif %}
+                <div class="panel-title">LIKES</div>
+                <hr class="info-card" />
+            </div>
+            <div class="panel-body" id="likes">
+                <div id="likes_holder" class="likes_holder">
+                    {% for like in student.likes.all %}
+                        <div class="data_container">
+                            {% if request.user == student.user %}<i class="fa fa-remove" style="display: none; color: red; position: relative; top: 0px; float: right; cursor: pointer;" id="like_{{ like.id }}"></i>{% endif %}
+                            <div class="info-left data" >{{ like.category }}</div>
+                            <div class="info-right data" >{{ like.entry }}</div>
+                            {% if not forloop.last %}
+                                <hr class="likes-break">
+                            {% endif %}
+                        </div>
+                    {%  endfor %}
+                </div>
+            {% if request.user == student.user %}
+                <button class="btn btn-success" style="float: right;" id="add_like"><i class="fa fa-plus"></i></button>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if request.user == student.user %}
+<script>
+    $(document).ready(function(){
+        // Function added for .mouseenter and .mouseleave events CLWJR
+        // This function is module specific, dependent upon the holder ID.
+        function mouseRemoveEvent(flag, id){
+            flag = flag || false;
+            var id = id || 'error';
+            if (id == 'error'){
+                alert('Something went wrong!  Please try again or contact your system administrator.');
+                return;
+            }
+            // Check for flag to activate .mouseenter and .mouseleave events
+            $(id+' .data_container').mouseenter(function(){
+                if(flag == true)
+                    $(this).children('i').css('display', 'block');
+            });
+            $(id+' .data_container').mouseleave(function(){
+                if(flag == true)
+                    $(this).children('i').css('display', 'none');
+            });
+            $('.fa-remove').click(function(){
+                $(this).parent().remove();
+            });
+        };
+        $('.data_container').each(function(){
+            $(this).children('i').each(function(){
+                $(this).click(function(){
+                    // get the work history id
+                    var id = this.id.split('_')[1];
+                    var category = this.id.split('_')[0];
+                    $.ajax({
+                        url: '../remove_history',
+                        data: {id: id, category: category},
+                        success: function(data){
+                            if(data == '200')
+                                $('#'+category+'_'+id).parent().remove();
+                            else
+                                alert("You cannot delete this item! It may belong to someone else.");
+                        },
+                        error: function(){
+                            alert("Failed to remove that item. Please contact the system " +
+                            "administrator if the error persists.");
+                        }
+                    });
+                });
+            });
+        });
+
+        // Hide Cancel button when not editing
+        $('#cancel_basic').hide();
+        $('#cancel_likes').hide();
+        // Save HTML in DIVs with IDs of basic_info, likes_holder
+        // so we can go back to it when Cancel button is used
+        $('#basic_info').data('basicData', $('#basic_info').html());
+        $('#likes_holder').data('likesData', $('#likes_holder').html());
+
+        // Function for Cancel button that cancels the edit transaction
+        $('.cancel_edit').click(function(e){
+            e.preventDefault();
+            if($(this).attr('id') == "cancel_basic"){
+                // Replace prior HTML in the DIV with ID work_holder
+                $('#basic_info').html($('#basic_info').data('basicData'));
+                // Hide Cancel and show 'Edit' button
+                $('#cancel_basic').hide();
+                $('#edit_basic').html('Edit');
+            }else if($(this).attr('id') == "cancel_likes"){
+                // Replace prior HTML in the DIV with ID volunteering_holder
+                $('#likes_holder').html($('#likes_holder').data('likesData'));
+                // Hide Cancel and show 'Edit' button
+                $('#cancel_likes').hide();
+                $('#edit_likes').html('Edit');
+            }else{
+                alert("An error has occurred.  Please contact your system administrator.");
+            }
+        });
+
+        // Rewrote all jQuery click events as functions that can be called during click events
+        // This allows individual modules to behave separate from each other.
+        function editBasicInfo(){
+            if($(this).html() == 'Edit'){
+                $('#basic_info .info-right').each(function(){
+                    var contents = $(this).html();
+                    var input = document.createElement('input');
+                    $(input).addClass('form-control');
+                    $(input).val(contents);
+                    $(this).html('');
+                    $(this).append(input);
+                });
+
+                $('#basic_info .info-lg span').each(function(){
+                    // Remove comma from between city and state for editing purposes
+                    $('#comma').remove();
+                    var contents = $(this).html();
+                    var input = document.createElement('input');
+                    $(input).addClass('form-control');
+                    $(input).val(contents);
+                    $(this).html('');
+                    $(this).append(input);
+                });
+                $(this).html('Save');
+                // Show the Cancel button and show the 'Save' button when 'Edit' is clicked
+                $('#cancel_basic').show();
+            }else{
+               // generate the data we need
+               var location_inputs = $('#basic_info .info-lg span input');
+               var basic_info = $('#basic_info .info-right input');
+
+                // send this data off to be saved
+                $.ajax({
+                    url: '../save_student_data',
+                    data: {city: location_inputs[0].value, state: location_inputs[1].value, major: basic_info[0].value, minor: basic_info[1].value, gpa: basic_info[2].value, major_gpa: basic_info[3].value},
+                    success: function(data){
+                         $('#basic_info .info-right').each(function(){
+                             var contents = $(this).children('input')[0];
+                             var val = contents.value;
+                             $(this).html(val);
+                        });
+
+                        $('#basic_info .info-lg span').each(function(){
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+                        // Add comma back into display
+                        var new_comma = document.createElement('span');
+                        $(new_comma).attr('id', 'comma');
+                        $(new_comma).html(', ');
+                        $('#city').after(new_comma);
+                        $('#edit_basic').html('Edit');
+                        // Hide the Cancel button and show 'Edit' when form has been saved
+                        $('#cancel_basic').hide();
+                        // Fill the DIV with ID college with the new data and save in collegeData
+                        $('#basic_info').data('basicData', $('#basic_info').html());
+                        // Reload to remove mousehover events
+                        $('#basic_info').html($('#basic_info').data('basicData'));
+                    },
+                    error: function(){
+                        alert("There was a problem saving your data.  Please contact the system administrator.");
+                    }
+                });
+
+            }
+        };
+        $('#edit_basic').click(editBasicInfo);
+
+        // Rewrote CLWJR
+        function editLikes(){
+            if($(this).html() == 'Edit'){
+                // Check to see if the student has any honors already added
+                // If the student does not have any honors, then launch #add_honor
+                if($('#likes_holder').find('div.data_container').length == 0){
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_likes').show();
+                    $('#add_like').click();
+                }else{
+                    var i = 0;
+                    $('#likes .data').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('input');
+                        $(input).addClass('form-control');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    // Automate placeholders for input fields
+                    $('.data_container').find('.form-control:even').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Title");
+                       }
+                    });
+                    $('.data_container').find('.form-control:odd').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Description");
+                       }
+                    });
+                }
+                $(this).html('Save');
+                $('#cancel_likes').show();
+                // We only want the mouseRemoveEvent to be true when editing.
+                mouseRemoveEvent(true, '#likes_holder');
+            }else{
+                var like_list = [];
+                $('.student_info_display div.likes_holder div.data_container').each(function(){
+                    console.log(this);
+                    var inputs = $(this).children('div').children('input');
+                    console.log(inputs);
+                    var history = {
+                        'title': inputs[0].value,
+                        'description': inputs[1].value
+                    };
+                    // Make sure they entered something in the text box -
+                    // empty object if nothing was entered. CLWJR
+                    if((history['title'] == '') || (history['description'] == '')){
+                        alert('You must enter something in the text boxes');
+                        history = [];   // Causes error so the form does not save
+                    };
+                    like_list.push(history);
+                });
+
+                $.ajax({
+                    url: '../save_student_data',
+                    data: {likes: JSON.stringify(like_list)},
+                    success: function(data){
+                        $('#likes div.data').each(function(){
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+
+                        $('#edit_likes').html('Edit');
+                        // Hide the Cancel button and show 'Edit' when form has been saved
+                        $('#cancel_likes').hide();
+                        // Fill the DIV with ID honors_holder with the new data and save in honorsData
+                        $('#likes_holder').data('likesData', $('#likes_holder').html());
+                        // Reload to remove mousehover events
+                        $('#likes_holder').html($('#likes_holder').data('likesData'));
+                    },
+                    error: function(){
+                        alert("Failed to save your likes.  Please contact the system administrator.");
+                    }
+                });
+            }
+        };
+        $('#edit_likes').click(editLikes);
+
+        function addButton(){
+            var new_icon = document.createElement('i');
+            $(new_icon).addClass('fa');
+            $(new_icon).addClass('fa-remove');
+            $(new_icon).css('display', 'none');
+            $(new_icon).css('color', 'red');
+            $(new_icon).css('position', 'relative');
+            $(new_icon).css('top', '0px');
+            $(new_icon).css('float', 'right');
+            $(new_icon).css('cursor', 'pointer');
+            $(new_icon).click(function(){
+               $(this).parent().remove();
+            });
+
+            var id = $(this).attr('id');
+            switch (id){
+                case 'add_like':{
+                    var title = document.createElement("div");
+                    $(title).addClass('info-left');
+                    $(title).addClass('data');
+                    $(title).css('width', '40%');
+
+                    var description = document.createElement("div");
+                    $(description).addClass('info-right');
+                    $(description).addClass('data');
+                    $(description).css('width', '50%');
+
+                    var hr = document.createElement("hr");
+                    var data_container = document.createElement("div");
+                    $(hr).addClass('like-break');
+                    // Added to check for :first data_container -
+                    // do not start with <hr/> if no breaks have been added.
+                    if($('#likes_holder .data_container').length > 0){
+                        $(data_container).append(hr);
+                    }
+                }
+                    break;
+                default:
+                    alert('Something is not working right here!');
+            }
+
+            $(data_container).append(new_icon);
+            $(data_container).append(title);
+            $(data_container).append(description);
+            $(data_container).addClass('data_container');
+
+            $(data_container).mouseenter(function(){
+                $(this).children('i').css('display', 'block');
+            });
+            $(data_container).mouseleave(function(){
+                $(this).children('i').css('display', 'none');
+            });
+
+            // make sure we're in edit mode and append data_container for appropriate ID's
+            switch (id){
+                case 'add_like':{
+                    mouseRemoveEvent(true, '#likes_holder');
+                    $('#likes_holder').append(data_container);
+
+                    if($('#edit_likes').html() == 'Edit'){
+                        $('#edit_likes').click();
+                    }else{
+                        appendInput();
+                    }
+                    break;
+                }
+                default:
+                    alert('Big bummer.  You got another error.')
+            }
+
+            // Creates input fields when 'Add' button is used
+            function appendInput(){
+                $(data_container).children('.data').each(function(){
+                    var contents = $(this).html();
+                    var input = document.createElement('input');
+                    $(input).addClass('form-control');
+                    $(input).val(contents);
+                    $(this).html('');
+                    $(this).append(input);
+                });
+                // Automate placeholders for input fields
+                $('.info-left').find('.form-control').each(function(){
+                   if(!$(this).val()){
+                       $(this).attr("placeholder", "Title");
+                   }
+                });
+                $('.info-right').find('.form-control').each(function(){
+                   if(!$(this).val()){
+                       $(this).attr("placeholder", "Description");
+                   }
+                });
+            };
+        };
+        $('#add_like').click(addButton);
+    });
+</script>
+{% endif %}

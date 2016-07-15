@@ -1,0 +1,294 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+
+
+{% block body %}
+    {% load base_extras %}
+
+    <div id="studentname" class="student_name">
+		{{ student.user.first_name }}
+		{{ student.user.last_name }}
+	</div>
+
+    <div class="student_info">
+        <span class="profile-pic-holder">
+              <img class="img-circle profile-pic" src="/uploads/{{  student.profile_pic|default:'Profile-Placeholder.png' }}" />
+        </span>
+
+        <div class="row">
+            <div class="col-lg-12 hours-projects-line">
+                <span style="width: 60%; display: inline-block;">
+                    <i class="fa fa-clock-o"></i>
+                    {{ student.projectstudentloggedhours_set.amount|default:'0' }} hours
+                </span>
+                <span style="">
+                    <i class="fa fa-check-square-o"></i>
+                    {{ studentproject_list.count|default:'0' }} project{{ studentproject_list.count|pluralize }}
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 hometown-line">
+                {{ student.addr_city }}, {{ student.addr_state }}
+            </div>
+        </div>
+        <div class="row hr">
+            <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 university-line">
+                <span>
+                {{ student.university.name }}
+                </span>
+            </div>
+            <div class="col-lg-12 major-class-lines">
+                {{ student.major }}
+            </div>
+            <div class="col-lg-12 major-class-lines">
+                Class of {{ student.grad_year }}
+            </div>
+        </div>
+        <div class="row hr">
+            <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="font-lg">
+                    <a href="/student/projects/">PROJECTS</a>
+                </span>
+            </div>
+            <div class=" col-lg-12 scrollable-projects">
+                {% for project in student.student_project_student.all %}
+                    <div class="font-sm project-title">{{ project.project }}</div>
+                    <div class="font-sm">{{ project.project.description }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row hr">
+            <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+        </div>
+        <!-- Issue #59 -- Hide the Review Block
+        <div class="row">
+            <div class="col-lg-12" style="margin-bottom: 15px;">
+                <span class="font-lg">
+                    REVIEWS
+                </span>
+            </div>
+            <div class="col-lg-12">
+                    <canvas id="review_figure" width="100px" height="100px">
+                    </canvas>
+                    <div class="ratings-key">
+                       <svg style="height: 10px; width: 30px; margin-right: 5px;">
+                           <g fill="none">
+                               <path stroke-width="7" stroke-linecap="round" stroke="white" d="M5 5 L25 5" />
+                           </g>
+                       </svg>
+                        <span style="display:inline-block; margin-right:11px">Your avg</span>
+                    </div>
+                    <div class="ratings-key">
+                        <svg style="height: 10px; width: 30px; margin-right: 5px;">
+                           <g fill="none">
+                               <path stroke-width="4" stroke-linecap="round" stroke="white" d="M5 5 L25 5" />
+                           </g>
+                       </svg>
+                        <span style="display:inline-block; margin-right: 5px">Team avg</span>
+                    </div>
+                    <div class="ratings-key">
+                        <svg style="height: 10px; width: 30px; margin-right: 5px;">
+                           <g fill="none">
+                               <path stroke-dasharray="1, 9" stroke-width="4" stroke-linecap="round" stroke="white" d="M5 5 L25 5" />
+                           </g>
+                       </svg>
+                        <span style="display:inline-block">School avg</span>
+                    </div>
+
+            </div> -->
+            <div style="position:absolute; bottom:30px;left:100px;">
+                <a onclick="$(window).scrollTo('100%', 800);" style="cursor:pointer; color:#23b7e5;">Go to my page <i class="fa fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="student_other_info">
+        <div class="student_info_menu">
+            <span class="profile-pic-holder">
+              <img id="sp-2-profile-pic" class="img-circle profile-pic" src="/uploads/{{  student.profile_pic|default:'Profile-Placeholder.png' }}" />
+            </span>
+
+            <div class="row">
+                <div class="col-lg-12 hours-projects-line" style="font-size: small;">
+                    <span style="width: 50%; display: inline-block;">
+                      <i class="fa fa-clock-o orange"></i>
+                      <!-- {{ student.projectstudentloggedhours_set.amount|default:'0' }} hours -->
+                      {{ student.totalHours|default:'0' }} hours
+                    </span>
+                    <span>
+                      <i class="fa fa-check-square-o orange"></i>
+                      {{ studentproject_list.count|default:'0' }} project{{ studentproject_list.count|pluralize }}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 name-line">
+                    {{ student.user.first_name }} {{ student.user.last_name }}
+                </div>
+            </div>
+            <hr class="orange" style="margin: 20px 0 10px" />
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul id="side-menu" class="nav">
+
+                        <!-- Info -->
+                        <li class="">
+                            <a href="" class="side-link">Info</a>
+                            <ul class="nav nav-second-level" id="proposals_menu">
+                                <li>
+                                    <a href="javascript:LoadInfo('personal');" class="black-color">
+                                        Personal
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:LoadInfo('academic');" class="black-color">
+                                        Academic
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:LoadInfo('experience');" class="black-color">
+                                        Experience
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Resume -->
+                        <li class="">
+                            <a href="javascript:LoadInfo('resume');" class="side-link">Resume</a>
+
+                        </li>
+
+                        <!-- Projects -->
+                        <li class="">
+                            <a href="javascript:LoadInfo('projects');" class="side-link">Projects</a>
+
+                            <ul class="nav nav-second-level" id="projects_menu">
+                              <li>
+                                  <a href="javascript:current_project_iframe_url=recent_project_url;javascript:LoadInfo('projects');" class="black-color">
+                                      Recent Project
+                                  </a>
+                              </li>
+                                <li>
+                                    <a href="javascript:current_project_iframe_url='/project/';javascript:LoadInfo('projects');" class="black-color">
+                                        My projects
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div style="position:absolute; bottom:30px;left:30px;">
+                <a onclick="$(window).scrollTo('-100%', 800);" style="cursor:pointer; color:#006dcc;"><i class="fa fa-arrow-left"></i> Go to my profile </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="student_info_display">
+
+        </div>
+    </div>
+
+
+    <!-- Student Info Pages -->
+    <div id="info_personal" style="display: none;">
+        {% include 'student/student/info/personal.html' %}
+    </div>
+    <div id="info_academic" style="display: none;">
+        {% include 'student/student/info/academic.html' %}
+    </div>
+    <div id="info_experience" style="display: none;">
+        {% include 'student/student/info/experience.html' %}
+    </div>
+
+    <!-- Student Resume Page -->
+    <div id="info_resume" style="display: none;">
+    </div>
+
+    <!-- Student Projects Page -->
+    <div id="info_projects" style="display: none;">
+        {% include 'student/project/iframe.html' %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $('#side-menu').metisMenu();
+
+    // If we have the latest project, set it in the javascript and set the 'current iframe url' to that project.
+    // Otherwise, set the 'current iframe url' to '/project/' (i.e. project list).
+    var latest_project_id = {% if latest_project %}{{latest_project.project.id}}{% else %}null{% endif %};
+    var recent_project_url = '/project/';
+
+    var current_project_iframe_url = '/project/';
+    if (latest_project_id) {
+      recent_project_url = '/project/' + latest_project_id + '/';
+    }
+
+   /* function DrawRatings(rating_array) {
+        var radius = 45;
+        var canvas = document.getElementById("review_figure");
+        var context = canvas.getContext('2d');
+
+        // get the middle of our display canvas
+        var middle_width = $(canvas).width() / 2;
+        var middle_height = $(canvas).height() / 2;
+        for(var i = 0; i < rating_array.length; i++) {
+            var rating = rating_array[i];
+
+            var circle_rating = (((1 - rating) * 2) - 0.5);
+            console.log(circle_rating);
+            if (rating > 0.75)
+                circle_rating = 2 + circle_rating;
+            console.log(circle_rating);
+
+            context.beginPath();
+            context.arc(middle_width, middle_height, radius, circle_rating * Math.PI, (1.5 * Math.PI));
+            context.strokeStyle = 'white';
+            context.lineWidth = '4';
+            context.lineCap = 'round';
+            if(i == 0)
+                context.setLineDash([1,9]);
+            else
+                context.setLineDash([1]);
+
+            if(i == 2)
+                context.lineWidth = '7';
+            context.stroke();
+
+            radius = radius - 12;
+            //test
+        }
+    }*/
+
+    $(document).ready(function(){
+
+    //DrawRatings([0.8, 0.7, 0.25]);
+    });
+
+    function LoadInfo(type){
+        if (type == "resume"){
+            // First load the resumes
+            $('.student_info_display').load('/student/resume');
+        } else {
+          $('.student_info_display').html($('#info_'+type).html());
+        }
+
+        if(type === 'projects') {
+          $('#project-iframe').attr('src', current_project_iframe_url);
+        }
+    }
+
+</script>
+
+{% endblock %}

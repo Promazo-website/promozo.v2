@@ -1,0 +1,66 @@
+{% extends 'student/base_student.html' %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-4">
+                    DATE: <strong>{{ projectupdate.report_date }}</strong>
+                </div>
+                <div class="col-xs-4">
+                    STATUS: <strong>{% if projectupdate.submitted %}Submitted{% else %}Draft{% endif %}</strong>
+                </div>
+            </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="well well-sm">
+                    GOALS FOR NEXT REPORT
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="well well-sm">
+                    COMPLETED UNFINISHED GOALS
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="well well-sm">
+                    UNFINISHED GOALS
+                </div>
+            </div>
+        </div>
+
+{#        HOW ARE WE GOING TO COMPLETE ANY MISSING GOALS#}
+        <div class="well">
+            {{ projectupdate.comments }}
+        </div>
+
+        OTHER COMMENTS.
+        <div class="well">
+            {{ projectupdate.other_comments }}
+        </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                {% if not projectupdate.submitted %}
+                <a href="/student/project/{{ project.id }}/projectupdate/{{ projectupdate.id }}/submit/" class="btn btn-info btn-block">submit</a>
+                {% endif %}
+            </div>
+            <div class="col-xs-2">
+                {% if not projectupdate.submitted %}
+                <a href="/student/project/{{ project.id }}/projectupdate/{{ projectupdate.id }}/update/" class="btn btn-primary btn-block">update</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

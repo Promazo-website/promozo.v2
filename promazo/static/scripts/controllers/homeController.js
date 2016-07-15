@@ -13,7 +13,7 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
     $scope.callType=null;
     $scope.DateHash=null;
     $scope.UserHash=null;
-    $scope.micrositePage='home';    
+    $scope.micrositePage='sign-in';
 
     $scope.setMicrositePage = function (page) {
         $scope.micrositePage=page;
@@ -101,6 +101,7 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
     $scope.logout = function() {
         AuthService.logout();
         $scope.setCurrentUser(null);
+        $scope.goto('/');
     };
 
     $scope.currentScoreClass="";

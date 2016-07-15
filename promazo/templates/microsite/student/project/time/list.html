@@ -1,0 +1,38 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="/student/project/{{ project.id }}/time/log/" class="btn btn-primary">LOG</a>
+            <a href="/student/project/{{ project.id }}/time/change/" class="btn btn-primary">CHANGE</a>
+            <a href="/student/project/{{ project.id }}/time/disputed/" class="btn btn-primary">DISPUTED</a>
+        </div>
+        <div class="panel-body">
+
+            <h3>Total Hours <small>{{ total_hours }}</small></h3>
+            <table class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            {% for time in time_list %}
+                <tr>
+                    <td>{{ time.date }}</td>
+                    <td>{{ time.amount }}</td>
+                    <td class="col-xs-3"><a href="/student/project/{{ project.id }}/time/{{ time.id }}/dispute/" class="btn btn-primary btn-block">Dispute</a></td>
+                    <td class="col-xs-3"><a href="/student/project/{{ project.id }}/time/{{ time.id }}/change/" class="btn btn-danger btn-block">Change</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

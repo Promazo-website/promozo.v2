@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-md-3">
+        <img class="photo" src="/uploads/{{  student.profile_pic|default:'Profile-Placeholder.png' }}" style="max-width: 100%"/>
+    <hr/>
+        <h3>Resume</h3>
+         {%  if student.resume_file %}
+            <a href="/uploads/{{ student.resume_file }}"><span class="glyphicon glyphicon-file"></span> {{ student.resume_title }}</a>
+         {% endif %}
+    </div>
+
+    <div class="col-md-9">
+        <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>General</h3>
+                  <ul>
+                    <li><strong>Mobile #: </strong>{{ student.mobile_number }}</li>
+                    <li><strong>Email: </strong><a href="mailto:{{ student.email }}">{{ student.email }}</a></li>
+                    <li><strong>Address:</strong>  {{ student.addr_street }}<br/> {{ student.addr_city }}, {{ student.addr_state }} {{ student.addr_zip }} </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3>Academic info</h3>
+                <ul>
+                    <li><strong>College:</strong> {{ student.college }}</li>
+                    <li><strong>Major:</strong> {{ student.major }}</li>
+                    <li><strong>Minor:</strong> {{ student.minor }}</li>
+                    <li><strong>Graduation year:</strong> {{ student.grad_year }}</li>
+                    <li><strong>Major GPA:</strong> {{ student.major_gpa }}</li>
+                    <li><strong>Overall GPA:</strong> {{ student.overall_gpa }}</li>
+                </ul>
+            </div>
+        </div>
+        <hr/>
+        <h3>University info</h3>
+        {{ student.university.name }}<br/>
+        {{ student.university.addr_street }}<br/>
+        {{ student.university.addr_city }}, {{ student.university.addr_state }} {{ student.university.addr_zip }}
+
+        <hr/>
+        <h3>Projects</h3>
+{#        {% for project_app in student.students_applications.all %}#}
+{#            <div class="project" data-id="{{ project.id }}">#}
+{#                    <strong>{{ project_app.project.corporation.name }}: {{ project_app.project.title }}</strong>#}
+{#                    <img src="/uploads/{{ project_app.project.corporation.picture }}" style="max-width:100px; float:left;" />#}
+{#                    <ul>#}
+{#                        <li>{{ project_app.project.start_date }} to {{ project_app.project.end_date }}</li>#}
+{#                        <li>{{  project_app.project.tags.all|join:", " }} </li>#}
+{#                    </ul>#}
+{#                    <div class="clearfix"></div>#}
+{#                </div>#}
+{#        {% endfor %}#}
+           {% for studentproject in studentproject_list %}
+            <table class="table">
+                <tr>
+                    <td>{{ studentproject.project }}</td>
+                    <td class="col-xs-3"><a href="/student/project/{{ studentproject.project.id }}/" class="btn btn-primary btn-block">View</a></td>
+                </tr>
+            </table>
+            {% endfor %}
+    <hr/>
+    {% if student == request.user %}
+        <h3>My applications</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Company</th>
+                    <th>Applied on</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for app in student.students_applications.all %}
+                    <tr>
+                        <td>{{ app.project.title }}</td>
+                        <td>{{ app.project.corporation.name }}</td>
+                        <td>{{ app.date_applied }}</td>
+                        <td>
+                            {% if app.status == 1 %}
+                                <span class="glyphicon glyphicon-time"></span> Pending
+                            {% elif app.status == 2 %}
+                                <span class="glyphicon glyphicon-remove"></span> Rejected
+                                 {% if app.message %}
+                                    <br/>
+                                     <button type="button" class="label label-default pop" data-toggle="popover" title="Message"  data-content="{{ app.message }}" data-placement="left">
+                                        <span class="glyphicon glyphicon-envelope"></span> View message
+                                    </button>
+                                {% endif %}
+                            {% elif app.status == 3 %}
+                                <span class="glyphicon glyphicon-ok"></span> Accepted
+                                {% if app.message %}
+                                    <br/>
+                                     <button type="button" class="label label-default pop" data-toggle="popover" title="Message"  data-content="{{ app.message }}" data-placement="left">
+                                        <span class="glyphicon glyphicon-envelope"></span> View message
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        <br/>
+    {% endif %}
+    </div>
+</div>

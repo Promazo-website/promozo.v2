@@ -1,0 +1,852 @@
+<div class="row">
+    <div class="col-xs-6" style="height: 100%">
+        <div class="panel panel-default scroll_me" style="max-height: 100%">
+            <div class="panel-heading">
+                {% if request.user == student.user %}
+                    <span class="edit_info"  id="edit_history">Edit</span>
+                    <!-- Added 'Cancel' button CLWJR -->
+                    <span class="cancel_edit" id="cancel_history">Cancel</span>
+                {% endif %}
+                <div class="panel-title">WORK HISTORY</div>
+                <hr class="info-card" />
+            </div>
+            <div class="panel-body history" id="history">
+                <div id="work_holder">
+                    {% for work in student.work_history.all %}
+                        <div class="data_container">
+                            {% if request.user == student.user %}<i class="fa fa-remove" style="display: none; color: red; position: relative; top: 0px; float: right; cursor: pointer;" id="history_{{ work.id }}"></i>{% endif %}
+                            <div class="honor-title data">{{ work }}</div>
+                            <div class="honor-description data">{{ work.description }}</div>
+                            <div class="honor-date data start_date" style="display: inline-block; width: 40%">{{ work.start_date|date:"m/d/Y" }}</div> - <div class="end_date honor-date data" style="display: inline-block; width: 40%">{{ work.end_date|date:"m/d/Y" }}</div>
+                            <!-- <div class="honor-description data" style="display: inline-block;">{{ work.end_date }}</div> -->
+                            {% if not forloop.last %}
+                                <hr class="work-break">
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if request.user == student.user %}
+                    <button class="btn btn-success" style="float: right;" id="add_work"><i class="fa fa-plus"></i></button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6" style="height:100%">
+        <div class="panel panel-default scroll_me" style="height: 46%">
+            <div class="panel-heading">
+                {% if request.user == student.user %}
+                    <span class="edit_info"  id="edit_volunteering">Edit</span>
+                    <!-- Added 'Cancel' button CLWJR -->
+                    <span class="cancel_edit" id="cancel_volunteering">Cancel</span>
+                {% endif %}
+                <div class="panel-title">VOLUNTEERING</div>
+                <hr class="info-card" />
+            </div>
+            <div class="panel-body volunteering" id="volunteering">
+                <div id="volunteering_holder">
+                    {% for volunteer in student.volunteering.all %}
+                        <div class="data_container">
+                            {% if request.user == student.user %}<i class="fa fa-remove" style="display: none; color: red; position: relative; top: 0px; float: right; cursor: pointer;" id="volunteer_{{ volunteer.id }}"></i>{% endif %}
+                            <div class="honor-title data">{{ volunteer  }}</div>
+                            <div class="honor-description data">{{ volunteer.description }}</div>
+                            <div class="honor-date data start_date" style="display: inline-block; width: 40%">{{ volunteer.start_date|date:"m/d/Y" }}</div> - <div class="end_date honor-date data" style="display: inline-block; width: 40%">{{ volunteer.end_date|date:"m/d/Y" }}</div>
+                            {% if not forloop.last %}
+                                <hr class="volunteer-break">
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if request.user == student.user %}
+                    <button class="btn btn-success" style="float: right;" id="add_volunteer"><i class="fa fa-plus"></i></button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="panel panel-default scroll_me" style="height:46%;margin-top: 0">
+            <div class="panel-heading">
+                {% if request.user == student.user %}
+                    <span class="edit_info"  id="edit_skills">Edit</span>
+                    <!-- Added 'Cancel' button CLWJR -->
+                    <span class="cancel_edit" id="cancel_skills">Cancel</span>
+                {% endif %}
+                <div class="panel-title">SKILLS</div>
+                <hr class="info-card" />
+            </div>
+            <div class="panel-body skills" id="skills">
+                <div id="skills_holder">
+                    {% for skill in student.skills.all %}
+                        <div class="data_container">
+                            {% if request.user == student.user %}<i class="fa fa-remove" style="display: none; color: red; position: relative; top: 0px; float: right; cursor: pointer;" id="skill_{{ skill.id }}"></i>{% endif %}
+                            <div class="honor-title data">{{ skill }}</div>
+                            <div class="honor-description data">{{ skill.description }}</div>
+                            <div class="honor-level skill-level">{{ skill.getLevel }}</div>
+                            <select class="skill-select form-control" style="display: none;">
+                                {% for level in skill.LEVELS %}
+                                    <option value="{{ level.0 }}">{{ level.1 }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if not forloop.last %}
+                                <hr class="skill-break">
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <select class="skill-select-template form-control" style="display: none;">
+                        {% for level in SKILL_LEVELS %}
+                        <option value="{{ level.0 }}">{{ level.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% if request.user == student.user %}
+                    <button class="btn btn-success" style="float: right;" id="add_skill"><i class="fa fa-plus"></i></button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if request.user == student.user %}
+    <script src="/static/js/jquery-ui.min.js"></script>
+<script>
+    var UNIVERSITIES = [];
+    {% for university in universities %}
+    UNIVERSITIES.push('{{ university.name }}');
+    {% endfor %}
+
+    $(document).ready(function(){
+        // Function added for .mouseenter and .mouseleave events CLWJR
+        // This function is module specific, dependent upon the holder ID.
+        function mouseRemoveEvent(flag, id){
+            flag = flag || false;
+            var id = id || 'error';
+            if(id == 'error'){
+                alert('Something went wrong!  Please try again or contact your system administrator.');
+                return;
+            }
+            // Check for flag to activate .mouseenter and .mouseleave events
+            $(id+' .data_container').mouseenter(function(){
+                if(flag == true)
+                    $(this).children('i').css('display', 'block');
+            });
+            $(id+' .data_container').mouseleave(function(){
+                if(flag == true)
+                    $(this).children('i').css('display', 'none');
+            });
+            $('.fa-remove').click(function(){
+                $(this).parent().remove();
+            });
+        };
+        $('.data_container').each(function(){
+            $(this).children('i').each(function(){
+                $(this).click(function(){
+                    // get the work history id
+                    var id = this.id.split('_')[1];
+                    var category = this.id.split('_')[0];
+                    $.ajax({
+                        url: '../remove_history',
+                        data: {id: id, category: category},
+                        success: function(data){
+                            if(data == '200') {
+                                $('#'+category+'_'+id).parent().remove();
+                            } else
+                                alert("You cannot delete this item! It may belong to someone else.");
+                        },
+                        error: function() {
+                            alert("Failed to remove that item. Please contact the system " +
+                            "administrator if the error persists.");
+                        }
+                    });
+                });
+            });
+        });
+
+        // Hide Cancel button when not editing
+        $('#cancel_history').hide();
+        $('#cancel_volunteering').hide();
+        $('#cancel_skills').hide();
+        // Save HTML in DIVs with IDs of work_holder, volunteering_holder and skills_holder,
+        // so we can go back to it when Cancel button is used
+        $('#work_holder').data('workData', $('#work_holder').html());
+        $('#volunteering_holder').data('volunteeringData', $('#volunteering_holder').html());
+        $('#skills_holder').data('skillsData', $('#skills_holder').html());
+
+        // Function for Cancel button that cancels the edit transaction
+        $('.cancel_edit').click(function(e){
+            e.preventDefault();
+            if($(this).attr('id') == "cancel_history"){
+                // Replace prior HTML in the DIV with ID work_holder
+                $('#work_holder').html($('#work_holder').data('workData'));
+                // Hide Cancel and show 'Edit' button
+                $('#cancel_history').hide();
+                $('#edit_history').html('Edit');
+            }else if($(this).attr('id') == "cancel_volunteering"){
+                // Replace prior HTML in the DIV with ID volunteering_holder
+                $('#volunteering_holder').html($('#volunteering_holder').data('volunteeringData'));
+                // Hide Cancel and show 'Edit' button
+                $('#cancel_volunteering').hide();
+                $('#edit_volunteering').html('Edit');
+            }else if($(this).attr('id') == "cancel_skills"){
+                // Replace prior HTML in the DIV with ID skills_holder
+                $('#skills_holder').html($('#skills_holder').data('skillsData'));
+                // Hide Cancel and show 'Edit' button
+                $('#cancel_skills').hide();
+                $('#edit_skills').html('Edit');
+            }else{
+                alert("An error has occurred.  Please contact your system administrator.");
+            }
+        });
+
+        // Rewrote all jQuery click events as functions that can be called during click events
+        // This allows individual modules to behave separate from each other.
+        function editWork(){
+            if($(this).html() == 'Edit'){
+                // Check to see if the student has any work history already added
+                // If the student does not have any work, then launch #add_work
+                if($('#work_holder').find('div.data_container').length == 0){
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_history').show();
+                    $('#add_work').click();
+                }else{
+                    // If work history has already been added:
+                    $('#history div.honor-title').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('input');
+                        $(input).addClass('form-control');
+                        $(input).attr('placeholder', 'Title');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    $('#history div.honor-description').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('textarea');
+                        $(input).addClass('form-control');
+                        $(input).attr('placeholder', 'Description');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    $('#history div.honor-date').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('input');
+                        $(input).addClass('form-control');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+
+
+                    // Automate placeholders for input fields
+                    $('.work-title').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Title");
+                       }
+                    });
+                    $('.work-description').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Description");
+                       }
+                    });
+                    $('.work-date').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Description");
+                       }
+                    });
+
+                    $('#history div.start_date input').datepicker();
+                    $('#history div.end_date input').datepicker();
+
+                    $(this).html('Save');
+                    // Show the Cancel button and show the 'Save' button when 'Edit' is clicked
+                    $('#cancel_history').show();
+                    // We only want the mouseRemoveEvent to be true when editing.
+                    mouseRemoveEvent(true, '#work_holder');
+                }
+            } else {
+                var history_list = [];
+                $('.student_info_display div.history div.data_container').each(function(){
+                    //console.log(this);
+                    var inputs = $(this).find('input');
+                    console.log(inputs);
+                    var history = {
+                        'title': inputs[0].value,
+                        'description': $(this).find('textarea').val(),
+                        'start_date': inputs[1].value,
+                        'end_date': inputs[2].value
+                    };
+                    // Make sure they entered something in the text box -
+                    // empty object if nothing was entered. CLWJR
+                    if((history['title'] == '') || (history['description'] == '')){
+                        alert('You must enter something in the text boxes');
+                        history = [];   // Causes error so the form does not save
+                    };
+                    history_list.push(history);
+                });
+
+                $.ajax({
+                    url: '../save_student_data',
+                    data: {history: JSON.stringify(history_list)},
+                    success: function(data){
+                        $('#history div.honor-title').each(function () {
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+                        $('#history div.honor-description').each(function () {
+                            var val = $(this).find('textarea').val();
+                            $(this).html(val);
+                        });
+                        $('#history div.honor-date').each(function () {
+                            var contents = $(this).find('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+
+                        $("#history input.add-date").each(function() {
+                           var contents = $(this).val();
+                            //<div class="end_date honor-date data" style="display: inline-block; width: 40%">10/07/2015</div>
+                            var div = document.createElement("div");
+                            $(div).addClass("honor-date");
+                            $(div).addClass("data");
+                            $(div).css("display", 'inline-block');
+                            $(div).css("width", '40%');
+                            $(div).html(contents);
+                            $(this).replaceWith(div);
+                        });
+
+
+
+                        $('#edit_history').html('Edit');
+                        // Hide the Cancel button and show 'Edit' when form has been saved
+                        $('#cancel_history').hide();
+                        // Fill the DIV with ID work_holder with the new data and save in workData
+                        $('#work_holder').data('workData', $('#work_holder').html());
+                        // Reload to remove mousehover events
+                        $('#work_holder').html($('#work_holder').data('workData'));
+                    },
+                    error: function(){
+                        alert("Failed to save your input.  Please contact the system administrator if this persists.");
+                    }
+                });
+            };
+        };
+        $('#edit_history').click(editWork);
+
+        function editVolunteer(){
+            if($(this).html() == 'Edit'){
+                // Check to see if the student has any volunteering already added
+                // If the student does not have any volunteering added, launch #add .click function
+                if($('#volunteering_holder').find('div.data_container').length == 0){
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_volunteering').show();
+                    $('#add_volunteer').click();
+                }else{
+                    // If volunteering has already been added:
+                    $('#volunteering div.honor-title').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('input');
+                        $(input).addClass('form-control');
+                        $(input).attr('placeholder', 'Title');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    $('#volunteering div.honor-description').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('textarea');
+                        $(input).attr('placeholder', 'Description');
+                        $(input).addClass('form-control');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    $('#volunteering div.honor-date').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('input');
+                        $(input).addClass('form-control');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    // Automate placeholders for input fields
+                    $('.volunteer-title').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Title");
+                       }
+                    });
+                    $('.volunteer-description').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Description");
+                       }
+                    });
+
+                    $('#volunteering div.start_date input').datepicker();
+                    $('#volunteering div.end_date input').datepicker();
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_volunteering').show();
+                    // We only want the mouseRemoveEvent to be true when editing.
+                    mouseRemoveEvent(true, '#volunteering_holder');
+                }
+            }else{
+                var volunteer_list = [];
+                $('.student_info_display div.volunteering div.data_container').each(function(){
+                    var inputs = $(this).find('input');
+                    var history = {
+                        'title': inputs[0].value,
+                        'description': $(this).find('textarea').val(),
+                        'start_date': inputs[1].value,
+                        'end_date': inputs[2].value
+                    };
+                    // Make sure they entered something in the text box -
+                    // empty object if nothing was entered. CLWJR
+                    if((history['title'] == '') || (history['description'] == '')){
+                        alert('You must enter something in the text boxes');
+                        history = [];   // Causes error so the form does not save
+                    };
+                    volunteer_list.push(history);
+                });
+
+                $.ajax({
+                    url: '../save_student_data',
+                    data: {volunteering: JSON.stringify(volunteer_list)},
+                    success: function(data){
+                        $('#volunteering div.honor-title').each(function(){
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+                        $('#volunteering div.honor-description').each(function(){
+                            var val = $(this).find('textarea').val();
+                            $(this).html(val);
+                        });
+                        $('#volunteering div.honor-date').each(function(){
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+
+                        $('#volunteering input.add-date').each(function(){
+                            var contents = $(this).val();
+                            //<div class="end_date honor-date data" style="display: inline-block; width: 40%">10/07/2015</div>
+                            var div = document.createElement("div");
+                            $(div).addClass("honor-date");
+                            $(div).addClass("data");
+                            $(div).css("display", 'inline-block');
+                            $(div).css("width", '40%');
+                            $(div).html(contents);
+                            $(this).replaceWith(div);
+                        });
+                        // fix any date fields
+                        /*
+                        $('#volunteering input.data').each(function(){
+                            if($(this).attr('placeholder') == 'Start Date'){
+                                // <div class="honor-description data start_date" style="display: inline-block; width: 40%">10/01/2015</div>
+                                var div = document.createElement("DIV");
+                                $(div).addClass('data');
+                                $(div).addClass('start_date');
+                                $(div).addClass('honor-date');
+                                $(div).css('display', 'inline-block');
+                                $(div).css('width', '40%');
+                                $(div).html($(this).val());
+
+                                $(this).replaceWith(div);
+                            }
+                            if($(this).attr('placeholder') == 'End Date'){
+                                var div = document.createElement("DIV");
+                                $(div).addClass('data');
+                                $(div).addClass('start_date');
+                                $(div).addClass('honor-date');
+                                $(div).css('display', 'inline-block');
+                                $(div).css('width', '40%');
+                                $(div).html($(this).val());
+
+                                $(this).replaceWith(div);
+                            }
+                        });
+                        */
+                        $('#edit_volunteering').html('Edit');
+                        // Hide the Cancel button and show 'Edit' when form has been saved
+                        $('#cancel_volunteering').hide();
+                        // Fill the DIV with ID volunteering_holder with the new data and save in volunteeringData
+                        $('#volunteering_holder').data('volunteeringData', $('#volunteering_holder').html());
+                        // Reload to remove mousehover events
+                        $('#volunteering_holder').html($('#volunteering_holder').data('volunteeringData'));
+
+
+
+                    },
+                    error: function(){
+                        alert("Failed to save your volunteering history.  Please contact the system administrator.");
+                    }
+                });
+            };
+        };
+        $('#edit_volunteering').click(editVolunteer);
+
+        function editSkill(){
+            if($(this).html() == 'Edit'){
+                // Check to see if the student has any skills already added
+                // If the student does not have any skills added, launch #add .click function
+                if($('#skills_holder').find('div.data_container').length == 0){
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_skills').show();
+                    $('#add_skill').click();
+                }else{
+                    $('#skills div.honor-title').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('input');
+                        $(input).addClass('form-control');
+                        $(input).attr('placeholder', 'Title');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    $('#skills div.honor-description').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('textarea');
+                        $(input).addClass('form-control');
+                        $(input).attr('placeholder', 'Description');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    $('#skills div.skill-level').each(function(){
+                        var val = $(this).html();
+                        var skill_select = $(this).parent().find('.skill-select');
+                        $(skill_select).children().filter(function(){
+                            return $(this).text() == val;
+                        }).prop('selected', true);
+                        $(skill_select).show();
+                        $(this).hide();
+                    });
+
+                    // Automate placeholders for input fields
+                    $('.skill-title').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Title");
+                       }
+                    });
+                    $('.skill-description').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Description");
+                       }
+                    });
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_skills').show();
+                    // We only want the mouseRemoveEvent to be true when editing.
+                    mouseRemoveEvent(true, '#skills_holder');
+                }
+            }else{
+                var skill_list = [];
+                $('.student_info_display div.skills div.data_container').each(function(){
+                    var inputs = $(this).children('div').children('input');
+                    var history = {
+                        'title': inputs[0].value,
+                        'description': $(this).find('textarea').val(),
+                        'level': $(this).find('.skill-select').val()
+                    };
+                    // Make sure they entered something in the text box -
+                    // empty object if nothing was entered. CLWJR
+                    if((history['title'] == '') || (history['description'] == '')){
+                        alert('You must enter something in the text boxes');
+                        history = [];   // Causes error so the form does not save
+                    };
+                    skill_list.push(history);
+                });
+
+                $.ajax({
+                    url: '../save_student_data',
+                    data: {skills: JSON.stringify(skill_list)},
+                    success: function(data){
+                        $('#skills div.honor-title').each(function(){
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+                        $('#skills div.honor-description').each(function(){
+                            var val = $(this).find('textarea').val();
+                            $(this).html(val);
+                        });
+                        // update the skill value
+                        $('#skills .skill-select').each(function(){
+                            // grab the text
+                            var val = $(this).children('option').filter(':selected').text();
+                            $(this).parent().find('.skill-level').html(val);
+                            $(this).parent().find('.skill-level').show();
+                            $(this).hide();
+                        });
+
+                        $('#edit_skills').html('Edit');
+                        // Hide the Cancel button and show 'Edit' when form has been saved
+                        $('#cancel_skills').hide();
+                        // Fill the DIV with ID skills_holder with the new data and save in skillsData
+                        $('#skills_holder').data('skillsData', $('#skills_holder').html());
+                        // Reload to remove mousehover events
+                        $('#skills_holder').html($('#skills_holder').data('skillsData'));
+
+
+                    },
+                    error: function(){
+                        alert("Failed to save your skill set.  Please contact the system administrator.");
+                    }
+                });
+            };
+        };
+        $('#edit_skills').click(editSkill);
+
+        // Rewrote the add button as a function so individual modules would not conflict with other modules
+        // Other modules will need to be added to the switch statements.
+        function addButton(){
+            var new_icon = document.createElement('i');
+            $(new_icon).addClass('fa');
+            $(new_icon).addClass('fa-remove');
+            $(new_icon).css('display', 'none');
+            $(new_icon).css('color', 'red');
+            $(new_icon).css('position', 'relative');
+            $(new_icon).css('top', '0px');
+            $(new_icon).css('float', 'right');
+            $(new_icon).css('cursor', 'pointer');
+            $(new_icon).click(function(){
+                $(this).parent().remove();
+            });
+            var id = $(this).attr('id');
+
+            switch(id){
+                case 'add_work':{
+                    var title = document.createElement("div");
+                    $(title).addClass('honor-title');
+                    $(title).addClass('data');
+                    $(title).addClass('data-input');
+
+                    var description = document.createElement("div");
+                    $(description).addClass('honor-description');
+                    $(description).addClass('data');
+                    $(description).addClass('data-textarea');
+
+                    var start_date = document.createElement("input");
+                    $(start_date).attr('type', 'text');
+                    $(start_date).attr('placeholder', 'Start Date');
+                    $(start_date).addClass('data');
+                    $(start_date).addClass('form-control');
+                    $(start_date).addClass('date-input');
+                    $(start_date).addClass('add-date');
+
+                    var end_date = document.createElement("input");
+                    $(end_date).attr('type', 'text');
+                    $(end_date).attr('placeholder', 'End Date');
+                    $(end_date).addClass('data');
+                    $(end_date).addClass('form-control');
+                    $(end_date).addClass('date-input');
+                    $(end_date).addClass('add-date');
+
+                    var hr = document.createElement("hr");
+                    var data_container = document.createElement("div");
+                    $(hr).addClass('work-break');
+                    // Added to check for :first data_container -
+                    // do not start with <hr/> if no breaks have been added.
+                    if($('#work_holder .data_container').length > 0){
+                        $(data_container).append(hr);
+                    }
+                    $(data_container).append(new_icon);
+                    $(data_container).append(title);
+                    $(data_container).append(description);
+                    $(data_container).append(start_date);
+                    $(data_container).append(' - ');
+                    $(data_container).append(end_date);
+                    $(data_container).addClass('data_container');
+
+                    $(start_date).datepicker();
+                    $(end_date).datepicker();
+
+
+                    mouseRemoveEvent(true, '#work_holder');
+                    $('#work_holder').append(data_container);
+
+                    if($('#edit_history').html() == 'Edit'){
+                        $('#edit_history').click();
+                    }
+                    else
+                    appendInput(data_container);
+
+                }
+                    break;
+                case 'add_volunteer':{
+                    var title = document.createElement("div");
+                    $(title).addClass('honor-title');
+                    $(title).addClass('data');
+                    $(title).addClass('data-input');
+
+                    var description = document.createElement("div");
+                    $(description).addClass('honor-description');
+                    $(description).addClass('data');
+                    $(description).addClass('data-textarea');
+
+                    var start_date = document.createElement("input");
+                    $(start_date).attr('type', 'text');
+                    $(start_date).attr('placeholder', 'Start Date');
+                    $(start_date).addClass('data');
+                    $(start_date).addClass('form-control');
+                    $(start_date).addClass('date-input');
+                    $(start_date).addClass('add-date');
+
+                    var end_date = document.createElement("input");
+                    $(end_date).attr('type', 'text');
+                    $(end_date).attr('placeholder', 'End Date');
+                    $(end_date).addClass('data');
+                    $(end_date).addClass('form-control');
+                    $(end_date).addClass('date-input');
+                    $(end_date).addClass('add-date');
+                    $(end_date).css('float', 'right');
+
+                    var hr = document.createElement("hr");
+                    var data_container = document.createElement("div");
+                    $(hr).addClass('volunteer-break');
+                    // Added to check for :first data_container -
+                    // do not start with <hr/> if no breaks have been added.
+                    if($('#volunteering_holder .data_container').length > 0){
+                        $(data_container).append(hr);
+                    }
+                    $(data_container).append(new_icon);
+                    $(data_container).append(title);
+                    $(data_container).append(description);
+                    $(data_container).append(start_date);
+                    $(data_container).append(end_date);
+                    $(data_container).addClass('data_container');
+
+                    $(start_date).datepicker();
+                    $(end_date).datepicker();
+
+                    mouseRemoveEvent(true, '#volunteering_holder');
+                    $('#volunteering_holder').append(data_container);
+
+                    if($('#edit_volunteering').html() == 'Edit'){
+                        $('#edit_volunteering').click();
+                    }
+                    else
+                    appendInput(data_container);
+
+                }
+                    break;
+                case 'add_skill':{
+                    var title = document.createElement("div");
+                    $(title).addClass('honor-title');
+                    $(title).addClass('data');
+                    $(title).addClass('data-input');
+
+                    var description = document.createElement("div");
+                    $(description).addClass('honor-description');
+                    $(description).addClass('data');
+                    $(description).addClass('data-textarea');
+
+                    var level = document.createElement("div");
+                    $(level).addClass("honor-level");
+                    $(level).addClass("skill-level");
+
+                    $(level).hide();
+                    var select = $('.skill-select-template')[0].cloneNode(true);
+                    select.className = 'skill-select';
+                    $(select).addClass('form-control');
+                    $(select).show();
+
+                    var hr = document.createElement("hr");
+                    var data_container = document.createElement("div");
+                    $(hr).addClass('skill-break');
+                    // Added to check for :first data_container -
+                    // do not start with <hr/> if no breaks have been added.
+                    if($('#skills_holder .data_container').length > 0){
+                        $(data_container).append(hr);
+                    }
+                    $(data_container).append(new_icon);
+                    $(data_container).append(title);
+                    $(data_container).append(description);
+                    $(data_container).append(level);
+                    $(data_container).append(select);
+                    $(data_container).addClass('data_container');
+
+
+
+
+                    mouseRemoveEvent(true, '#skills_holder');
+                    $('#skills_holder').append(data_container);
+                    if($('#edit_skills').html() == 'Edit'){
+                        $('#edit_skills').click();
+                    }
+                    else
+                    appendInput(data_container);
+                }
+                    break;
+                default:
+                    alert('Something is not working right here!');
+            }
+
+            // Add button needs this for basic functions not module related
+            $(data_container).mouseenter(function(){
+                $(this).children('i').css('display', 'block');
+            });
+            $(data_container).mouseleave(function(){
+                $(this).children('i').css('display', 'none');
+            });
+
+        };
+        // Call click events
+        $('#add_work').click(addButton);
+        $('#add_volunteer').click(addButton);
+        $('#add_skill').click(addButton);
+    });
+
+    function appendInput(data_container){
+        console.log(data_container);
+        $(data_container).children('div').each(function(){
+            var contents = $(this).html();
+            var input;
+            console.log(this);
+            if($(this).hasClass('data-input')) {
+                input = document.createElement('input');
+                $(input).attr('placeholder', 'Title');
+            }
+            if($(this).hasClass('data-textarea')){
+                input = document.createElement('textarea');
+                $(input).attr('placeholder', 'Description');
+            }
+            $(input).addClass('form-control');
+            $(input).val(contents);
+            $(this).html('');
+            $(this).append(input);
+        });
+        // Automate placeholders for input fields
+        // Split up so it is module specific
+        $('.work-title').find('.form-control').each(function(){
+           if(!$(this).val()){
+               $(this).attr("placeholder", "Title");
+           }
+        });
+        $('.work-description').find('.form-control').each(function(){
+           if(!$(this).val()){
+               $(this).attr("placeholder", "Description");
+           }
+        });
+        $('.volunteer-title').find('.form-control').each(function(){
+           if(!$(this).val()){
+               $(this).attr("placeholder", "Title");
+           }
+        });
+        $('.volunteer-description').find('.form-control').each(function(){
+           if(!$(this).val()){
+               $(this).attr("placeholder", "Description");
+           }
+        });
+        $('.honor-title').find('input').each(function(){
+               $(this).attr("placeholder", "Title");
+
+        });
+        $('.honor-description').find('input').each(function(){
+               $(this).attr("placeholder", "Description");
+
+        });
+    };
+</script>
+{% endif %}

@@ -1,0 +1,125 @@
+{% load staticfiles %}
+<div id="rootwizard">
+
+    <div class="navbar" >
+        <div class="navbar-inner">
+            <div class="container">
+                <ul>
+                    <li><a href="#tab1" data-toggle="tab">Basic info</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Academic info</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Background picture</a></li>
+                </ul>
+                <em style="color:red; display:none" id="validation_message">Please clear the form error(s) before proceeding to the next step.</em>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        {% if form.errors %}
+            <div style="padding-left:15px;margin-bottom:10px;">
+            {% for field in form %}
+                {% for error in field.errors %}
+                 <em style="color:red">
+                    <strong>{{ field.label }}</strong>: {{ error }}<br/>
+                </em>
+                {% endfor %}
+            {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="tab-pane" id="tab1">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h2>Basic Info</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form.mobile_number }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <hr/>
+
+                    <h2>Home address</h2>
+                    <div class="row">
+                        <div class="col-md-12">{{ form.addr_street }}</div>
+                        <div class="col-md-7">{{ form.addr_city }}</div>
+                        <div class="col-md-2">{{ form.addr_state }}</div>
+                        <div class="col-md-3">{{ form.addr_zip }}</div>
+                    </div>
+                    <hr/>
+
+                   <h2>Password</h2>
+                    <div class="row">
+                        <div class="col-md-12">{{ form.password }}</div>
+                        <div class="col-md-12">{{ form.confirm }}</div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Profile Picture</h2>
+                    <img class="photo preview" src="/uploads/{{  student.profile_pic|default:'Profile-Placeholder.png' }}"  style="max-width: 100%"/>
+                    {{ form.profile_pic }}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+            <div class="row">
+                <div class="col-sm-8">
+                     <h2>University</h2>
+                    <div class="row">
+                        <div class="col-md-12">{{ form.university }}</div>
+                        <div class="col-md-12"><input class="textinput largeinput" type="text" id="univstreet" disabled="disabled" /></div>
+                        <div class="col-md-7"><input class="textinput" type="text" id="univcity" disabled="disabled"></div>
+                        <div class="col-md-2"><input class="textinput" type="text" id="univstate" disabled="disabled"></div>
+                        <div class="col-md-3"><input class="textinput" type="text" id="univzip"  disabled="disabled"></div>
+                    </div>
+                    <hr/>
+                    <h2>Academic Info</h2>
+                    <div class="row">
+                        <div class="col-md-12">{{ form.college }}</div>
+                        <div class="col-md-6">{{ form.major }}</div>
+                        <div class="col-md-6">{{ form.minor }}</div>
+                        <div class="col-md-4">{{ form.major_gpa }}</div>
+                        <div class="col-md-4">{{ form.grad_year }}</div>
+                        <div class="col-md-4"> {{ form.overall_gpa }}</div>
+                        <div class="col-md-12"> {{ form.user.password }}</div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Upload a Resume</h2>
+                    {{ student.last_name }}
+                    <input id="id_resume" name="resume" type="file" accept=".pdf"><br />
+                    {{ form.resume_title }}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab3">
+            <h2>Background picture</h2>
+            {% if student.background_pic %}
+                <img class="backgroundphoto preview" src="/uploads/{{ student.background_pic }}" style="width:100%" />
+            {% else %}
+                <img class="backgroundphoto preview"  style="width:100%" />
+            {% endif %}
+            <br/>
+            Select a Photo: {{ form.background_pic }}
+            <hr/>
+        </div>
+
+
+        <ul class="wizard">
+            <li class="previous"><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Previous</a></li>
+            <li class="finish"><a  class="btn btn-success" href="javascript:;">Finish</a></li>
+            <li class="next"><a href="#" class="btn btn-default">Next <span class="glyphicon glyphicon-arrow-right"></span></a></li>
+        </ul>
+    </div>
+</div>

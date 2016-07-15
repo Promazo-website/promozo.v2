@@ -1,0 +1,88 @@
+{% extends 'microsite/base_home.html' %}
+
+{% block page_title %}Contact PM{% endblock %}
+
+{% block body %}
+
+
+
+    <div class="container-fluid mk-rm-4-footer" id="contact-bg">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="tagline-prs text-jumbo white-w-shadow hit-us-up">Hit us up<i class="icon-pm-contact"></i></p>
+            </div>
+        </div>
+        <div class="row contact-form-row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <input type='text' name="name" id='name_input' placeholder='Your Name' title="Your Name"/>
+            </div>
+            <div class="col-sm-2"></div>
+       </div>
+       <div class="row contact-form-row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <input type='email' name="email" id='email_input' placeholder='Your Email (so we can respond)' {% if request.user.is_authenticated %}value='{{ request.user.email }}'{% endif %} title="Your Email"/>
+            </div>
+            <div class="col-sm-2"></div>
+       </div>
+        <div class="row contact-form-row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <textarea id='message_input' name="message" rows="5" placeholder='What can we do for you?' title="Your Message"></textarea>
+            </div>
+            <div class="col-sm-2"></div>
+       </div>
+        <div class="row contact-form-row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <button type="button" class="btn btn-success btn-block btn-lg" id='submit_button'>Send</button>
+            </div>
+            <div class="col-sm-2"></div>
+       </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <p class="sm-heading-pm white-w-shadow">or by direct email/phone</p>
+                <p class="md-copy white-w-shadow"><a href="mailto:questions@promazo.com" target="_new">questions@promazo.com</a></p>
+                <p class="md-copy white-w-shadow">(858) 245-9965</p>
+            </div>
+            <div class="col-sm-2"></div>
+       </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("input[type=text], input[type=password], input[type=email], select, textarea").addClass('form-control');
+
+		$("nav").on("click", "#pmlogoblack", function () {
+            $(".leftnavblack").slideToggle("fast");
+        });
+        $('#top_navblack').mouseover(function(){
+           $('#pmlogoblack').css('border-color', 'white');
+           $('#pmblack').css('color', 'white');
+        });
+        $('#top_navblack').mouseout(function() {
+              $('.pmlogoblack').css('border-color', 'black');
+              $('#pmblack').css('color', 'black');
+        });
+
+	$('#submit_button').click(function(){
+		$.ajax({
+			url: '/contact-send',
+			data: {name: $('#name_input').val(), email: $('#email_input').val(), message: $('#message_input').val()},
+			success: function(data){
+				alert("Thank you for your message!  We'll get back with you as soon as we can!");
+				window.location.href = '/';
+			},
+			error: function(){
+				alert("There was a problem sending your message.  Please contact us directly by sending an email to brett@promazo.com.");
+			}
+		});
+	});
+
+	});
+
+    </script>
+
+{% endblock %}

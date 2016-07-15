@@ -1,0 +1,53 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Deliverables <a href="/student/project/{{ project.id }}/deliverable/create/"><i class="fa fa-plus"></i> </a></h3>
+        </div>
+        <div class="panel-body">
+            {% for projectdeliverable in projectdeliverable_list %}
+            <table class="table">
+                <tr>
+                    <td>
+                        <h3>{{ projectdeliverable }}</h3>
+                        <p>{{ projectdeliverable.description }}</p>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>Status</strong> :
+                                {% if projectdeliverable.completed %}
+                                    <span class="label label-success">Completed</span>
+                                {% else %}
+                                    {% if projectdeliverable.delivery_date < projectdeliverable.completion_date %}
+                                        <span class="label label-danger">Active</span>
+                                    {% else %}
+                                        <span class="label label-default">Active</span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Delivery Date</strong> : {{ projectdeliverable.delivery_date }}
+                            </div>
+                            {% if projectdeliverable.completed %}
+                            <div class="col-xs-3">
+                                <strong>Completed Date</strong> : {{ projectdeliverable.completion_date }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="col-xs-2">
+                        <a href="/student/project/{{ projectdeliverable.project.id }}/deliverable/{{ projectdeliverable.id }}/update/" class="btn btn-primary btn-block">Update</a>
+                    </td>
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

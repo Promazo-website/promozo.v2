@@ -1,0 +1,84 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block extra_headers %}{% endblock %}
+</head>
+
+<body>
+
+    {% include 'tags/messages.html' %}
+
+
+      <div class="row">
+          <div class="col-lg-12">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+              Background Picture
+              </div>
+              <div class="panel-body" >
+
+                  <div class="col-lg-12">
+                    <img src="{% if student.background_pic %}{{ student.background_pic.url }}{% endif %}" id="background_picture_display" name="background_picture_display" style="max-width: 100%; max-height: 450px;"/>
+
+                    <form class="form" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <input type="hidden" name="leftX" id="leftX" value="" />
+                      <input type="hidden" name="rightX" id="rightX" value="" />
+                      <input type="hidden" name="topY" id="topY" value="" />
+                      <input type="hidden" name="bottomY" id="bottomY" value="" />
+
+                      <input type="hidden" value="{% if student.background_pic %}{{ student.background_pic.url }}{% endif %}" id="backup_pic" name="backup_pic" style="max-width: 100px; max-height: 100px;" />
+
+                      <input type="file" id="background_pic" name="background_pic" /><br />
+
+                      <button type="submit" class="btn btn-default">Upload</button>
+                    </form>
+
+                  </div>
+              </div>
+          </div>
+          </div>
+      </div>
+
+    <script>
+        function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+            $('#background_picture_display').attr('src', e.target.result);
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+  document.getElementById('background_pic').addEventListener('change', handleFileSelect, false);
+
+
+
+
+    </script>
+</body>
+</html>

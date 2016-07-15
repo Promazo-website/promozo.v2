@@ -1,0 +1,30 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-4">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h3>Info</h3>
+                    <ul>
+                        <li><a href="/student/{{ student.id }}/personal/">Personal</a></li>
+                        <li><a href="/student/{{ student.id }}/academic/">Academic</a></li>
+                        <li><a href="/student/{{ student.id }}/experience/">Experience</a></li>
+                    </ul>
+                </li>
+
+                <li class="list-group-item">
+                    <h3>Resume</h3>
+                    <ul>
+                        <li><a href="/student/{{ student.id }}/resume/">Default</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-8">
+            {% block subpage %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

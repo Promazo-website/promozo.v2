@@ -1,0 +1,74 @@
+.info-left{
+    color: #848484;
+    border-top: none;
+    width: 30%;
+    display: inline-block;
+}
+
+.info-right{
+    border-top: none;
+    display: inline-block;
+}
+
+table.no-margin {
+    margin:0;
+}
+
+table.borderless tbody tr td {
+    border-top: none;
+}
+
+table.borderless tbody tr td{
+    padding: 2px 0;
+}
+
+.panel-title {
+    font-size: 24px;
+}
+
+.edit_info {
+    float: right;
+    position:relative;
+    top: 3px;
+    color: #86b7db;
+    cursor: pointer;
+}
+
+.cancel_edit {
+    float: right;
+    position:relative;
+    top: 3px;
+    color: #86b7db;
+    cursor: pointer;
+    padding-right: 20px;
+}
+
+hr.info-card {
+    border-color: #999;
+    margin: 5px 0 0;
+}
+
+.panel-body {
+    padding: 20px 30px 30px;
+}
+
+.info-lg{
+    font-size: 20px;
+}
+
+
+.panel-title {
+    font-size: 24px;
+}
+
+.panel {
+    border-radius: 0px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: normal;
+}
+
+.panel-default .panel-heading {
+    background-color: transparent;
+    border: none;
+    padding: 30px 30px 0px;
+}

@@ -1,0 +1,52 @@
+{% extends 'student/base_student.html' %}
+{% load staticfiles %}
+{% block body %}
+{% load base_extras %}
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8 central">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#editprofilemodal" style="float:right">
+      Edit my profile
+    </button>
+    <h1>My profile</h1>
+    <hr/>
+    {#{% show_notifications %}#}
+    {% include 'student/includes/student_profile.html' %}
+
+</div>
+<div class="col-md-2"></div>
+</div>
+    <!-- Modal -->
+<div class="modal fade" id="editprofilemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" style="width:75%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit my profile</h4>
+      </div>
+      <div class="modal-body"  >
+            <form action="" method="post" id="userform" enctype="multipart/form-data">
+        {% csrf_token %}
+    {% include 'student/includes/student_profile_form.html' %}
+    </form>
+      <div class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/student-form.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery.bootstrap.wizard.js' %}" type="text/javascript"></script>
+
+    {% if form.errors %}
+    <script>
+    // Open the modal if there is errors in the form
+    $('#editprofilemodal').modal('show');
+    </script>
+    {% endif %}
+{% endblock %}

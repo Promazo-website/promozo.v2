@@ -1,0 +1,33 @@
+{% extends 'student/home.html' %}
+
+{% block subpage %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">Update Features</div>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>Honors</td>
+                    <td><a href="/student/honors/">Update</a></td>
+                </tr>
+                <tr>
+                    <td>Skills</td>
+                    <td><a href="/student/skill/">Update</a></td>
+                </tr>
+                <tr>
+                    <td>Volunteering</td>
+                    <td><a href="/student/volunteering/">Update</a></td>
+                </tr>
+                <tr>
+                    <td>Work History</td>
+                    <td><a href="/student/workhistory/">Update</a></td>
+                </tr>
+                <tr>
+                    <td>Resume</td>
+                    <td><a href="/student/resume/">Update</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% load base_extras %}
+
+<div id="apply_header">
+    <h1>Application</h1>
+    <a class="btn btn-danger" href="/student/projects">Cancel</a>
+</div>
+
+<h1 id="instructions">Please select the role you wish to apply for by clicking the title</h1>
+
+
+{% for key, data in form_list.items %}
+    <div id="role_container" class="panel panel-default" style="height:auto">
+        <div class="panel-heading" style="overflow-x: hidden">
+            <h1 class="role_name">{{ data.projectrole.name }}</h1>
+            <!--<h4>Due: {{ data.projectrole.project.application_date }}</h4> -->
+
+            {% if data.status == 0 %}
+                <button style="margin-left:20px; width: 150px;" id="button_apply" class="my_popup_open btn btn-info" data-project="{{ data.projectrole.project.id }}" data-role="{{ data.projectrole.id }}">Continue Applying</button>
+            {% elif data.status == 1 %}
+                <button style="margin-left:20px; width: 150px;" id="button_withdraw" class="my_popup_open btn btn-danger" data-project="{{ data.projectrole.project.id }}" data-role="{{ data.projectrole.id }}">Withdraw</button>
+            {% else %}
+                <button style="margin-left:20px; width: 150px;" id="button_apply" class="my_popup_open btn btn-success" data-project="{{ data.projectrole.project.id }}" data-role="{{ data.projectrole.id }}">Next</button>
+            {% endif %}
+
+            {% if project.status %}{# Only recommend button if project is still active. Other measures might be added later. #}
+            &nbsp;&nbsp;<a href="/recommendations/send/?projectrole_id={{ data.projectrole.id }}" class="btn btn-info">Recommend Position</a>
+            {% endif %}
+
+            <div id="my_popup" style="display:none">
+                   <div id="questions_display"></div>
+            </div>
+
+            <div id="role_info_bar">
+                <i class="fa fa-clock-o fa-2x"></i>{{ data.projectrole.project.hours }}
+                <i class="fa fa-users fa-2x"></i>{{ data.projectrole.project.member_count }}
+                <i class="fa fa-calendar fa-2x"></i>{{ data.projectrole.project.start_date }} - {{ project.end_date }}
+            </div>
+            <br>
+        </div>
+        <div class="panel-body">
+            <p>{{ data.projectrole.description|linebreaks }}</p>
+        </div>
+        <h5 style="margin-left: 20px; font-size: 16px; position: relative; bottom: 10px;">Applications Due: {{ data.projectrole.project.application_date }}</h5>
+    </div>
+{% endfor %}
+
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-52012726-1', 'promazo.com');
+    ga('send', 'pageview');
+
+
+    $(document).ready(function () {
+
+        //initialize the plugin
+        $('#my_popup').popup();
+
+        //Make background white
+        $("body").css("background", "#FFFFFF");
+
+        //Ajax call that displays the roles in the overlay window
+        $('#role_container #button_apply').click(function () {
+            // get the project role id
+            var role_id = $(this).data("role");
+            var project_id = $(this).data("project");
+
+            $.ajax({
+                url: '/student/get_role_questions',
+                data: {role_id: role_id, project_id: project_id},
+                dataType: 'html',
+                success: function (data) {
+                    $('#role_display').html(data);
+                },
+                error: function () {
+                    alert("Failed to find project role!");
+                }
+            });
+        });
+
+        //Ajax call that withdraws the student from the role
+        $('#role_container #button_withdraw').click(function () {
+            // get the project role id
+
+               var retVal = confirm("Are you sure you want to withdraw?");
+                if( retVal == true ){
+                    var role_id = $(this).data("role");
+                    var project_id = $(this).data("project");
+
+                    $.ajax({
+                        url: '/student/withdraw',
+                        data: {role_id: role_id, project_id: project_id},
+                        dataType: 'html',
+                        success: function () {
+                            alert("You have successfully withdrawn from the role!");
+                            location.href=('/student/projects')
+                        },
+                        error: function () {
+                            alert("Failed to withdraw from the  project role!");
+                        }
+                    });
+
+                }else {
+                    alert("You have NOT withdrawn from the role!");
+                    return false;
+                }
+        });
+
+    });
+</script>
+
+

@@ -1,0 +1,133 @@
+{% load base_extras %}
+
+<div id="apply_header">
+    <h1>Application</h1>
+    <a class="btn btn-danger" href="/student/projects">Cancel</a>
+</div>
+
+{% if project and projectrole %}
+        <div id="question_container">
+            <form action='/student/submit_application' method="post" id="application_question_form" enctype="multipart/form-data">{% csrf_token %}
+                {% for key, data in form_list.items %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="question">{{ data.question }}</div>
+                            <br><br>
+                        </div>
+                        <div class="panel-body">
+                            <textarea style="background-color: white; border:white 1px solid; resize:none" class="textarea" name="question_{{ data.question.id }}" id="question_{{ data.question.id }}" data-question="{{ data.question.id }}" placeholder="Add Response" rows="10" cols="90" style="margin-left:20px">{{ data.answer }}</textarea>
+                        </div>
+
+                     </div>
+                {% endfor %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="question">If you have a PDF file containing previous work you would like to include in this application, upload it here.</div>
+                        <br><br>
+                    </div>
+                    <div class="panel-body">
+                        <input type="file" id="past_work" name="past_work" accept=".pdf"/>
+                    </div>
+                </div>
+                <input type="hidden" name="project_id" value="{{ project.id }}"/>
+                <input type="hidden" name="role_id" value="{{ projectrole.id }}"/>
+
+                <input type="submit" id="submit_button" value='Submit' style="display: none;" class="btn btn-success" />
+                <button type="button" id="submit" style="float:right; margin-left:30px; margin-bottom:10px; width:100px" class="btn btn-success">Submit</button>
+                <button type="button" id="save" style="float:right; margin-left:30px; margin-bottom:10px; width:100px" class="btn btn-warning">Save</button>
+            </form>
+        </div>
+
+{% else %}
+    <p>This role is not available for application</p>
+{% endif %}
+
+<script>
+    $(document).ready(function () {
+
+        //Ajax call that submits the application when the submit button
+        //is clicked
+        /*$('#submit').click(function (e) {
+            $('#application_question_form').submit();
+            e.preventDefault();
+
+            var data = {
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                project_id: $('input[name="project_id"]').val(),
+                role_id: $('input[name="role_id"]').val(),
+
+            };
+
+            console.log(data);
+
+            $('.textarea').each(function () {
+                var question_id = $(this).data('question');
+                data['question_' + question_id] = $(this).val();
+            });
+
+            $.ajax({
+                type:"POST",
+                url: '/student/submit_application',
+                data: data,
+                dataType: 'html',
+                success: function () {
+                    alert("Successfully Applied for Role");
+                    location.href=('/student/projects')
+                },
+                error: function (data) {
+                    alert("Failed to submit application.");
+                    //document.write(data.responseText);
+                    //document.close();
+                    document.body.innerHTML = data.responseText;
+                }
+            });
+        });*/
+
+        $('#submit').click(function(){
+           // run through the questions, check for any empty answers
+            var empty = false;
+            $('.textarea').each(function(){
+                if($(this).val() == '')
+                    empty = true;
+            });
+
+            if(empty){
+               if(!confirm('You have some answers that are still blank.  Are you sure you want to submit this application without answering all questions?')){
+                   return;
+               }
+            }
+
+            $('#submit_button').click();
+        });
+
+        //Ajax call that saves the answers when the save button is clicked
+        $('#save').click(function(e){
+            e.preventDefault();
+
+            var data = {
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+                project_id: $('input[name="project_id"]').val(),
+                role_id: $('input[name="role_id"]').val()
+            };
+
+            $('.textarea').each(function () {
+                var question_id = $(this).data('question');
+                data['question_' + question_id] = $(this).val();
+            });
+
+            $.ajax({
+                type:"POST",
+                url: '/student/save_application',
+                data: data,
+                dataType: 'text',
+                success: function(){
+                    alert("Successfully Saved Questions");
+                    location.href=('/student/projects')
+                },
+                error: function(){
+                    alert("Failed to save application.")
+                }
+             });
+        });
+    });
+</script>

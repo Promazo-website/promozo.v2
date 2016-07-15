@@ -1,0 +1,578 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.hiwt-student {
+   background: #111 url("../images/bkgrnds/student-group-1.jpg") top center no-repeat;
+}
+
+.hiwt-company {
+   background: #111 url("../images/bkgrnds/office-3.jpg") center center no-repeat;
+}
+
+.how-it-works-title {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #fff;
+    padding: 0;
+    text-align: center;
+    padding: 120px 0;
+}
+
+.how-it-works-title h4 {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+	text-transform:uppercase;
+	font-weight: 300;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.how-it-works-title h1 {
+    font-size: 35px;
+    line-height: 45px;
+    margin: 20px 0;
+}
+
+.how-it-works-title hr {
+    margin: 0px auto;
+    width: 80%;
+    border-color: #fff; /* #e5501c; */
+}
+
+h1.introducing {
+	color:#06A;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+	font-size:35px;
+	font-weight:300;
+	text-align:center;
+    padding: 20px 0;
+    background: #fff;
+}
+
+h1.introducing span {
+    font-family: Georgia, Cambria, serif;
+    letter-spacing: -1px;
+    font-size: 30px;
+}
+
+/*  How it Works Pathways   */
+
+#how-it-works-diagram {
+    background: #f8f8f8;
+    color: #666;
+    padding: 50px 0;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+#how-it-works-diagram .text-side {
+    padding: 0 40px;
+}
+
+#how-it-works-diagram #student-path,
+#how-it-works-diagram #company-path {
+    position: relative;
+    float: none;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+#how-it-works-diagram #student-path i.place-path,
+#how-it-works-diagram #company-path i.place-path {
+    display: none;
+}
+
+#how-it-works-diagram .stage {
+    position: static;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 17px;
+    clear: both;
+    width: 92px;
+    height: 92px;
+    margin: 5px 5px;
+    padding-top: 10px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    color: #fff;
+    -moz-transition: -moz-transform 0.2s ease 0s;
+    -webkit-transition: -webkit-transform 0.2s ease 0s;
+    -o-transition: -o-transform 0.2s ease 0s;
+    transition: transform 0.2s ease 0s;
+}
+
+#how-it-works-diagram .discuss-step.stage {
+    line-height: 10px;
+    padding-top: 10px;
+}
+
+#how-it-works-diagram .flag-step.stage {
+    padding-top: 12px;
+}
+
+#how-it-works-diagram .stage.two-line-title {
+    line-height: 14px;
+    padding-top: 6px;
+}
+
+#how-it-works-diagram i {
+    font-size: 50px;
+    padding: 0;
+}
+
+#how-it-works-diagram .discuss-step i {
+    font-size: 60px;
+    padding: 0;
+}
+
+#how-it-works-diagram .complete-step i {
+    padding: 0 0 0 7px;
+}
+
+#how-it-works-diagram p.hidden-text {
+    color: #666;
+    font-size: 18px;
+    line-height: 1.3;
+    text-align: left;
+    margin: 0px;
+    font-weight: 400;
+    visibility: hidden;
+    position: absolute;
+}
+
+#how-it-works-diagram .stage:hover,
+#how-it-works-diagram .stage:focus,
+#how-it-works-diagram .stage:active {
+    -ms-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+#how-it-works-diagram .upload-step,
+#how-it-works-diagram .discuss-step {
+    background: #19477c;
+}
+
+#how-it-works-diagram .flag-step,
+#how-it-works-diagram .publish-step {
+    background: #3d9bb4;
+}
+
+#how-it-works-diagram .search-step {
+    background: #8eb425;
+}
+
+#how-it-works-diagram .collaborate-step {
+    background: #f07d20;
+}
+
+#how-it-works-diagram .complete-step {
+    background: #e5501c;
+}
+
+#how-it-works-diagram .create-step,
+#how-it-works-diagram .join-step {
+    background: #78448c;
+}
+
+
+
+/***** What can students do *****/
+
+#what-can-students-do {
+    background: url(/static/microsite/images/Images/Campus.jpg) no-repeat scroll center top #111;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #fff;
+    margin: 0;
+    overflow-x: hidden;
+    position: relative;
+    padding: 50px 50px;
+}
+
+
+
+/***** TYPES OF PROJECTS *****/
+
+.projects3 {
+	color:#444;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    margin: 20px 0;
+}
+
+.projects3 h3 {
+	text-align:center;
+    font-size: 16px;
+}
+
+#proj-support h3 {
+	color:#6AA;
+}
+
+#proj-exploratory h3 {
+	color:#F63;
+}
+
+#proj-immediate h3 {
+	color:#939;
+}
+
+.projects3 i {
+	font-size: 120px;
+    text-align: center;
+	display: block;
+	margin: 30px auto 20px;
+}
+
+.projects3 p {
+    font-size: 16px;
+    line-height: 22px;
+	text-align:center;
+}
+
+
+.proj-reveal {
+	cursor:pointer;
+    position: relative;
+}
+
+.projects3 .proj-reveal-student .more-info {
+    position: absolute;
+    top: 120px;
+    left: 0px;
+}
+
+.projects3 .proj-reveal-company .more-info {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.projects3 .proj-reveal-company#proj-support .more-info {
+    max-width: 280px;
+}
+
+.projects3 .proj-reveal-company#proj-exploratory .more-info {
+    width: 150px;
+}
+
+.projects3 .proj-reveal-company#proj-exploratory .more-info {
+    width: 150px;
+}
+
+.projects3 ul.icon {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+	opacity:0;
+    list-style-type: none;
+}
+
+.projects3 .proj-reveal-company ul.icon li {
+    text-indent: -1.6em;
+	font-size:14px;
+    line-height: 18px;
+	margin-left:20px;
+    padding: 3px 0;
+}
+
+.projects3 .proj-reveal-company ul.icon li:before {
+    font-family: "pm-icons";
+    content: "\e803";
+    float: left;
+    width: 1.6em;
+    color: #8eb425;
+}
+
+.proj-reveal-company {
+    height: 300px; /* keeps the page from bouncing on reveal */
+}
+
+.proj-reveal-student {
+    height: 400px; /* keeps the page from bouncing on reveal */
+}
+
+
+.projects3 .proj-reveal-student ul.icon {
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+	opacity:0;
+    list-style-type: none;
+}
+
+.projects3 .proj-reveal-student ul.icon li {
+	font-size:16px;
+    line-height: 22px;
+    text-align: center;
+}
+
+
+.benefits {
+	color:#333;
+    padding: 20px 15px 0;
+}
+
+.benefits h1 {
+    font-weight: 300;
+    text-transform: uppercase;
+	color:#FFF;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.benefits h3 {
+	color:#FFF;
+	text-align:center;
+}
+
+.ben-reveal {
+    cursor:pointer;
+    position: relative;
+}
+
+.benefits .more-info {
+    position: absolute;
+    top: 50px;
+    left: 0;
+}
+
+.benefits i {
+	font-size: 120px;
+    text-align: center;
+	display:block;
+    color: #222;
+}
+
+.benefits ul.more-info {
+	visibility:visible;
+	font-size:16px;
+    font-weight: 400;
+	text-align:left;
+	padding:0;
+	opacity:0;
+	color:#FFF;
+}
+
+.benefits ul.more-info li {
+	padding:20px 0 0;
+	width:100%;
+}
+
+.benefits .ben-reveal {
+    height: 330px; /* keeps the page from bouncing on reveal */
+}
+
+.company-benefits {
+    padding-bottom: 150px;
+	background: #111 url(../images/bkgrnds/Companies-Red.jpg) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	background-size:cover;
+}
+
+.student-benefits {
+    padding-bottom: 80px;
+	background: #111 url(../images/bkgrnds/Students-Green.jpg) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	background-size:cover;
+}
+
+/****** Get Started Button ********/
+
+.get-started {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: #e5e5e5;
+    width: auto;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.gs-question {
+    padding-right: 20px;
+    vertical-align: middle;
+}
+
+/****** Responsive Media Queries ********************/
+
+@media (min-width: 768px ) {
+
+    .how-it-works-title {
+        padding: 110px 0;
+    }
+
+    .how-it-works-title h1 {
+        font-size: 50px;
+        line-height: 60px;
+        padding: 20px 0;
+    }
+
+    .how-it-works-title h4 {
+        font-size: 22px;
+        line-height: 28px;
+    }
+
+    #how-it-works-diagram #student-path,
+    #how-it-works-diagram #company-path {
+        width: 540px;
+        height: 500px;
+        margin: 0 auto;
+    }
+
+    #how-it-works-diagram .text-side {
+        padding: 0 150px;
+    }
+
+    #how-it-works-diagram #student-path i.place-path,
+    #how-it-works-diagram #company-path i.place-path {
+        display: inline;
+        position: absolute;
+        top:57px;
+        left: 0;
+        color: #999;
+        margin-left: -40px;
+        font-size: 410px;
+    }
+
+
+    #how-it-works-diagram .stage {
+        position: absolute;
+        display: block;
+        font-size: 14px;
+        line-height: 18px;
+        width: 100px;
+        height: 100px;
+        margin: 5px 5px;
+        padding-top: 15px;
+    }
+
+    #how-it-works-diagram .flag-step.stage {
+        padding-top: 15px;
+    }
+
+    #how-it-works-diagram .stage.two-line-title {
+        padding-top: 10px;
+    }
+
+    #how-it-works-diagram .upload-step,
+    #how-it-works-diagram .discuss-step {
+        top: 20px;
+        left: 0px;
+    }
+
+    #how-it-works-diagram .flag-step,
+    #how-it-works-diagram .publish-step {
+        top: 160px;
+        left: 60px;
+    }
+
+    #how-it-works-diagram .search-step {
+        top: 300px;
+        left: 100px;
+    }
+
+    #how-it-works-diagram .collaborate-step {
+        top: 380px;
+        left: 260px;
+    }
+
+    #how-it-works-diagram .complete-step {
+        top: 280px;
+        left: 410px;
+    }
+
+    #how-it-works-diagram .create-step,
+    #how-it-works-diagram .join-step {
+        top: 160px;
+        left: 280px;
+    }
+
+    #how-it-works-diagram p.hidden-text {
+        position: absolute;
+        top: 30px;
+        left: 150px;
+        visibility: hidden;
+    }
+
+    #how-it-works-diagram .stage:hover+p.hidden-text,
+    #how-it-works-diagram .stage:focus+p.hidden-text,
+    #how-it-works-diagram .stage:active+p.hidden-text {
+        visibility: visible;
+    }
+
+    #what-can-students-do {
+        padding: 100px 50px;
+    }
+
+
+    .proj-reveal {
+        -moz-transition: -moz-transform 0.2s ease 0s;
+        -webkit-transition: -webkit-transform 0.2s ease 0s;
+        -o-transition: -o-transform 0.2s ease 0s;
+        transition: transform 0.2s ease 0s;
+    }
+
+    .proj-reveal:hover,
+    .proj-reveal:focus,
+    .proj-reveal:active {
+        -ms-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+
+    .ben-reveal {
+        -moz-transition: -moz-transform 0.2s ease 0s;
+        -webkit-transition: -webkit-transform 0.2s ease 0s;
+        -o-transition: -o-transform 0.2s ease 0s;
+        transition: transform 0.2s ease 0s;
+    }
+
+    .ben-reveal:hover,
+    .ben-reveal:focus,
+    .ben-reveal:active {
+        -ms-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+
+}
+
+@media (min-width: 992px ) {
+
+    #how-it-works-diagram #student-path,
+    #how-it-works-diagram #company-path {
+        float: right;
+    }
+
+    #how-it-works-diagram .text-side {
+        padding: 100px 20px 20px 20px;
+    }
+
+    #how-it-works-diagram .right-side h2 {
+        text-align: left;
+    }
+
+}

@@ -1,0 +1,51 @@
+{% extends 'student/base_student.html' %}
+{% load staticfiles %}
+{% load base_extras %}
+{% block body %}
+
+<div class="row">
+	<div class="col-md-4">
+
+		<div id="project_list" style="height:100%">
+            <h1>Companies</h1>
+            {% for company in companies %}
+                <div class="project" data-id="{{ company.id }}">
+                    <img src="/uploads/{{ company.picture }}" style="max-width:100px; float:left;" />
+                    <h3>{{ company.name }}</h3>
+                    <strong>{{ company.projects.count  }}</strong>  projects
+                    <div class="clearfix"></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+	<div class="col-md-8">
+		<div id="project_display">
+            {#{% show_notifications %}#}
+			<div style="margin:100px 0 100px 0;"><- Please select a company to see more details.</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/companies.js' %}"></script>
+<script>
+
+	$(document).ready(function(){
+        CompanyManager.ResizeDivs();
+
+		$(window).bind('resize', function(){
+            CompanyManager.ResizeDivs();
+		});
+
+            $('.carousel').carousel();
+    $("div.project").click(function(){
+        CompanyManager.GetCompanyDetails($(this).attr("data-id"), $(this));
+    });
+
+	});
+
+</script>
+{% endblock %}

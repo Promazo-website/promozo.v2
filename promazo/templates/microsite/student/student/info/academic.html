@@ -1,0 +1,398 @@
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% if request.user == student.user %}
+                <span class="edit_info" id="edit_college">Edit</span>
+                <!-- Added 'Cancel' button CLWJR -->
+                <span class="cancel_edit" id="cancel_college">Cancel</span>
+                {% endif %}
+                <div class="panel-title">COLLEGE/UNIVERSITY</div>
+                <hr class="info-card" />
+            </div>
+            <div class="panel-body" id="college">
+                <div class="info-lg" style="margin-bottom: 10px">
+                    {{ student.university }}
+                </div>
+
+                <table class="table borderless no-margin">
+                    <tr>
+                        <td class="info-left">Major:</td>
+                        <td class="info-right">{{ student.major }}</td>
+                    </tr>
+                    <tr>
+                        <td class="info-left">Minor:</td>
+                        <td class="info-right">{{ student.minor }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="info-left">GPA:</td>
+                        <td class="info-right">{{ student.overall_gpa }}</td>
+                    </tr>
+                    <tr>
+                        <td class="info-left">Major GPA:</td>
+                        <td class="info-right">{{ student.major_gpa }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% if request.user == student.user %}
+                <span class="edit_info" id="edit_honors">Edit</span>
+                <!-- Added 'Cancel' button CLWJR -->
+                <span class="cancel_edit" id="cancel_honors">Cancel</span>
+                {% endif %}
+                <div class="panel-title">HONORS</div>
+                <hr class="info-card" />
+            </div>
+            <div class="panel-body" id="honors">
+                <div class="honors_holder" id="honors_holder">
+                    {% for honor in student.honors.all %}
+                        <div class="data_container">
+                            {% if request.user == student.user %}<i class="fa fa-remove" style="display: none; color: red; position: relative; top: 0px; float: right; cursor: pointer;" id="honor_{{ honor.id }}"></i>{% endif %}
+                            <div class="honor-title data">{{ honor.honor }}</div>
+                            <div class="honor-description data">{{ honor.description }}</div>
+                            {% if not forloop.last %}
+                                <hr class="honor-break">
+                            {% endif %}
+                        </div>
+                    {%  endfor %}
+                </div>
+                {% if request.user == student.user %}
+                    <button class="btn btn-success" style="float: right;" id="add_honor"><i class="fa fa-plus"></i></button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if request.user == student.user %}
+<script>
+    var flag = false;
+    var UNIVERSITIES = [];
+    {% for university in universities %}
+    UNIVERSITIES.push('{{ university.name }}');
+    {% endfor %}
+
+    $(document).ready(function(){
+        // Function added for .mouseenter and .mouseleave events CLWJR
+        // This function is module specific, dependent upon the holder ID.
+        function mouseRemoveEvent(flag, id){
+            flag = flag || false;
+            var id = id || 'error';
+            if (id == 'error'){
+                alert('Something went wrong!  Please try again or contact your system administrator.');
+                return;
+            }
+            // Check for flag to activate .mouseenter and .mouseleave events
+            $(id+' .data_container').mouseenter(function(){
+                if(flag == true)
+                    $(this).children('i').css('display', 'block');
+            });
+            $(id+' .data_container').mouseleave(function(){
+                if(flag == true)
+                    $(this).children('i').css('display', 'none');
+            });
+            $('.fa-remove').click(function(){
+                $(this).parent().remove();
+            });
+        };
+        $('.data_container').each(function(){
+            $(this).children('i').each(function(){
+                $(this).click(function(){
+                    // get the work history id
+                    var id = this.id.split('_')[1];
+                    var category = this.id.split('_')[0];
+                    $.ajax({
+                        url: '../remove_history',
+                        data: {id: id, category: category},
+                        success: function(data){
+                            if(data == '200')
+                                $('#'+category+'_'+id).parent().remove();
+                            else
+                                alert("You cannot delete someone else's likes!");
+                        },
+                        error: function(){
+                            alert("Failed to remove that like.  Please contact the system administrator.");
+                        }
+                    });
+                });
+            });
+        });
+
+        // Hide Cancel button when not editing
+        $('#cancel_honors').hide();
+        $('#cancel_college').hide();
+        // Save HTML in DIVs with IDs of college and honors_holder so we can go back to it when Cancel button is used
+        $('#college').data('collegeData', $('#college').html());
+        $('#honors_holder').data('honorsData', $('#honors_holder').html());
+
+        // Function for Cancel button that cancels the edit transaction
+        $('.cancel_edit').click(function(e){
+            e.preventDefault();
+            if($(this).attr('id') == "cancel_college"){
+                // Replace prior HTML in the DIV with ID college
+                $('#college').html($('#college').data('collegeData'));
+                // Hide Cancel and show 'Edit' button
+                $('#cancel_college').hide();
+                $('#edit_college').html('Edit');
+            }else if($(this).attr('id') == "cancel_honors"){
+                // Replace prior HTML in the DIV with ID honors_holder
+                $('#honors_holder').html($('#honors_holder').data('honorsData'));
+                // Hide Cancel and show 'Edit' button
+                $('#cancel_honors').hide();
+                $('#edit_honors').html('Edit');
+            }else{
+                alert("An error has occurred.  Please contact your system administrator.");
+            }
+        });
+
+        function editCollege(){
+            if($(this).html() == 'Edit') {
+                $('#college .info-right').each(function(){
+                    var contents = $(this).html();
+                    var input = document.createElement('input');
+                    $(input).addClass('form-control');
+                    $(input).val(contents);
+                    $(this).html('');
+                    $(this).append(input);
+                });
+                $('#college .info-lg').each(function(){
+                    var contents = $(this).html();
+                    var university_select = document.createElement('select');
+                    university_select.id = 'university_dropdown';
+                    for (var i = 0; i < UNIVERSITIES.length; i++) {
+                        var new_option = document.createElement("option");
+                        $(new_option).html(UNIVERSITIES[i]);
+                        if (contents == UNIVERSITIES[i])
+                            $(new_option).attr('selected', 'selected');
+                        $(university_select).append(new_option);
+                    }
+                    $(this).html('');
+                    $(this).append(university_select);
+                });
+                $(this).html('Save');
+                // Show the Cancel button and show the 'Save' button when 'Edit' is clicked
+                $('#cancel_college').show();
+            }else{
+                // generate the data we need
+                var university = $('#university_dropdown option:selected').text();
+                var other_info = $('#college .info-right input');
+
+                // send this data off to be saved
+                $.ajax({
+                    url: '../save_student_data',
+                    data: {major: other_info[0].value, minor: other_info[1].value, gpa: other_info[2].value, major_gpa:
+                            other_info[3].value, university: university},
+                    success: function(data){
+                        $('#college .info-right').each(function(){
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+
+                        $('#college .info-lg').each(function(){
+                            var selected_university = $('#university_dropdown option:selected').text();
+                            $(this).html(selected_university);
+                        });
+                        $('#edit_college').html('Edit');
+                        // Hide the Cancel button and show 'Edit' when form has been saved
+                        $('#cancel_college').hide();
+                        // Fill the DIV with ID college with the new data and save in collegeData
+                        $('#college').data('collegeData', $('#college').html());
+                        // Reload to remove mousehover events
+                        $('#college').html($('#college').data('collegeData'));
+                    },
+                    error: function(){
+                        alert("There was a problem saving your data.  Please contact the system administrator.");
+                    }
+                });
+            }
+        };
+        $('#edit_college').click(editCollege);
+
+        // Re-coded the #edit_honors .click function to fix many bugs and to work with 'Cancel' button CLWJR
+        function editHonor(){
+            if($(this).html() == 'Edit'){
+                // Check to see if the student has any honors already added
+                // If the student does not have any honors, then launch #add_honor
+                if($('#honors_holder').find('div.data_container').length == 0){
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_honors').show();
+                    $('#add_honor').click();
+                }else{
+                    // If honors have already been added:
+                    $('#honors .data').each(function(){
+                        var contents = $(this).html();
+                        var input = document.createElement('input');
+                        $(input).addClass('form-control');
+                        $(input).val(contents);
+                        $(this).html('');
+                        $(this).append(input);
+                    });
+                    // Automate placeholders for input fields
+                    $('.honor-title').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Title");
+                       }
+                    });
+                    $('.honor-description').find('.form-control').each(function(){
+                       if(!$(this).val()){
+                           $(this).attr("placeholder", "Description");
+                       }
+                    });
+
+                    $(this).html('Save');
+                    // Show Cancel button and 'Save' button when 'Edit' is clicked
+                    $('#cancel_honors').show();
+                    // We only want the mouseRemoveEvent to be true when editing.
+                    mouseRemoveEvent(true, '#honors_holder');
+                }
+            }else{
+                var honor_list = [];
+                $('.student_info_display div.honors_holder div.data_container').each(function(){
+                    console.log(this);
+                    var inputs = $(this).children('div').children('input');
+                    console.log(inputs);
+                    var history = {
+                        'title': inputs[0].value,
+                        'description': inputs[1].value
+                    };
+                    // Make sure they entered something in the text box -
+                    // empty object if nothing was entered. CLWJR
+                    if((history['title'] == '') || (history['description'] == '')){
+                        alert('You must enter something in the text boxes');
+                        history = [];   // Causes error so the form does not save
+                    };
+                    honor_list.push(history);
+                });
+
+                $.ajax({
+                    url: '../save_student_data',
+                    data: {honors: JSON.stringify(honor_list)},
+                    success: function(data){
+                        $('#honors div.data').each(function(){
+                            var contents = $(this).children('input')[0];
+                            var val = contents.value;
+                            $(this).html(val);
+                        });
+
+                        $('#edit_honors').html('Edit');
+                        // Hide the Cancel button and show 'Edit' when form has been saved
+                        $('#cancel_honors').hide();
+                        // Fill the DIV with ID honors_holder with the new data and save in honorsData
+                        $('#honors_holder').data('honorsData', $('#honors_holder').html());
+                        // Reload to remove mousehover events
+                        $('#honors_holder').html($('#honors_holder').data('honorsData'));
+                    },
+                    error: function(){
+                        alert("Failed to save your honors.  Please contact the system administrator.");
+                    }
+                });
+            }
+        };
+        $('#edit_honors').click(editHonor);
+
+        function addButton(){
+            var new_icon = document.createElement('i');
+            $(new_icon).addClass('fa');
+            $(new_icon).addClass('fa-remove');
+            $(new_icon).css('display', 'none');
+            $(new_icon).css('color', 'red');
+            $(new_icon).css('position', 'relative');
+            $(new_icon).css('top', '0px');
+            $(new_icon).css('float', 'right');
+            $(new_icon).css('cursor', 'pointer');
+            $(new_icon).click(function(){
+                $(this).parent().remove();
+            });
+
+            var title = document.createElement("div");
+            $(title).addClass('honor-title');
+            $(title).addClass('data');
+
+            var description = document.createElement("div");
+            $(description).addClass('honor-description');
+            $(description).addClass('data');
+
+            var hr = document.createElement("hr");
+            var data_container = document.createElement("div");
+            var id = $(this).attr('id');
+            switch(id){
+                case 'add_honor':{
+                    $(hr).addClass('honor-break');
+                    // Added to check for :first data_container -
+                    // do not start with <hr/> if no breaks have been added.
+                    if($('#honors_holder .data_container').length > 0){
+                        $(data_container).append(hr);
+                    }
+                }
+                    break;
+                default:
+                    alert('Something is not working right here!');
+            }
+
+            $(data_container).append(new_icon);
+            $(data_container).append(title);
+            $(data_container).append(description);
+            $(data_container).addClass('data_container');
+
+            $(data_container).mouseenter(function(){
+                    $(this).children('i').css('display', 'block');
+            });
+            $(data_container).mouseleave(function(){
+                    $(this).children('i').css('display', 'none');
+            });
+
+           // make sure we're in edit mode and append data_container for appropriate ID's
+            switch(id){
+                case 'add_honor':{
+                    mouseRemoveEvent(true, '#honors_holder');
+                    $('#honors_holder').append(data_container);
+
+                    if($('#edit_honors').html() == 'Edit'){
+                        $('#edit_honors').click();
+                    }else{
+                        appendInput();
+                    }
+                    break;
+                }
+                default:
+                    alert('Big bummer.  You got another error.')
+            }
+
+            // Creates input fields when 'Add' button is used
+            function appendInput(){
+                $(data_container).children('.data').each(function(){
+                    var contents = $(this).html();
+                    var input = document.createElement('input');
+                    $(input).addClass('form-control');
+                    $(input).val(contents);
+                    $(this).html('');
+                    $(this).append(input);
+                });
+                // Automate placeholders for input fields
+                $('.honor-title').find('.form-control').each(function(){
+                   if(!$(this).val()){
+                       $(this).attr("placeholder", "Title");
+                   }
+                });
+                $('.honor-description').find('.form-control').each(function(){
+                   if(!$(this).val()){
+                       $(this).attr("placeholder", "Description");
+                   }
+                });
+            };
+        };
+        $('#add_honor').click(addButton);
+    });
+</script>
+{% endif %}

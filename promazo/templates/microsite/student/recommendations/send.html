@@ -1,0 +1,133 @@
+{% extends 'student/recommendations/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+        <div class="page-header">
+            <h1>Send a Recommendation</h1>
+        </div>
+        <div class="panel panel-heading">
+                <h3 style="font-size: large; font-weight: bold;">{{ projectrole }}
+                    <div class="pull-right">
+                        {% if project.corporation.picture %}
+                            <img style="max-width:100px; float: right;" src="/uploads/{{ project.corporation.picture }}"/>
+                        {% endif %}
+                    </div>
+                </h3>
+                <h4>{{ projectrole.description }} <div class="pull-right" style="float:right;">{{ project }}</div></h4>
+            <hr />
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4><strong>Internal Recommendation</strong></h4>
+                    <hr />
+                    <div class="form-group has-feedback">
+                        <label class="control-label sr-only" for="inputSuccess5">Hidden label</label>
+                        <input type="text" class="form-control" id="search" aria-describedby="inputSuccess5Status" placeholder="Search Student">
+                        <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                        <span id="inputSuccess5Status" class="sr-only">(success)</span>
+                    </div>
+                    <table id="student-list" class="table">
+                        <thead>
+                        <th class="col-xs-11">Name</th>
+                        <th class="col-xs-1">Action</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-6">
+                    <h4><strong>Email Recommendation</strong></h4>
+                    <hr />
+                    <form id="sendEmailRecommendationForm">
+                        <div class="form-group">
+                            <input name="emailAddress" id="emailAddress" type="email" class="form-control" placeholder="Email Address" ><br/>
+                            <input name="sendToName" type="text" class="form-control" placeholder="Name">
+                            <input name="projectRole" type="hidden" value="{{ projectrole.id }}">
+                            <br/>
+                            <button id="emailButton" class="btn btn-success pull-right" type="button"><span class="glyphicon glyphicon-envelope" style="font-size: 20px; vertical-align: middle;"></span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function () {
+            var projectrole = {{ projectrole.id }};
+            $("#search").keyup(function () {
+                var name = $(this).val();
+
+                // Search only if 3 or more chars.
+                if (name.trim().length < 3) {
+                    return;
+                }
+
+                $.ajax({
+                    url: '/recommendations/student/search/',
+                    dataType: 'json',
+                    method: 'POST',
+                    data: {name: name, csrfmiddlewaretoken: '{{ csrf_token }}'}
+                }).done(function (data) {
+                    $('#student-list').find('tbody').html('');
+                    $.each(data.student_list, function (index, student) {
+                        console.log(student);
+                        $('#student-list').find('tbody').append('<tr><td>' + student.name + '</td><td><a href="#" data-id="' + student.id + '" class="btn btn-success btn-block invite-student">Recommend</a></td></tr>');
+                    });
+
+                    // If invite button is clicked
+                    $('.invite-student').click(function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: '/recommendations/send/internal/',
+                            dataType: 'json',
+                            method: 'POST',
+                            data: {projectrole_id: projectrole, student_id: $(e.target).data('id'), csrfmiddlewaretoken: '{{ csrf_token }}'}
+                        }).done(function (data) {
+                            alert(data.message);
+                        }).fail(function (xhr) {
+                            alert(data.message);
+                        });
+                    });
+                }).fail(function (xhr) {
+
+                });
+
+            });
+
+            // If send_email button is clicked.
+            $('#emailButton').click(function () {
+                //Get data to submit form
+                var emailAddr = document.forms["sendEmailRecommendationForm"]["emailAddress"].value;
+                var name = document.forms["sendEmailRecommendationForm"]["sendToName"].value;
+
+                //check if valid email address
+                if (emailAddr.split("@")[1].split(".")[1] == "edu") {
+
+                    //submit the form
+                    $.ajax({
+                        url: '/recommendations/send-email-recommendation/',
+                        dataType: 'json',
+                        method: 'POST',
+                        data: {emailAddress: emailAddr, sendToName: name, projectRole: projectrole, csrfmiddlewaretoken: '{{ csrf_token }}'}
+                    }).done(function (data) {
+                        alert(data.message);
+                    }).fail(function (xhr) {
+                        alert(data.message);
+                    });
+                } else {
+                    document.getElementById('emailAddress').style.borderColor = "red";
+                    alert("Invalid email address. \nEmail address must be in the .edu domain.");
+                }
+            });
+            // Add bootstrap like formatting...
+            $("input[type=text], input[type=password], input[type=email], select, textarea").addClass('form-control');
+        });
+    </script>
+{% endblock %}

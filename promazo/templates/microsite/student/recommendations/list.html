@@ -1,0 +1,136 @@
+{% extends 'student/recommendations/base.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <h1 class="page-header maintitle">
+      Recommendations
+      <small>{% if sent %}sent{% else %}received{% endif %}</small>
+    </h1>
+
+    <div class="row">
+      {% if sent %}
+      <div class="col-xs-2"><a href="/recommendations/" class="btn btn-block btn-info">view received</a></div>
+      {% else %}
+      <div class="col-xs-2"><a href="/recommendations/?sent=1" class="btn btn-block btn-info">view sent</a></div>
+      {% endif %}
+    </div>
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12">
+            <div class="box shadowEffect">
+                <div class="content">
+                  {% if sent %}
+
+                    {% if recommendations_list %}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-xs-3">To</th>
+                            <th class="col-xs-4">Project</th>
+                            <th class="col-xs-3">Recommended Position</th>
+                            <th class="col-xs-3"></th>
+                        </tr>
+                        </thead>
+                        {% for recommendations in recommendations_list %}
+                        <tbody>
+                        <tr>
+                            <td>{% if recommendations.to_student %}
+                                {{ recommendations.to_student }}
+                              {% else %}
+                                {% if recommendations.name %}
+                                  {{recommendations.name}} [{{recommendations.email}}]
+                                {% else %}
+                                  {{recommendations.email}}
+                                {% endif %}
+                              {% endif %}</td>
+                            <td>{{ recommendations.position.project }}</td>
+                            <td>{{ recommendations.position }}</td>
+                            <td>
+                              {% if recommendations.email and not recommendations.to_student %}
+                              <a href="#" class="btn btn-danger btn-block resend-email-recommendation" data-id="{{recommendations.id}}">resend</a>
+                              {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    You have not sent any recommendations recently!
+                    {% endif %}
+                  {% else %}
+                    {% if recommendations_list %}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-xs-3">From</th>
+                            <th class="col-xs-4">Project</th>
+                            <th class="col-xs-3">Recommended Position</th>
+                            <th class="col-xs-2">Options</th>
+                        </tr>
+                        </thead>
+                        {% for recommendations in recommendations_list %}
+                        <tbody>
+                        <tr id="row-{{ recommendations.id }}" {% if recommendations.new %}class="success" {% endif %}>
+                            <td>{{ recommendations.from_student }}</td>
+                            <td>{{ recommendations.position.project }}</td>
+                            <td>{{ recommendations.position }}</td>
+                            <td class="col-xs-1"><a href="#" data-id="{{ recommendations.id }}" class="btn btn-danger btn-block delete-recommendation">DELETE</a></td>
+                        </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    You have not received any new recommendations!
+                    {% endif %}
+                  {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function() {
+          $(".delete-recommendation").click(function(e) {
+              e.preventDefault();
+              var id = $(e.target).data('id');
+              $.ajax({
+                  url: '/recommendations/delete/',
+                  dataType: 'json',
+                  method: 'POST',
+                  data: {recommendations_id: id, csrfmiddlewaretoken: '{{ csrf_token }}'}
+              }).done(function(data) {
+                  if(data.error) {
+                      alert(data.message);
+                  } else {
+                      $('#row-' + id).hide();
+                  }
+              }).fail(function(xhr) {
+                  var res = JSON.parse(xhr.responseText);
+                  alert(res.message);
+              });
+          });
+
+          $(".resend-email-recommendation").click(function(e) {
+              e.preventDefault();
+              var id = $(e.target).data('id');
+              $.ajax({
+                  url: '/recommendations/resend-email-recommendation/',
+                  dataType: 'json',
+                  method: 'POST',
+                  data: {recommendations_id: id, csrfmiddlewaretoken: '{{ csrf_token }}'}
+              }).done(function(data) {
+                  alert(data.message);
+              }).fail(function(xhr) {
+                  var res = JSON.parse(xhr.responseText);
+                  alert(res.message);
+              });
+          });
+        });
+    </script>
+{% endblock %}

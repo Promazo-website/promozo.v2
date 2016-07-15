@@ -1,0 +1,35 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            REPORT
+        </div>
+        <div class="panel-body">
+
+            <h3>Total Hours <small>{{ total_hours.amount__sum }}</small></h3>
+
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+            {% for student in student_list %}
+                <tr>
+                    <td>{{ student.student__user__first_name }} {{ student.student__user__last_name }}</td>
+                    <td>{{ student.total_hours }}</td>
+                    <td class="col-xs-3"><a href="/student/project/{{ project.id }}/student/{{ student.id }}/dispute/" class="btn btn-primary btn-block">Details</a></td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

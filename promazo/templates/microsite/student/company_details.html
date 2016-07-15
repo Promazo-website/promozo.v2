@@ -1,0 +1,93 @@
+{% load base_extras %}
+<div class="row">
+
+    <div class="col-md-8">
+        <h1>Available projects</h1>
+        <hr/>
+        {% for project in company.projects.all %}
+            <h2>
+                {% if not request.user|already_apply:project %}
+                    <a  class="btn btn-success btn-xs" href="{% url 'apply' project_id=project.id %}"><span class="glyphicon glyphicon-hand-right"></span> &nbsp;Apply for this project</a>
+                {% else %}
+                    <button type="button" class="btn btn-default btn-xs" disabled="disabled"><span class="glyphicon glyphicon-hand-right"></span> &nbsp;Already applied...</button>
+                {% endif %}
+                {{ project.title }}
+            </h2>
+
+            <p style="font-style:italic; margin-bottom:20px;">{{ project.description }}</p>
+            <ul>
+                <li><strong>Team:</strong> {{ project.member_count }} members</li>
+                <li><strong>Duration:</strong> {{ project.start_date }} to {{ project.end_date }}</li>
+                <li><strong>Hours per week:</strong> {{ project.hours }}</li>
+                <li>
+                    <strong>Project categories</strong>
+                    <ul>
+                        {% for tag in project.tags.all %}
+                        <li>{{ tag.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        <br/>
+        <div  class="carousel slide" data-ride="carousel" id="carousel-example-generic-{{ forloop.counter0 }}" style="width: 90%; margin:0 auto; {% ifequal project.snapshots.count 0 %} display:none{% endifequal %}">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {% for snap in project.snapshots.all %}
+                    <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter0 }}"
+                        {% ifequal forloop.counter0 0 %}class="active"{% endifequal %}></li>
+                {% endfor %}
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+            {% for snap in project.snapshots.all %}
+                <div class="item {% ifequal forloop.counter0 0 %}active{% endifequal %}">
+                    <img src="/uploads/{{ snap.image }}" alt="{{ snap.caption }}">
+
+                    <div class="carousel-caption">
+                        <h3 style="font-size:1.2em; margin-bottom:5px;">{{ snap.caption }}</h3>
+                        <p style="font-size:.9em"> {{ snap.subcaption }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic-{{ forloop.counter0 }}" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic-{{ forloop.counter0 }}" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+        <hr/>
+        {% endfor %}
+    </div>
+
+    <div class="col-md-4">
+        <img style="max-width:200px;" src="/uploads/{{ company.picture }}" />
+        <h2>{{ company.name }}</h2>
+        <ul>
+            <li><a href="{{ company.address }}">{{ company.address }}</a></li>
+            <li>
+                <strong>Company tags</strong>
+                <ul>
+                    {% for tag in company.categories.all %}
+                    <li>{{ tag.title }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

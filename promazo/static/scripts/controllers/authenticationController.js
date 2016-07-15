@@ -68,6 +68,7 @@ promazo.controller('authenticationController',function( $scope,$rootScope,$http,
     $scope.logout = function() {
         AuthService.logout();
         $scope.deleteCurrentUser();
+        $scope.goto('/');
     };
     
 

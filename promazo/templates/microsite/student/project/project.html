@@ -1,0 +1,73 @@
+
+{% if latest_project %}
+<div class="corporation_name">{{ student.latest_project.project.corporation }}</div>
+<div class="panel panel-default scroll_me" style="height:45%">
+    <div class="panel-heading">
+        <div class="project_name">{{ student.latest_project.project }}</div>
+        <hr class="orange" style="margin-bottom: 0"/>
+    </div>
+    <div class="panel-body">
+        <div class="description">{{ student.latest_project.project.description }}</div>
+    </div>
+</div>
+
+
+<div class="row" style="margin:0 -15px; height:50%">
+    <div class="col-xs-4" style="height:100%">
+        <div class="panel padded font-sm" style="height:100%">
+            <span class="subpanel-title">Quick Facts</span>
+            <hr class="orange" />
+            <span class="greyed">DATES WORKING:</span><br />
+            {{ student.latest_project.project.start_date }} - {{ student.latest_project.project.end_date }}
+            <br /><br />
+            <span class="greyed">NUMBER OF PROJECT LEADERS:</span><br />
+            {{ student.latest_project.project.manager_count|default:'0' }}
+            <br /><br />
+            <span class="greyed">NUMBER OF PROJECT MEMBERS:</span><br />
+            {{ student.latest_project.project.member_count }}
+        </div>
+    </div>
+
+    <div class="col-xs-4"  style="height:100%">
+        <div class="panel padded font-sm"  style="height:100%">
+            <span class="subpanel-title">Review</span>
+            <hr class="orange" />
+            <div>
+            {% for review in reviews %}
+                <div class="review_name">{{ review.name }}</div>
+                {% for question in review.questions %}
+                    <div class="row">
+                        <div class="review-entry">{{ question.question }}</div>
+                        <div class="review-score">{{ question.rating }}/{{ question.max }}</div>
+                    </div>
+                {% endfor %}
+                <br />
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-4" style="height:100%">
+        <div class="panel padded font-sm scroll_me" style="height:100%">
+            <div>
+                <span class="subpanel-title">Prerequisites</span>
+                <hr class="orange" />
+                 {% for prerequisite in student.latest_project.prerequisites.all %}
+                     {{ prerequisite }}
+                     {% if not forloop.last %}<br style="margin-bottom: 7px" />{% endif %}
+                {% endfor %}
+            </div>
+            <div style="margin-top: 20px">
+                <span class="subpanel-title">Desired Skills</span>
+                <hr class="orange" />
+                 {% for skill in student.latest_project.desired_skills.all %}
+                     {{ skill }}
+                     {% if not forloop.last %}<br style="margin-bottom: 7px" />{% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<h3>You have no Projects</h3>
+{% endif %}

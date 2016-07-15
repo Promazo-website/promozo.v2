@@ -1,0 +1,191 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/student_side.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"/>
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap-datetimepicker/js/moment.min.js' %}"></script>
+    <script src="{% static 'bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'js/jquery.popupoverlay.js' %}"></script>
+    <script src="http://vast-engineering.github.io/jquery-popup-overlay/jquery.popupoverlay.js"></script>
+    <script src="{% static 'js/apply.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
+    <script src="{%  static 'js/metisMenu.min.js' %}"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    {% block extra_headers %}{% endblock %}
+</head>
+
+<body>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="student_home_bg" style="background-image: url('/uploads/{{ student.background_pic }}');"></div>
+
+<div id="student_home_container" class="student_home_container">
+    <nav class="top-nav" id="top_nav">
+        <div id="pmlogo" class="pmlogo logo_on"> <!--Insert ProMazo logo here-->
+            <p id="pm">PM</p>
+        </div>
+
+        <div class="col-xs-8" style="text-align: right; padding: 7px; float: right; top: 5px;">
+                    <span rel="nav_link" href="/student/home/">Home</span>
+                    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <span rel="nav_link" href="/student/update/">Edit Profile</span>
+                    &nbsp;&nbsp;&nbsp;
+        </div>
+    </nav>
+    <ul class="leftnav">
+        <li><a href="{% url 'student-home' %}">Profile</a></li>
+        <li><a href="{% url 'student-projects' %}">Projects</a></li>
+        <li><a href="{% url 'recommendations-list' %}">Recommendations {% if recommendations %}({{ recommendations|length }}){% endif %}</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+        {% if  user.user_board_member.all|length > 0  %}
+        <li><a href="/admin_board/">Admin board</a></li>
+        {% endif %}
+        <li><a href="{% url 'sign-out' %}">Sign out</a></li>
+    </ul>
+    <br />
+
+    {% include 'tags/messages.html' %}
+
+</div>
+
+<div style="width: 200%;" id="wide_holder">
+{% block body %}{% endblock %}
+</div>
+
+<!--<div class="row">
+    <div class="col-xs-8" style="height: 100%; min-height: 100%;">
+
+    </div>
+    <div class="col-xs-4" style="height: 100%; min-height: 100%; background-color: #4E5968;">
+        <div class="row">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+                <img src="/uploads/{{  student.profile_pic|default:'Profile-Placeholder.png' }}" class="img-circle" alt="Profile image..." style="height: 100px; width: 100px;">
+            </div>
+            <div class="col-xs-4"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <i class="fa fa-clock-o"></i> 1,200
+            </div>
+            <div class="col-xs-6">
+                <i class="fa fa-check-square"></i> 5
+            </div>
+        </div>
+
+        <p>{{ student.addr_city }}, {{ student.addr_state }}</p>
+    </div>
+</div>-->
+
+{% block extra_js %} {% endblock %}
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-52012726-1', 'promazo.com');
+    ga('send', 'pageview');
+
+
+    $(document).ready(function () {
+	$('span[rel="nav_link"]').each(function(){
+		$(this).click(function(){
+			window.location.href = $(this).attr('href');
+		});
+	});
+
+        $("nav").on("click", "#pmlogo", function () {
+            $(".leftnav").slideToggle("fast");
+        });
+        $("nav").on("click", "#notificationbutton", function () {
+            $(".rightnav").animate({width: 'toggle'});
+        });
+        $(".leftnav").mouseover(function () {
+            $("nav").addClass("hover");
+        });
+        $(".leftnav").mouseleave(function () {
+            $("nav").removeClass("hover");
+        });
+        $("nav").mouseover(function () {
+            $(".leftnav").addClass("hover");
+        });
+        $("nav").mouseleave(function () {
+            $(".leftnav").removeClass("hover");
+        });
+
+        $('#top_nav').mouseover(function(){
+           $('#pmlogo').css('border-color', 'black');
+           $('#pm').css('color', 'black');
+        });
+
+
+        $('#top_nav').mouseout(function(){
+            if($(document).scrollLeft() >= (($(document).width() / 2) - $('#pm').width()))
+            {
+              $('.pmlogo').css('border-color', '#666');
+              $('#pm').css('color', '#666');
+              $('#sp-2-profile-pic').css('visibility', 'visible');
+            }
+            else{
+              $('.pmlogo').css('border-color', 'white');
+              $('#pm').css('color', 'white');
+              $('#sp-2-profile-pic').css('visibility', 'visible');
+            }
+        });
+    });
+</script>
+
+{% block background_js %}
+    <script>
+    $(document).scroll(function(){
+      if($(this).scrollLeft() >= (($(document).width() / 2) - $('#pm').width()))
+      {
+          $('.pmlogo').css('border-color', '#666');
+          $('#pm').css('color', '#666');
+          $('#sp-2-profile-pic').css('visibility', 'visible');
+      }
+        else{
+          $('.pmlogo').css('border-color', 'white');
+          $('#pm').css('color', 'white');
+          $('#sp-2-profile-pic').css('visibility', 'hidden');
+      }
+    });
+        $(document).ready(function () {
+            // Ensure always the good picture is in background
+            $('body').css("background-image", "url(/uploads/{{ request.user.background_pic|default:"background.jpg" }})");
+        });
+    </script>
+{% endblock %}
+
+</body>
+</html>

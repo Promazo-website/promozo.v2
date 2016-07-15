@@ -1,0 +1,73 @@
+{% extends 'microsite/base_home.html' %}
+
+{% block page_title %}Student Stories{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid black-bg mk-rm-4-teaser">
+
+     <div class="row work-story-featured sss-alums"  style="position:relative">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 logo" style="top:15%">
+            <span class="left-txt">Featured</span>
+            <span class="white-w-shadow"><img src="/static/microsite/images/PNGs/PM-Logo.png" /></span>
+            <span class="right-txt">Students</span>
+            <p class="med-tagline-prs white-w-shadow work-story-tag">ProMazo is a family. Meet some of our alums.</p>
+            <!-- <a id="check-it-out" href="#first-student" type="button" class="btn btn-pm-white btn-large btn-case-study">Check it out</a> -->
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="bottom-arrow">
+            <a href="#other-ss"><i class="icon-pm-down-arrow" style="font-size: 32px"></i></a>
+        </div>
+<!--        <i class="icon-pm-transition-mark trans-mark"></i>  -->
+    </div>
+
+   <a name="other-ss"></a>
+   <a href="stories/student-1">
+   <div class="row work-story-entry sss-stu-1">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 logo">
+            <p class="white-w-shadow">Frank Somich<i class="icon-pm-students-b7" style="font-size: 75px"></i></p>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+   </a>
+
+   <a href="stories/student-2">
+    <div class="row work-story-entry sss-stu-2-crop">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 logo">
+            <p class="white-w-shadow"><i class="icon-pm-students-c7" style="font-size: 75px"></i>Sam Melgar</p>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+   </a>
+
+   <a href="stories/student-3">
+    <div class="row work-story-entry sss-stu-3">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 logo">
+            <p class="white-w-shadow">Mary Schlegel<i class="icon-pm-students-c5" style="font-size: 75px"></i></p>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+   </a>
+
+</div> <!--end container-fluid white-->
+
+<div class="container-fluid white-bg">
+    <a href="/about">
+    <div class="row ctr-p20 about-teaser teaser">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 logo">
+            <p class="sm-heading-pm white-w-shadow space-below-20">Up Next&emsp;About us</p>
+            <p class="sub-tagline-prs white-w-shadow">What makes us <span class="italic">click</span>.</p>
+       </div>
+       <div class="col-sm-2"></div>
+       <i class="icon-pm-down-arrow white-w-shadow"></i>
+    </div>
+    </a>
+</div> <!--end container-fluid white-->
+
+
+{% endblock %}

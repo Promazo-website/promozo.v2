@@ -1,0 +1,409 @@
+/**
+ * BxSlider v4.1.2 - Fully loaded, responsive content slider
+ * http://bxslider.com
+ *
+ * Written by: Steven Wanderski, 2014
+ * http://stevenwanderski.com
+ * (while drinking Belgian ales and listening to jazz)
+ *
+ * CEO and founder of bxCreative, LTD
+ * http://bxcreative.com
+ */
+
+
+/** RESET AND LAYOUT
+===================================*/
+
+.bx-wrapper {
+	position: relative;
+	padding: 0;
+}
+
+.bx-wrapper img {
+	max-width: 100%;
+	min-width:1000px;
+	display: block;
+/*	-webkit-filter: blur(10px); 
+    -moz-filter: blur(10px); 
+    filter: blur(10px); 
+	-webkit-filter: sepia(1); 
+    -moz-filter: sepia(1); 
+    filter: sepia(1);*/
+	z-index:1;
+}
+
+/** THEME
+===================================*/
+
+.bx-wrapper .bx-viewport {
+/*	-moz-box-shadow: 0 0 5px #ccc;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	box-shadow: 0 0 5px #ccc;
+	border:  5px solid #fff;
+	left: -5px;
+	background: #fff;*/
+	
+	/*fix other elements on the page moving (on Chrome)*/
+	-webkit-transform: translatez(0);
+	-moz-transform: translatez(0);
+    	-ms-transform: translatez(0);
+    	-o-transform: translatez(0);
+    	transform: translatez(0);
+}
+
+.bx-wrapper .bx-pager,
+.bx-wrapper .bx-controls-auto {
+	position: absolute;
+	bottom: -30px;
+	width: 100%;
+	min-width:1000px;	
+	z-index:100;
+}
+
+/* LOADER */
+
+.bx-wrapper .bx-loading {
+	min-height: 50px;
+	background: url(images/bx_loader.gif) center center no-repeat #fff;
+	height: 100%;
+	width: 100%;
+	min-width:1000px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+
+/* PAGER */
+
+ul.bxslider div {
+	position:absolute;
+	width:40%;
+	min-width:400px;
+	height:auto;
+/*	margin-left:30%;
+	margin-top:180px;*/
+	padding:25px;
+/*	background:rgba(255,255,255,1);	
+	border:2px solid rgba(255,255,255,.5);
+	border-radius:10px;*/
+	color:#FFF;
+	font-size:22px;
+	opacity:0;
+	z-index:200;
+	text-align:right;
+}
+
+ul.bxslider li:nth-child(2) div {
+	right:0;
+	bottom:0;
+	margin-right:100px;
+	margin-bottom:150px;
+}
+
+ul.bxslider li:nth-child(3) div {
+	right:0;
+	bottom:0;
+	margin-right:100px;
+	margin-bottom:150px;
+	font-size:18px;
+	text-shadow:1px 1px 3px #000;
+}
+
+ul.bxslider li:nth-child(4) div {
+	right:0;
+	bottom:0;
+	margin-right:100px;
+	margin-bottom:150px;
+}
+
+ul.bxslider li:nth-child(5) div {
+	right:0;
+	bottom:0;
+	margin-right:100px;
+	margin-bottom:150px;
+}
+
+ul.bxslider h1 {
+/*	text-transform:uppercase;*/
+	font-size:72px;
+	line-height:72px;
+	margin-top:110px;
+	width:800px;
+	left:50%;
+	margin-left:-400px;
+	text-align:center;
+	position:absolute;
+	color:#FFF;
+	font-weight:400;
+}
+
+ul.bxslider li p.expand {
+	color:#FFF;
+	background:#09C;
+	border-radius:5px;
+	padding:10px 30px;
+	font-size:16px;
+	position:absolute;
+	left:15%;
+	margin-left:-40px;
+	z-index:300;
+	margin-top:270px;
+}
+
+li:first-child p.expand {
+	margin-top:150px;
+}
+
+
+ul.bxslider p.expand:hover {
+	background:#FFF;
+	color:#09C;
+}
+
+/*
+ul.bxslider li:nth-child(2) h1 {
+	margin:300px 0 0 120px;
+}
+
+ul.bxslider li:nth-child(2) p.expand {
+
+}
+
+ul.bxslider li:nth-child(2) div {
+}
+
+
+ul.bxslider li:nth-child(3) h1 {
+	margin:260px 0 0 230px;
+}
+
+ul.bxslider li:nth-child(3) p.expand {
+}
+
+ul.bxslider li:nth-child(3) div {
+
+}
+
+
+ul.bxslider li:nth-child(4) h1 {
+	margin:100px 0 0 400px;
+}
+
+ul.bxslider li:nth-child(4) p.expand {
+	
+}
+
+ul.bxslider li:nth-child(4) div {
+	
+}
+
+
+ul.bxslider li:nth-child(5) h1 {
+	margin:100px 0 0 100px;
+}
+
+ul.bxslider li:nth-child(5) p.expand {
+
+}
+
+ul.bxslider li:nth-child(5) div {
+
+}
+*/
+
+
+/*
+ul.bxslider li:nth-child(2n+1) div {
+	background:rgba(0,0,0,1);
+	color:#DDD;
+	border-color:rgba(0,0,0,.2);
+}
+
+/*
+ul.bxslider li:nth-child(3) div {
+	margin-top:10%;
+}
+*/
+
+/*
+ul.bxslider li:nth-child(2) p.expand {
+	margin:150px 0 0 50px;
+}
+
+
+ul.bxslider /*li:nth-child(2) div {
+	margin:200px 0 0 100px;
+}
+*/
+
+
+
+
+
+
+/* BOTTOM ICONS CENTER*/
+.bx-wrapper .bx-pager {
+	text-align: center;
+	font-size: .85em;
+	font-family: Arial;
+	font-weight: bold;
+	color: #666;
+	top:50%;
+	z-index:199;
+	position:absolute;
+}
+
+/* BOTTOM ICONS FLOAT LEFT */
+.bx-wrapper .bx-pager .bx-pager-item,
+.bx-wrapper .bx-controls-auto .bx-controls-auto-item {
+/*	display: inline-block;*/
+	*zoom: 1;
+	*display: inline;
+/*	margin-top:-30%;*/
+	padding:5px;
+}
+
+/* BOTTOM ICONS: REPLACES NUMBERS WITH ICONS, STORES HIGHLIGHTED OR NOT */
+.bx-wrapper .bx-pager.bx-default-pager a {
+	background:url(/static/microsite/images/PNGs/Open-Circle.png);
+	background-size:contain;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	display: block;
+	width: 15px;
+	height: 15px;
+	margin: 0 5px;
+	outline: 0;
+}
+
+/* HIGHLIGHTS ONE ICON */
+.bx-wrapper .bx-pager.bx-default-pager a:hover {
+	background:url(/static/microsite/images/PNGs/Closed-Circle.png);
+	background-size:contain;
+	opacity:.5;
+}
+.bx-wrapper .bx-pager.bx-default-pager a.active {
+	background:url(/static/microsite/images/PNGs/Closed-Circle.png);
+	background-size:contain;
+}
+
+/* DIRECTION CONTROLS (NEXT / PREV) */
+
+/* SCROLL ICONS */
+.bx-wrapper .bx-prev {
+	left: 10px;
+	background: url(images/controls.png) no-repeat 0 -32px;
+	z-index:1;
+}
+
+.bx-wrapper .bx-next {
+	right: 10px;
+	background: url(images/controls.png) no-repeat -43px -32px;
+	z-index:1;
+}
+
+.bx-wrapper .bx-prev:hover {
+	background-position: 0 0;
+}
+
+.bx-wrapper .bx-next:hover {
+	background-position: -43px 0;
+}
+
+/* PREVIOUS NEXT LINKS */
+.bx-wrapper .bx-controls-direction a {
+	position: absolute;
+	top: 40%;
+	margin-top: -16px;
+	outline: 0;
+	width: 32px;
+	height: 0; /* RESET TO 32PX FOR PREV/NEXT ICONS */
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 200;
+}
+
+.bx-wrapper .bx-controls-direction a.disabled {
+	display: none;
+}
+
+/* AUTO CONTROLS (START / STOP) */
+
+/* NOT SURE */
+.bx-wrapper .bx-controls-auto {
+	text-align: center;
+}
+
+/* DON'T KNOW */
+.bx-wrapper .bx-controls-auto .bx-start {
+	display: block;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 10px;
+	height: 11px;
+	outline: 0;
+	background: url(images/controls.png) -86px -11px no-repeat;
+	margin: 0 3px;
+}
+
+/* WHO KNOWS */
+.bx-wrapper .bx-controls-auto .bx-start:hover,
+.bx-wrapper .bx-controls-auto .bx-start.active {
+	background-position: -86px 0;
+}
+
+/* DON'T KNOW */
+.bx-wrapper .bx-controls-auto .bx-stop {
+	display: block;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 9px;
+	height: 11px;
+	outline: 0;
+	background: url(images/controls.png) -86px -44px no-repeat;
+	margin: 0 3px;
+}
+
+/* ??? */
+.bx-wrapper .bx-controls-auto .bx-stop:hover,
+.bx-wrapper .bx-controls-auto .bx-stop.active {
+	background-position: -86px -33px;
+}
+
+
+/* PAGER WITH AUTO-CONTROLS HYBRID LAYOUT */
+
+/* WHAT */
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-pager {
+	text-align: left;
+	width: 80%;
+}
+
+.bx-wrapper .bx-controls.bx-has-controls-auto.bx-has-pager .bx-controls-auto {
+	right: 0;
+	width: 35px;
+}
+
+
+/* IMAGE CAPTIONS */
+.bx-wrapper .bx-caption {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: #666\9;
+	background: rgba(80, 80, 80, 0.75);
+	width: 100%;
+}
+
+.bx-wrapper .bx-caption span {
+	color: #fff;
+	font-family: Arial;
+	display: block;
+	font-size: .85em;
+	padding: 10px;
+}

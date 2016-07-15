@@ -1,0 +1,29 @@
+{% extends 'student/recommendations/base.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+        <div class="page-header">
+            <h1>Recommend a Role</h1>
+        </div>
+
+{% for key, data in form_list.items %}
+    <div id="role_container" class="panel panel-default">
+        <div class="panel-heading" style="overflow-x: hidden">
+            <h1 class="role_name">{{ data.projectrole.name }}</h1>
+            <div class="pull-right"><a href="{% url 'SendRecommendation' data.projectrole.id %}" class="btn btn-info btn-block">Recommend This Role</a></div>
+        </div>
+        <div class="panel-body">
+            <p>{{ data.projectrole.description }}</p>
+        </div>
+        <div id="role_info_bar" class="pull-left">
+                <i class="fa fa-clock-o fa-2x"></i>{{ data.projectrole.project.hours }}
+                <i class="fa fa-users fa-2x"></i>{{ data.projectrole.project.member_count }}
+                <i class="fa fa-calendar fa-2x"></i>{{ data.projectrole.project.start_date }} - {{ project.end_date }}
+            <br>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'student/base_onepage.html' %}
+{% block page_title %}Promazo - Projects{% endblock %}
+{% load staticfiles %}
+{% block body %}
+    <h1 class="page-header">Contact us</h1>
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-xs-8">
+                <h4>Send us a message!</h4>
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type='text' class="form-control" name="name" id='name_input' placeholder='Your Name'
+                               title="Your Name"/>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type='email' name="email" id='email_input' class="form-control"
+                               placeholder='Your Email (so we can respond to your message)'
+                               {% if request.user.is_authenticated %}value='{{ request.user.email }}'{% endif %}
+                               title="Your Email"/>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <textarea id='message_input' class="form-control" name="message" rows="5"
+                                  placeholder='What can we do for you?' title="Your Message"></textarea>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-xs-4">
+                        <button type="button" class="btn btn-success btn-block" id='submit_button'>Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script>
+
+        $(document).ready(function () {
+
+
+            $('#submit_button').click(function () {
+                $.ajax({
+                    url: '/contact-send',
+                    data: {
+                        name: $('#name_input').val(),
+                        email: $('#email_input').val(),
+                        message: $('#message_input').val()
+                    },
+                    success: function (data) {
+                        alert("Thank you for your message!  We'll get back with you as soon as we can!");
+                        window.location.href = '/';
+                    },
+                    error: function () {
+                        alert("There was a problem sending your message.  Please contact us directly by sending an email to brett@promazo.com.");
+                    }
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
+

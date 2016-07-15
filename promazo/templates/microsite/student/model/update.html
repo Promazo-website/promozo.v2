@@ -1,0 +1,63 @@
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">UPDATE RESUME</div>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-xs-8">
+                    {% if form.non_field_errors  %}
+                        <div class="alert alert-dismissable alert-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    <form class="form" id="update_form" action="/student/resume/{{ object.id }}/update/" method="post">{% csrf_token %}
+                        {% for field in form.visible_fields %}
+                        <div class="form-group {% if field.errors %}has-error{% endif %}">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            <div class="help-block">{{ field.help_text }}</div>
+
+                            {% if field.errors %}
+                                <div class="help-block danger">{{ field.errors }}</div>
+                            {% endif %}
+                          </div>
+                            <br />
+                        {% endfor %}
+
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <button class="btn btn-default btn-block">Update</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <a href="/student/{{ model }}/" class="btn btn-warning btn-block">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script>
+    $(document).ready(function () {
+        $("input[type=text], input[type=password], input[type=email], select, textarea").addClass('form-control');
+
+        $('#update_form').submit(function(){
+            $(this).ajaxSubmit({
+                success: function(responseText, statusText, xhr, $form){
+                    $('.student_info_display').html(responseText);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+

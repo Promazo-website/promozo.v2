@@ -1,0 +1,33 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Dispute logged time
+        </div>
+        <div class="panel-body">
+
+            {% if form.non_field_errors  %}
+                <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+        <div class="well">
+            {{ change.project_student_logged_hours.date }} - {{ change.project_student_logged_hours.amount }}
+        </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
+

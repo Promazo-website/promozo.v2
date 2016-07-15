@@ -1,0 +1,60 @@
+{% extends 'student/base_onepage.html' %}
+{% load base_extras %}
+{% load staticfiles %}
+
+{% block page_title %}Promazo - Recommendations{% endblock %}
+
+{% block body %}
+    <h1 class="page-header maintitle">Available projects</h1>
+
+    <div class="row" style="padding-top:20px;">
+        <div class="col-md-5">
+            <div class="input-group" style="position:absolute;left:15px;">
+                <input id="input" type="text" class="form-control" autocomplete="off" placeholder="Search">
+            </div>
+
+            <div style="position:absolute;right:15px;">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        Category <span class="caret"></span>
+                    </button>
+
+                    <ul id="category_dropdown" class="dropdown-menu" role="menu">
+                        {% for category in category_list %}
+                            <li class='filter' data-category_title="{{ category.title }}"><a
+                                    href="">{{ category.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        Company <span class="caret"></span>
+                    </button>
+                    <ul id="corporation_dropdown" class="dropdown-menu" role="menu">
+                        {% for corporation in corporation_list %}
+                            <li data-corporation_name="{{ corporation.name }}"><a href="">{{ corporation.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:20px;">
+        <div id="project_list_container">
+        </div>
+
+        <div class="col-md-7">
+            <div class="box shadowEffect">
+                <div class="content" id="project_display">
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% if student.user == request.user %}
+    {% include 'student/resume/list.html' %}
+{% else %}
+    {% if student.resumes.all|length > 0 %}
+        {% for resume in student.resumes.all %}
+        {% if resume.primary %}
+            <iframe src="/uploads/{{ resume.resume }}" style="width:100%; height: 100%;" frameborder="0"></iframe>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        {{ student.user.first_name }} {{ student.user.last_name }} does not have a resume to show.
+    {% endif %}
+{% endif %}

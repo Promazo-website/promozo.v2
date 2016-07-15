@@ -1,0 +1,26 @@
+{% extends 'student/base_student.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+    {% load base_extras %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            PROJECTS UPDATES <a href="/student/project/{{ project.id }}/projectupdate/create/">Create</a>
+        </div>
+        <div class="panel-body">
+            {% for projectupdate in projectupdate_list %}
+            <table class="table">
+                <tr>
+                    <td>{{ projectupdate.project }}</td>
+                    <td class="col-xs-3"><a href="/student/project/{{ projectupdate.project.id }}/" class="btn btn-primary btn-block">View</a></td>
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

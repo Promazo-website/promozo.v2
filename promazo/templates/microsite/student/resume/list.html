@@ -1,0 +1,101 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">RESUMES</div>
+    </div>
+    <div class="panel-body">
+        {% for resume in student.resumes.all %}
+        <table class="table" id="resume_row_{{ resume.id }}">
+            <tr>
+                <td>{{ resume }}</td>
+                <td class="col-xs-2"><a href="/uploads/{{ resume.resume }}" target="_blank">View</a> </td>
+                <td class="col-xs-2">
+                    {% if not resume.primary %}
+                        <button href="/student/resume/makeprimary/{{ resume.id }}" class="btn btn-primary btn-block" id="primary_{{  resume.id }}" name="primary_button">Make Primary</button>
+                        {%  else %}
+                         <button href="/student/resume/makeprimary/{{ resume.id }}" class="hidden btn btn-primary btn-block" id="primary_{{  resume.id }}" name="primary_button">Make Primary</button>
+                    {% endif %}
+                </td>
+                <!--<td class="col-xs-2"><button href="/student/resume/{{ resume.id }}/update/" id="update_{{ resume.id }}" name="update_button" class="btn btn-primary btn-block">Update</button></td>-->
+                <td class="col-xs-2"><button href="/student/resume/delete/{{ resume.id }}" class="btn btn-danger btn-block" id="delete_{{ resume.id }}" name="delete_button">Delete</button></td>
+            </tr>
+        </table>
+        {% endfor %}
+        <div id="additional_resumes"></div>
+        <hr />
+        <button class="btn btn-success" id="add_resume_button" style="float: right; margin-right: 10px;" title="Add Resume"><i class="fa fa-plus"></i></button>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+
+        $('#add_resume_button').click(function(){
+            $("#modal .modal-title").html("Add a resume");
+            $("#modal .modal-body").load('/student/resume/create');
+            $("#modal").modal();
+        });
+
+        $('button[name="delete_button"]').each(function(){
+            $(this).click(function(){
+                if(!confirm("Are you sure you want to delete this resume?")){
+                    return;
+                }
+                var url = $(this).attr('href');
+                var id = this.id.split('_')[1];
+                $.ajax({
+                   url: url,
+                   success: function(data){
+                       if(data == '200')
+                       {
+                            $('#resume_row_'+id).remove();
+                       }
+                   },
+                    error: function(){
+                        alert("Failed to delete the resume!");
+                    }
+                });
+            });
+        });
+
+        $('button[name="primary_button"]').each(function(){
+            $(this).click(function(){
+                var url = $(this).attr('href');
+                var id = this.id.split('_')[1];
+                $.ajax({
+                   url: url,
+                   success: function(data){
+                       if(data == '200')
+                       {
+                            // remove the primary option
+                            $('button.hidden').each(function(){
+                                $(this).removeClass('hidden');
+                            });
+                            $('#primary_'+id).addClass('hidden');
+                       }
+                   },
+                    error: function(){
+                        alert("Failed to make the resume primary!");
+                    }
+                });
+            });
+        });
+        /*
+        $('button[name="update_button"]').each(function(){
+            $(this).click(function(){
+                var url = $(this).attr('href');
+                var id = this.id.split('_')[1];
+                $.ajax({
+                   url: url,
+                   dataType: 'html',
+                   success: function(data){
+                       $('.student_info_display').html(data);
+                   },
+                    error: function(){
+                        alert("Failed to make the resume primary!");
+                    }
+                });
+            });
+        });*/
+    });
+</script>

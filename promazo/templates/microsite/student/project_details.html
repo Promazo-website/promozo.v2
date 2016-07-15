@@ -1,0 +1,129 @@
+{% load base_extras %}
+
+<div class="row">
+    <div class="col-xs-4">
+        {% if project.corporation.picture %}
+            <img style="max-width:200px; margin-top:20px" src="/uploads/{{ project.corporation.picture }}"/>
+        {% endif %}
+    </div>
+    <div class="col-xs-4">
+
+    </div>
+    <div class="col-xs-4">
+    {% if not project.launched and project.applyable %}
+        {% if exist %}
+            <button id="apply_button" class="my_popup_open btn btn-warning btn-block" data-project="{{ project.id }}">Withdraw or Apply</button>
+            <div id="my_popup" style="display:none">
+                <div id="role_display"></div>
+            </div>
+        {% else %}
+            <button id="apply_button" class="my_popup_open btn btn-success btn-block" data-project="{{ project.id }}"> Apply</button>
+            <div id="my_popup" style="display:none">
+                <div id="role_display"></div>
+            </div>
+        {% endif %}
+         <a href="{% url 'AvailableRoles' project.id %}" class="btn btn-info btn-block">Recommend Position</a>
+         <span style="float: right; margin-right: 20px; margin-top: 5px;">Applications Due: {{ project.application_date }}</span>
+    {% endif %}
+    </div>
+</div>
+<br /><br />
+<div class="row">
+    <div class="col-xs-12" id="details_header">
+        <h1 class="page-header">{{ project.title }}</h1>
+        <p>{{ project.description }}</p>
+    </div>
+</div>
+<hr/>
+<div class="row">
+        <div class="col-md-6">
+            <p class="project-info">{{ project.corporation.name }}<br/><a href="{{ project.corporation.website }}" target="_blank">{{ project.corporation.website }}</a></p>
+            <ul class="project-info-list">
+                {% for type in  project.corporation.categories.all %}
+                <li>{{ type }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+        <div class="col-md-6">
+                <p class="project-info">
+                    {{ project.start_date }} to {{ project.end_date }}<br />
+                    {{ project.hours }} hours
+                </p>
+                 <ul class="project-info-list">
+                    {% for category in  project.categories.all %}
+                    <li>{{ category }}</li>
+                    {% endfor %}
+                </ul>
+
+                <p class="project-info">Team composition ({{ project.member_count }} member{{ project.member_count|pluralize }})</p>
+                    <ul class="project-info-list">
+                        {% for role in  project.project_role.all %}
+                        <li>{{ role.number_of_positions }} {{ role.name }}{{ rolenumber_of_positions|pluralize }} ({{ role.expected_hours }} hours)</li>
+                        {% endfor %}
+                    </ul>
+        </div>
+</div>
+
+{#<hr/>#}
+{#<div class="row">#}
+{#    <div class="col-md-12">#}
+{#        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="width: 75%; margin:0 auto; {% ifequal project.snapshots.count 0 %} display:none{% endifequal %}">#}
+{#            <!-- Indicators -->#}
+{#            <ol class="carousel-indicators">#}
+{#                {% for snap in project.snapshots.all %}#}
+{#                    <li data-target="#carousel-example-generic" data-slide-to="{{ forloop.counter0 }}"#}
+{#                        {% ifequal forloop.counter0 0 %}class="active"{% endifequal %}></li>#}
+{#                {% endfor %}#}
+{#            </ol>#}
+{##}
+{#            <!-- Wrapper for slides -->#}
+{#            <div class="carousel-inner">#}
+{#                {% for snap in project.snapshots.all %}#}
+{#                    <div class="item {% ifequal forloop.counter0 0 %}active{% endifequal %}">#}
+{#                        <img src="/uploads/{{ snap.image }}" alt="{{ snap.caption }}">#}
+{##}
+{#                        <div class="carousel-caption">#}
+{#                            <h3 style="font-size:1.2em; margin-bottom:5px;">{{ snap.caption }}</h3>#}
+{##}
+{#                            <p style="font-size:.9em"> {{ snap.subcaption }}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{##}
+{#            <!-- Controls -->#}
+{#            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">#}
+{#                <span class="glyphicon glyphicon-chevron-left"></span>#}
+{#            </a>#}
+{#            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">#}
+{#                <span class="glyphicon glyphicon-chevron-right"></span>#}
+{#            </a>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+
+<script>
+    $(document).ready(function () {
+        //Initialize the plugin
+        $('#my_popup').popup();
+
+        //ajax that displays overlay popup window to apply for project
+        $('#apply_button').click(function () {
+            var project_id = $(this).data("project");
+
+            $.ajax({
+                url: '/student/get_roles',
+                data: {project_id: project_id},
+                dataType: 'html',
+                success: function (data) {
+                    $('#role_display').html(data);
+                },
+                error: function () {
+                    alert("Failed to find project!");
+                }
+            });
+        });
+    });
+</script>

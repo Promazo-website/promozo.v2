@@ -1,0 +1,214 @@
+{% extends 'student/base_onepage.html' %}
+{% load base_extras %}
+{% load staticfiles %}
+{% block page_title %}Promazo - Projects{% endblock %}
+
+
+{% block body %}
+    <h1 class="page-header maintitle">Available projects</h1>
+
+    <div class="row" style="padding-top:20px;">
+        <div class="col-md-12">
+            <div class="input-group" style="display: inline-block;">
+                <input id="input" type="text" class="form-control" autocomplete="off" placeholder="Search">
+            </div>
+
+            <div style="display: inline;">
+                <div class="btn-group" style="top: -13px;">
+                    <select multiple id="category_select">
+                        {% for category in category_list %}
+                        <option value="{{ category.title }}">{{ category.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        Category <span class="caret"></span>
+                    </button>
+
+                    <ul id="category_dropdown" class="dropdown-menu" role="menu">
+                        {% for category in category_list %}
+                            <li class='filter' data-category_title="{{ category.title }}"><a href="">{{ category.title }}</a></li>
+                        {% endfor %}
+                    </ul> -->
+                </div>
+
+                <div class="btn-group" style="top: -13px;">
+                    <select multiple id="corporation_select">
+                        {% for corporation in corporation_list %}
+                        <option value="{{ corporation.name }}">{{ corporation.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Company <span class="caret"></span>
+                    </button>
+                    <ul id="corporation_dropdown" class="dropdown-menu" role="menu">
+                        {% for corporation in corporation_list %}
+                            <li data-corporation_name="{{ corporation.name }}"><a href="">{{ corporation.name }}</a></li>
+                        {% endfor %}
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:20px;">
+        <div id="project_list_container"></div>
+
+        <div class="col-md-7">
+            <div class="box shadowEffect">
+                <div class="content" id="project_display"></div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/projects.js' %}"></script>
+    <script>
+        function searchProject(searchType,search){
+            var data = "";
+            var url = "";
+            switch (searchType){
+                case "name":
+                    url = '/student/search_projects';
+                    data = {search_value:search};
+                break;
+
+                case "category":
+                    url='/student/filter_category';
+                    data={category_title: search};
+                    break;
+
+                case "corporation":
+                    url='/student/filter_corporation';
+                    data={corporation_name: search};
+                    break;
+            }
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: data,
+                dataType: 'html',
+                success: function (data) {
+                    $('#project_list_container').html(data);
+                },
+                error: function () {
+                    alert("Failed to search for projects!")
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            $('#category_select').multiselect({
+                enableFiltering: true,
+                enableCaseInsensitiveFiltering: true,
+                buttonWidth: '300px',
+                buttonText: function(){ return 'Categories'},
+                buttonContainer: '<span style="margin-left: 20px;"></span>',
+                includeSelectAllOption: true,
+                onChange: function(element, checked){
+                    // get the selected options
+                    var options = $('#category_select').val();
+                    if(options == null){
+                        // hide all
+                        $('.project').each(function(){
+                            $(this).hide();
+                        });
+                        return;
+                    }
+                    console.log(options);
+
+                    // run through each project, and hide any project that is not part of the selected tags
+                    $('[data-type="project_info"]').each(function(){
+                       // get a list of categories
+                        var p_cats = $(this).children('[data-type="project_category"]');
+                        console.log(p_cats);
+                        var found = false;
+                        for(var i = 0; i < p_cats.length; i++){
+                            if(options.indexOf($(p_cats[i]).html()) >= 0)
+                                found = true;
+                        }
+                        // did we find it?
+                        if(found){
+                            // make sure we show this project
+                            $(this).closest('.project').show();
+                        }
+                        else{
+                            $(this).closest('.project').hide();
+                        }
+                    });
+                }
+            });
+
+            $('#corporation_select').multiselect({
+                enableFiltering: true,
+                buttonWidth: '300px',
+                enableCaseInsensitiveFiltering: true,
+                buttonText: function(){ return 'Corporations'},
+                buttonContainer: '<span style="margin-left: 20px;"></span>',
+                includeSelectAllOption: true,
+                onChange: function(element, checked){
+                    // get the selected options
+                    var options = $('#corporation_select').val();
+                    if(options == null){
+                        // hide all
+                        $('.project').each(function(){
+                            $(this).hide();
+                        });
+                        return;
+                    }
+
+                    // run through each project, and hide any project that is not part of the selected tags
+                    $('.project').each(function(){
+                       // get a list of categories
+                        var p_cats = $(this).children('[data-type="corporation_name"]');
+
+                        var found = false;
+                        for(var i = 0; i < p_cats.length; i++){
+                            if(options.indexOf($(p_cats[i]).html()) >= 0)
+                                found = true;
+                        }
+                        // did we find it?
+                        if(found){
+                            // make sure we show this project
+                            $(this).closest('.project').show();
+                        }
+                        else{
+                            $(this).closest('.project').hide();
+                        }
+                    });
+                }
+            });
+
+            // Init the first search without pattern to fetch all projects
+            searchProject('name','');
+
+            //every time a key is lifted up make an ajax call to filter the project
+            //list based on the input
+            $('#input').keyup(function () {
+                searchProject('name',$(this).val());
+            });
+
+            //when a filter from the category drop down is selected,
+            // make an ajax call to filter the project
+            $('#category_dropdown li').click(function (e) {
+                e.preventDefault();
+                searchProject('category',$(this).data('category_title'))
+            });
+
+            //when a filter from the corporation drop down is selected,
+            // make an ajax call to filter the project
+            $('#corporation_dropdown li').click(function (e) {
+                e.preventDefault();
+                searchProject('corporation',$(this).data('corporation_name'));
+            });
+
+
+        });
+
+
+    </script>
+{% endblock %}

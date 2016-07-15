@@ -1,0 +1,883 @@
+/**
+*   Author: 	    Charles Williams
+*   Created:	    2/6/2015
+*   Organization:   University of Notre Dame
+*   Department:     Center of Research Computing
+*   Project:	    ProMazo
+*   Application:	admin_board
+*   File:           admin_board.css
+*   Description:	Used to override all existing ProMazo and bootstrap css rules. This file
+*                   is for the admin_board templates
+**/
+html, body{
+    min-height: 100%;
+}
+
+.navbar{
+    margin-bottom: 0;
+}
+
+.navbar-static-top{
+    border-bottom: 1px solid #E7E7E7;
+}
+
+.nav > li > a:hover{
+    background-color: transparent;
+}
+
+.navbar-top-links li a{
+    padding: 20px 20px 0 20px;
+    margin-bottom: 20px;
+    color: #000;
+    text-decoration: none;
+}
+
+    .navbar-top-links li a:hover {
+        color: #b0b0b0;
+        -ms-transition: color 0.2s, color 0.2s;
+        -o-transition: color 0.2s, color 0.2s;
+        -webkit-transition: color 0.2s, color 0.2s;
+        -moz-transition: color 0.2s, color 0.2s;
+        transition: color 0.2s, color 0.2s;
+}
+
+#pmlogo{
+    float: left;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 0;
+    border: solid 2px black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+    #pmlogo:hover{
+        background-color: #FFB122;
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+    }
+
+    #pm {
+        margin-top: 8px;
+        color: black;
+}
+
+.container, .container-fluid{
+    width: 100%;
+}
+
+.container-fluid{
+    padding-top: 60px;
+    margin: 0;
+}
+
+.page-container, .container-fluid{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.pipeline-nav-container a{
+    padding-bottom: 6px;
+    /*border-bottom: 2px solid #EEE;*/
+    opacity: 0.3;
+    color: #adadad;
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+}
+    .pipeline-nav-container a span{
+        font-size: .7em;
+    }
+
+    .pipeline-nav-container i:first-child{
+        margin-right: 15px;
+        margin-left: 25px;
+    }
+    .pipeline-nav-container i:nth-child(2){
+        margin-right: 25px;
+        margin-left: 15px;
+    }
+
+.pipeline-nav-second-container{
+    height: 50px;
+    background-color: #000000;
+    margin-bottom: 5px;
+}
+
+    .pipeline-nav-second-container div p{
+        text-align: center;
+        color: #ffffff;
+        font-weight: bolder;
+        font-size: 1.3em;
+        margin-top: 11px;
+    }
+
+    .pipeline-nav-second-container a{
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+        .pipeline-nav-second-container a:hover,
+        .pipeline-nav-second-container a:active,
+        .pipeline-nav-second-container a:focus{
+            color: #FFB122;
+            text-decoration: none;
+        }
+
+.pipeline-nav-wrapper{
+    height: 62px;
+}
+
+.pipeline-nav-wrapper:hover .pipeline-nav-container a{
+    opacity: 1;
+    text-decoration: none;
+}
+
+.pipeline-nav{
+    margin: 15px auto 5px auto;
+    padding-bottom: 10px;
+    font-size: 1.8em;
+    font-weight: bolder;
+    color: black;
+    border-bottom: solid 1px #d5d5d5;
+    text-align: center;
+}
+
+    .pipeline-nav a:hover,
+    .pipeline-nav a:active,
+    .pipeline-nav a:focus{
+        color: #FFB122;
+    }
+
+/** Navbar Custom CSS **/
+.navbar-toggle{
+    display: block;
+    float: left;
+    padding: 0; /** Set for PM logo only - remove for 3 bar logo **/
+}
+
+.navbar-header{
+    width: 100%;
+}
+
+.container > .navbar-header{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.navbar > .container .navbar-brand,
+.navbar > .container-fluid .navbar-brand{
+    margin-left: 60px;
+    padding-top: 20px;
+    color: #000;
+}
+
+#sidebar{
+    height: 100%;
+    margin: auto 0 auto 0;
+    background-color: #000;
+}
+
+#sidebar .nav li a{
+    color: #FFF;
+    font-size: 1.5em;
+    border-left: #000000 solid 5px;
+}
+
+#sidebar .nav li:hover a{
+    background-color: lightgrey;
+    color: #000;
+    font-size: 1.5em;
+    border-left: #FFB122 solid 5px;
+}
+
+    #sidebar .nav li:hover .fa{
+        color: #000;
+    }
+
+#sidebar .nav li .fa{
+    color: #FFB122;
+}
+
+/** Project List Custom CSS **/
+#project-list {
+    margin: 15px 0 15px 15px;
+    background-color: #FFF;
+    border: 1px solid #808080;
+    border-radius: 0;
+    padding: 0 20px 0 20px;
+    opacity: 0.87;
+    color: #000;
+    overflow-y: auto;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+#project-list .project {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#project-list .project h3{
+    font-size: 2em;
+    color: #FFB122;
+    margin: 0 0 5px 0;
+    padding: 0;
+    font-weight: bolder;
+}
+
+.project ul, .project ul li {
+    margin: 0;
+    list-style: outside none none;
+    padding-left: 0;
+}
+
+#project-display {
+    margin: 15px 15px 15px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #FFF;
+    border: 1px solid #808080;
+    color: #000;
+    padding: 20px;
+    height: 100%;
+    max-height: 600px;
+    font-size: 16px;
+}
+
+#project-list .project:hover, #project-list  .project.selected {
+    background: #181818;
+    color:white;
+    border-radius:10px;
+    /*margin-left:-10px;*/
+    /*margin-bottom:-1px;*/
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+}
+
+#project-list h1{
+    margin-top:25px;
+    margin-bottom:30px;
+    border-bottom:1px solid white;
+    padding-bottom:15px;
+}
+
+#role-display {
+    background-color: #FFFFFF;
+    height:600px;
+    width:1300px;
+    overflow-y:scroll;
+}
+
+.project-search{
+    float: left;
+    width: 250px;
+    margin-left: -4px;
+}
+
+#details-header{
+    padding: 0;
+    color: #FFB122;
+    margin: 0 0 15px 15px;
+    border-bottom: 1px solid #EEE;
+}
+
+    #details-header a{
+        color: #FFB122;
+    }
+
+        #details-header a:hover,
+        #details-header a:active,
+        #details-header a:focus{
+            color: #b0b0b0;
+            text-decoration: none;
+        }
+
+.bottom-details{
+    margin-top: -20px;
+}
+/** end project list customer css **/
+
+/** pipeline and project detail buttons **/
+.action-button{
+    width: 18%;
+    margin: 3%;
+    float: left;
+    display: inline-block;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 5px;
+}
+
+#pipeline-buttons{
+    margin-left: 8px;
+    display: inline-block;
+}
+
+    #pipeline-buttons button{
+        width: 120px;
+    }
+
+    #pipeline-buttons button > span:first-child{
+        display: inline-block;
+        max-width: 80px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+        -o-text-overflow: clip;
+        margin-bottom: -5px;
+    }
+
+input[type=checkbox].cat-box{
+    margin-top: 3px;
+    margin-right: 5px;
+}
+/** end pipeline and project detail buttons **/
+/****** Get Project Roles Styles **********/
+.back-to-link{
+    text-decoration: none;
+    padding-top: 20px;
+    margin-bottom: -20px;
+    font-size: 1.1em;
+}
+
+    .back-to-link a{
+        color: #FFB122;
+    }
+
+        .back-to-link a:hover{
+            text-decoration: none;
+            color: #c0c0c0;
+        }
+
+    .back-to-link i{
+        margin-right: 10px !important;
+    }
+
+.roles{
+    border: 1px solid #000000;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+    .roles .panel-heading span:first-child{
+        font-weight: 900;
+        font-size: 1.3em;
+    }
+        .roles .panel-heading span:nth-child(2){
+            padding-bottom: 15px;
+            font-size: 1em;
+            font-weight: normal;
+            position: relative;
+            top: -2px;
+        }
+
+        .roles .panel-heading span:nth-child(3){
+            float: right;
+        }
+
+.roles .panel{
+    margin-bottom: 0;
+}
+
+.phase-counts{
+    font-weight: 900;
+    font-size: 1.5em;
+}
+
+.roles .panel-heading a{
+    text-decoration: none;
+    color: #FFB122;
+}
+
+    .roles .panel-heading a:hover{
+        text-decoration: none;
+        color: #c0c0c0;
+    }
+/****** End Project Roles Styles *******/
+/****** Project Role Details Styles ****/
+.pipeline-nav-container.back-to-roles button{
+    position: absolute;
+    display: inline-block;
+    top: 20px;
+    left: -6px;
+    font-size: 1.1em;
+    color: #FFB122;
+    opacity: 1;
+    border: 0;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.pipeline-nav-container.back-to-roles i{
+    opacity: 1;
+    border: 0;
+    text-decoration: none;
+    margin-right: 10px !important;
+    margin-left: 0 !important;
+}
+
+.pipeline-nav-container.back-to-roles .pipeline-nav{
+    border: 0;
+    padding: 0;
+}
+
+#role-nav{
+    border: 1px solid #d5d5d5;
+}
+
+#role-nav .panel-body{
+    padding: 0;
+}
+    #role-nav .panel-body table{
+        margin-bottom: 0;
+        border: 0;
+    }
+
+tr.phase-counts td{
+    border-top: none !important;
+    padding: 5px !important;
+}
+
+#student-list-panel{
+    margin: 15px 0 0 0;
+    height: 500px;
+    overflow-y: auto;
+    font-size:.8em;
+    padding:0 20px 0 20px;
+    opacity:0.87;
+    border-radius: 0;
+}
+
+#collapse-student-list{
+    padding: 0;
+    float: right;
+    width: 20px;
+    text-align: center;
+}
+
+#collapse-student-list:hover{
+    cursor: pointer;
+    color: #FFB122;
+}
+
+#student-status-nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+}
+    #student-status-nav ul li{
+        float: left;
+        width: 25%;
+    }
+    #student-status-nav ul li a{
+        display: block;
+        padding: 5px 5px 5px 12%;
+
+        text-decoration: none;
+        color: #006dcc;
+        font-weight: 900;
+    }
+        #student-status-nav ul li a div {
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: clip;
+            -o-text-overflow: clip;
+        }
+
+        #student-status-nav ul li a:hover{
+            color: #FFB122;
+            outline: none;
+            background-color: #e6e6e6;
+        }
+
+        #student-status-nav ul li a:active,
+        #student-status-nav ul li a:focus{
+            color: #FFB122;
+            outline: none;
+        }
+
+        #student-status-nav .selected a{
+            background-color: #e6e6e6;
+            color: #FFB122;
+        }
+
+#student-details-panel{
+    max-height: 500px;
+    margin: 0;
+    padding-left: 0;
+    overflow-y: auto;
+}
+
+#student-details{
+    margin: 15px 0 0 0;
+    border-radius: 0;
+}
+
+.phase-filter{
+    cursor: pointer;
+    font-weight: 900;
+}
+    .phase-filter.bottom{
+        color: #006dcc;
+    }
+
+    .phase-filter.bottom:hover{
+        color: #FFFFFF;
+        background-color: #FFB122;
+    }
+
+.project-phases-table .selected{
+    background-color: #E7E7E7;
+    color: #000000 !important;
+}
+/*** End Project Role Details Styles ***/
+/*** Student List ***/
+#student-list .student:hover, #student-list  .student.selected {
+    background: #181818;
+    color:white;
+    border-radius:10px;
+    /*margin-left:-10px;*/
+    /*margin-bottom:-1px;*/
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -ms-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+}
+
+#student-list h3{
+    font-size: 1.3em;
+    margin-bottom:5px;
+}
+
+#student-list .student {
+    margin-top:20px;
+    margin-bottom:10px;
+    padding: 10px;
+    cursor: pointer ;
+}
+
+#student-list h1{
+    margin-top:25px;
+    margin-bottom:30px;
+    border-bottom:1px solid white;
+    padding-bottom:15px;
+}
+
+#student-list{
+    padding: 0;
+}
+
+.student ul, .student ul li {
+    margin: 0;
+    list-style: outside none none;
+    padding-left: 0;
+}
+/*** End Student List ***/
+/******* Start Media Queries ********/
+@media screen and (max-width: 320px){
+    .page-container{
+        width: 320px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .navbar-right{
+        float: right !important;
+    }
+
+    #sidebar{
+        padding-right: 0;
+        padding-top: 0;
+    }
+
+    #sidebar li{
+        border: 0 #f2f2f2 solid;
+        border-bottom-width: 1px;
+    }
+
+    /* collapsed sidebar styles */
+    .row-offcanvas{
+        position: relative;
+        left: 0;
+        -webkit-transition: all .7s ease-out;
+        -moz-transition: all .7s ease-out;
+        -ms-transition: all .7s ease-out;
+        -o-transition: all .7s ease-out;
+        transition: all .7s ease-out;
+    }
+
+    .row-offcanvas-right
+    .sidebar-offcanvas{
+        right: -70px;
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas{
+        left: -70px;
+    }
+
+    .row-offcanvas-right.active{
+        right: 70px;
+    }
+
+    .row-offcanvas-left.active{
+        left: 70px;
+    }
+
+    .sidebar-offcanvas{
+        position: absolute;
+        top: 0;
+        width: 70px;
+        padding-left: 0;
+    }
+
+    #button-container {
+        width: 252px;
+        margin: 0 auto 0 auto;
+    }
+
+    #project-list div{
+        padding-left: 5px;
+    }
+
+        #project-list ul li{
+            padding-left: 5px;
+            font-size: 12px;
+        }
+
+    .project > p {
+        color: #808080;
+        padding-left: 5px;
+        margin-top: -15px;
+    }
+
+    .pipeline-nav-container.back-to-roles button span{
+        display: none;
+    }
+
+    #back-to-pipeline span{
+        display: none;
+    }
+
+    .student > p {
+        color: #808080;
+        padding-left: 5px;
+        margin-top: -15px;
+    }
+
+    #apply-button{
+        width: 40%;
+        margin: 5%;
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #pipeline-buttons{
+        margin-left: -28px;
+        display: inline-block;
+    }
+
+    .project-phases-table{
+        margin-bottom: 0;
+        border: 0;
+    }
+
+    #student-details-panel{
+        padding-left: 15px;
+    }
+
+    .pipeline-nav-container a span{
+        display: none;
+    }
+}
+
+@media(min-width:768px){
+    #sidebar {
+        height: 100%;
+        padding-right: 0;
+    }
+
+    #sidebar .nav{
+        width: 280px;
+    }
+
+    #sidebar li{
+        border: 0 #f2f2f2 solid;
+        border-bottom-width: 1px;
+    }
+
+    /* collapsed sidebar styles */
+    .row-offcanvas{
+        position: relative;
+        left: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+        -webkit-transition: all .7s ease-out;
+        -moz-transition: all .7s ease-out;
+        -ms-transition: all .7s ease-out;
+        -o-transition: all .7s ease-out;
+        transition: all .7s ease-out;
+    }
+
+    .row-offcanvas-right.active{
+        right: 280px;
+    }
+
+    .row-offcanvas-left.active{
+        left: 280px;
+    }
+
+    .row-offcanvas-right
+    .sidebar-offcanvas{
+        right: -280px;
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas{
+        left: -280px;
+    }
+
+    .sidebar-offcanvas{
+        position: absolute;
+        top: 0;
+    }
+
+    #button-container{
+        width: 535px;
+        margin: 0 auto 0 auto;
+    }
+
+    #project-list div{
+        padding-left: 115px;
+    }
+
+        #project-list ul li{
+            padding-left: 115px;
+            font-size: 17px;
+        }
+
+    .project > p {
+        color: #808080;
+        font-size: 15px;
+        padding-left: 115px;
+        margin-top: -15px;
+    }
+
+    .student > p {
+        color: #808080;
+        font-size: 15px;
+        padding-left: 115px;
+        margin-top: -15px;
+    }
+}
+
+@media(min-width: 320px){
+    .project img{
+        margin-right: 15px;
+        max-width: 100px;
+        float: left;
+    }
+
+    .student img{
+        margin-right: 15px;
+        max-width: 100px;
+        float: left;
+        border-radius: 50%;
+    }
+}
+
+/** Responsive design elements for Project List **/
+@media(min-width: 991px){
+    #project-list{
+        height: 600px;
+    }
+
+    .role-buttons #apply-button{
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 990px){
+    #project-list{
+        margin-left: 0;
+    }
+
+    #project-list-container .col-md-5{
+        padding-left: 0;
+    }
+
+    .col-md-7.project-details{
+        padding: 0;
+    }
+
+    .bottom-details{
+        margin-top: 0;
+    }
+
+    #project-list{
+        height: 375px;
+    }
+
+    .role-buttons #apply-button{
+        float: none;
+        width: 30%;
+        margin-left: 2.2%;
+        margin-right: 0;
+    }
+}
+
+@media(min-width: 372px) and (max-width: 767px){
+    .pipeline-nav-second-container div p{
+        font-size: 1em;
+        margin: 14px 0 10px 0;
+    }
+}
+
+@media screen and (max-width: 371px){
+    .pipeline-nav-second-container div p{
+        font-size: 0.8em;
+        margin: 16px 0 10px 0;
+    }
+
+    .project img {
+        margin-right: 15px;
+        max-width: 100%;
+        float: left;
+    }
+
+    .student img {
+        margin-right: 15px;
+        max-width: 100%;
+        float: left;
+        border-radius: 50%;
+    }
+}
+/******* End Media Queries ********/

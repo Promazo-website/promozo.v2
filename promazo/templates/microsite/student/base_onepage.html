@@ -1,0 +1,75 @@
+{% load base_extras %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/student_side.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-multiselect.css' %}">
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.popupoverlay.js' %}"></script>
+    <script src="{% static 'js/apply.js' %}"></script>
+    <script src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+    {% block extra_headers %}{% endblock %}
+    <style>
+        body {
+            background:#DDD ;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="top-navblack" id="top_navblack">
+        <div id="pmlogoblack" class="pmlogoblack logo_on">
+            <p id="pmblack">PM</p>
+        </div>
+
+        <div class="col-xs-8" style="text-align: right; padding: 7px; float: right; top: 5px;">
+            <span rel="nav_link"> <a href="/student/home/">Back to Home</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+
+    </nav>
+    <ul class="leftnavblack">
+        <li><a href="{% url 'student-home' %}">Profile</a></li>
+        <li><a href="{% url 'student-projects' %}">Projects</a></li>
+        <li><a href="{% url 'recommendations-list' %}">Recommendations {% if recommendations %}({{ recommendations|length }}){% endif %}</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+        {% if  user.user_board_member.all|length > 0  %}
+        <li><a href="/admin_board/">Admin board</a></li>
+        {% endif %}
+        <li><a href="{% url 'sign-out' %}">Sign out</a></li>
+    </ul>
+    {% include 'tags/messages.html' %}
+    <div style="padding:40px 25px 0 25px">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <script>
+
+	$(document).ready(function() {
+
+        $("nav").on("click", "#pmlogoblack", function () {
+            $(".leftnavblack").slideToggle("fast");
+        });
+
+        $('#top_navblack')
+            .mouseover(function () {
+            $('#pmlogoblack').css('border-color', 'white');
+            $('#pmblack').css('color', 'white');
+        })
+            .mouseout(function () {
+            $('.pmlogoblack').css('border-color', 'black');
+            $('#pmblack').css('color', 'black');
+        });
+    });
+    </script>
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>

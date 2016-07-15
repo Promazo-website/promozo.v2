@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{% block page_title %}{% endblock %}</title>
+<meta name="description" content="ProMazo connects companies with talented college students to perform project-based work during the academic year." />
+<meta name="keywords" content="ProMazo,Internships,Students,Company,Notre Dame,University of Notre Dame">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!--Stylesheets-->
+<link href="/static/microsite/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/static/microsite/pm-sketch-icons/css/pm-icons-embedded.css" rel="stylesheet" type="text/css" />
+<link href="/static/microsite/css/promazo.css" rel="stylesheet" type="text/css" />
+<link href="/static/microsite/css/how-it-works.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/static/microsite/imagesPM-favicon3.ico" type="image/x-icon">
+<link rel="icon" href="/static/microsite/images/PM-favicon3.ico" type="image/x-icon">
+
+<!--Javascript and jQuery-->
+<script src="/static/microsite/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="/static/microsite/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="/static/microsite/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/static/microsite/js/nav.js" type="text/javascript"></script>
+<script src="/static/microsite/js/how-it-works.js" type="text/javascript"></script>
+<script src="/static/microsite/js/promazo.js" type="text/javascript"></script>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar navbar-default navbar-fixed-top home-top-nav">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#pm-menu" id="pm-menu-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span><img src="/static/microsite/images/PNGs/PM-Logo.png" /></span>
+      </button>
+      <a class="navbar-brand" href="/">ProMazo</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="pm-menu">
+      <ul class="nav navbar-nav">
+        <li><a href="/how-it-works">How ProMazo Works</a></li>
+        <li><a href="/corporate-work">Corporate Work</a></li>
+        <li><a href="/student-stories">Student Stories</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact-pm">Contact Us</a></li>
+        <li class="divider"></li>
+        <li><a href="/promazo">Sign In/Up</a></li>
+     </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+{% block body %}{% endblock %}
+
+<!--FOOTER-->
+
+<footer>
+<div class="container-fluid">
+<div class="row pm-footer">
+    <div class="col-xs-6">
+ 	    <ul class="social-media">
+                <li><a href="http://www.facebook.com/ProMazo" target="_blank"><img src="/static/microsite/images/social_media/Facebook.png" /></a></li>
+                <li><a href="http://www.twitter.com/promazojobs" target="_blank"><img src="../static/microsite/images/social_media/Twitter.png" /></a></li>
+                <li><a href="http://www.linkedin.com/company/promazo" target="_blank"><img src="../static/microsite/images/social_media/LinkedIn.png" /></a></li>
+        </ul>
+    </div>
+    <div class="col-xs-6">
+	  	    <div class="contact" id="address">Notre Dame, IN 46556<br /> (858) 245-9965</div>
+            <div class="contact">&copy;2015&emsp;<a href="mailto:questions@promazo.com" target="_new">questions@promazo.com</a></div>
+    	<!-- <a href="http://www.nd.edu/"><img src="/static/microsite/images/PNGs/Dome.png" alt="University of Notre Dame" id="dome" /></a> -->
+    </div>
+</div>
+</div> <!--close footer container-fluid-->
+</footer>
+
+
+</body>
+</html>

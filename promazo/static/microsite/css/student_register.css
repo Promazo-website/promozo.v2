@@ -1,0 +1,35 @@
+/**CSS shared by both student_register.php and student_register2.php**/
+* {
+    font-family:Arial, sans-serif;
+}
+
+.wrapper {
+    border: solid 2px black;
+    margin-top:10px;
+    margin-left:auto;
+    margin-right:auto;
+    width:700px;
+    height:725px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+p {
+    font-size: 23px;
+}
+
+.textinput {
+    border: solid 1px #C7C7C7;
+}
+
+input {
+    width:129px;
+    height:20px;
+    margin-bottom:10px;
+}
+
+/**CSS exclusive to student_register.php**/
+
+.largeinput {
+    width:267px;
+}

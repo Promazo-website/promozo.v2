@@ -1,0 +1,200 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800);
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: 'Open Sans',Arial,sans-serif;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: none;
+}
+
+html, body {
+    width:100%;
+    height:100%;
+    font-family:'Open Sans', Arial, Helvetica, sans-serif;
+    font-weight:300;
+    background:#EEE;
+    color:#333;
+}
+a {
+    color:#09F;
+    text-decoration:none;
+}
+
+input {
+    margin-top:20px;
+    font-family:'Open Sans', Arial, Helvetica, sans-serif;
+    font-weight:300;
+    padding:5px 40px 5px 10px;
+}
+
+.container-fluid{
+    background:#EEE;
+    width: 100%;
+    height: 100%;
+}
+
+div.login_wrapper {
+    width:350px;
+    font-size:.8em;
+    background:#FFF;
+    border:solid 1px #CCC;
+    border-radius:5px;
+    z-index:100;
+    padding:20px;
+    position:absolute;
+    text-align:center;
+    left:50%;
+    margin-left:-195px;
+    margin-top:150px;
+
+}
+h1 {
+    text-align:left;
+    font-size:36px;
+    font-weight: 300;
+    margin:15px 0 30px 15px;
+    border-bottom: 1px solid #333;
+    padding-bottom:10px;
+}
+h1.login {
+    margin:20px 0 0 40px;
+}
+
+h2 {
+    font-size:20px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+input[type="email"], input[type="password"] {
+    padding:5px 40px 5px 10px;
+    width:220px;
+}
+input[type="submit"] {
+    padding:5px 15px 5px 15px;
+}
+
+#forgot{
+    padding-top:5px;
+}
+
+p#sign-up {
+    padding:20px 0;
+    clear:both;
+}
+
+
+/**
+REGISTER PAGE
+*/
+.wrapper {
+    background:#FFF;
+    padding:20px;
+    border:solid 1px #CCC;
+    border-radius:5px;
+}
+
+#rootwizard .tab-content{
+    padding-left:20px;
+    padding-right:20px;
+}
+
+#rootwizard input.textinput {
+    width:100%;
+    margin:5px 0 5px 0;
+    padding:0;
+    padding-left:10px;
+    padding-right:5px;
+    font-size:15px;
+    height:30px;
+}
+
+#rootwizard .navbar{
+    margin-left:0;
+}
+
+input[type='file'] {
+    width:100%;
+}
+#signinbkgrd h1, h2, input {
+    color: #000;
+}
+
+#signature-image {
+    background: #111 url("../images/bkgrnds/university-1.jpg") center center no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+/*
+ ================================
+ Alert boxes
+ ================================
+ */
+.msg_box {padding:8px 20px 8px 46px;margin-bottom:10px;position:relative;color:#444;overflow:hidden}
+.msg_error {background:#f2cac2 url(../images/error_ico.png) no-repeat 14px center;border:1px solid #ae432e}
+.msg_error img {background-position:-47px 0}
+.msg_info {background:#c2e2f2 url(../images/info_ico.png) no-repeat 14px center;border:1px solid #058dc7}
+.msg_info img {background-position:-47px -18px}
+.msg_ok {background:#d5e5b8 url(../images/ok_ico.png) no-repeat 14px center;border:1px solid #77ab13}
+.msg_ok img {background-position:-47px -9px}
+.msg_alert {background:#faf5c8 url(../images/alert_ico.png) no-repeat 14px center;border:1px solid #e6c26e}
+.msg_alert img {background-position:-47px -27px}
+.msg_box .msg_close {position:absolute;top:2px;right:2px;cursor:pointer}
+
+ ul.wizard {
+    list-style: none;
+}
+
+ ul.wizard li {
+    float:left;
+     margin-right:10px;
+}
+
+ .field_error{
+    border:1px solid red;
+}

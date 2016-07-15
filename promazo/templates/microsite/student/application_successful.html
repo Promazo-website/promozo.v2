@@ -1,0 +1,54 @@
+{% load base_extras %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/student_side.css' %}"/>
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'js/jquery.popupoverlay.js' %}"></script>
+    <script src="http://vast-engineering.github.io/jquery-popup-overlay/jquery.popupoverlay.js"></script>
+    <script src="{% static 'js/apply.js' %}"></script>
+    {% block extra_headers %}{% endblock %}
+</head>
+
+<body>
+
+    <nav class="top-navblack" id="top_navblack">
+        <div id="pmlogoblack" class="pmlogoblack logo_on"> <!--Insert ProMazo logo here-->
+            <p id="pmblack">PM</p>
+        </div>
+
+        <div class="col-xs-8" style="text-align: right; padding: 7px; float: right; top: 5px;">
+                    <span rel="nav_link" href="/student/home/">Home</span>
+                    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <span rel="nav_link" href="/student/update/">Edit Profile</span>
+                    &nbsp;&nbsp;&nbsp;
+        </div>
+    </nav>
+    <ul class="leftnavblack">
+            <li><a href="{% url 'student-home' %}">Profile</a></li>
+            <li><a href="{% url 'student-projects' %}">Projects</a></li>
+
+
+            <li><a href="{% url 'recommendations-list' %}">Recommendations {% if recommendations %}({{ recommendations|length }}){% endif %}</a></li>
+
+            <li><a href="/contact-us">Contact Us</a></li>
+            <li><a href="{% url 'sign-out' %}">Sign out</a></li>
+    </ul>
+    <br />
+
+<br /><br /><br /><br /><br />
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Thank you!</h2>
+        <h4>Your application has been submitted.  We appreciate your interest in our project!</h4>
+        Click <a href="/student/projects/">here</a> to return to the project page.
+    </div>
+</div>

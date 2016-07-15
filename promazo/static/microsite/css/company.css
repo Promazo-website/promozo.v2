@@ -1,0 +1,7 @@
+section.benefits div.student-benefits {
+	display:none;
+}
+
+section.benefits div.company-benefits {
+	display:block;
+}

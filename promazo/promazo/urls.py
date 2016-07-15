@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^api/pod/', include('pod.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^validate/(?P<DateHash>[^/]+)/(?P<UserHash>[^/]+)/$', Verification),
-    url(r'^$',Main)
+    url(r'^promazo/$',Main),
+    url(r'^', include('microsite.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
