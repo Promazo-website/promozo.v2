@@ -31,14 +31,14 @@ class listProjects(APIView):
 class modifyProject(APIView):
     permission_classes = (IsAuthenticated,)
     def post(self,request,format=None):
-        if request.data['permissions']['pod']['modify']:
+        if request.user.has_perm('project.modify_project'):
             for items in request.data['projects']:
                 proj = projects.objects.get(id=items)
                 if not projects.objects.filter(project=proj,user=request.user):
                     newproj = projects.objects.create(project=proj,user=request.user)
             return Response(self.__getList__(request))
     def delete(self,request, format=None):
-        if request.data['permissions']['pod']['modify']:
+        if request.user.has_perm('project.modify_project'):
             proj = projects.objects.get(id=pk)
             proj.delete()
             return Response(proj)
@@ -66,13 +66,14 @@ class getRole(APIView):
 class newProjectRole(APIView):
 
     def post(self,request,format=None):
-        #TODO check for authen
+
         #TODO check for existance
-        newRole = projectRoles.objects.create(name=requests.data['name'],
-                                                roleType = requests.data['type'],
-                                                numHours = requests.data['hours'])
-        ser=projectRoleSerializer(projectRoles.objects.filter(user=request.user),many=True)
-        return ser.data
+        if request.user.has_perm('project.create_role'):
+            newRole = projectRoles.objects.create(name=requests.data['name'],
+                                                    roleType = requests.data['type'],
+                                                    numHours = requests.data['hours'])
+            ser=projectRoleSerializer(projectRoles.objects.filter(user=request.user),many=True)
+            return ser.data
 #GET
 class getProjectRole(APIView):
     def __get_role__(self,request,pk):
@@ -95,10 +96,11 @@ class newPlaces(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self,request,format=None):
-        for items in request.data['project_places']:
-            place = projectPlaces.objects.get(id=items)
-            if not projectPlaces.objects.filter(project=proj,user=request.user):
-                newproj = projectPlaces.objects.create(project=place,user=request.user)
+        if request.user.has_perm('project.create_place'):
+            for items in request.data['project_places']:
+                place = projectPlaces.objects.get(id=items)
+                if not projectPlaces.objects.filter(project=proj,user=request.user):
+                    newproj = projectPlaces.objects.create(project=place,user=request.user)
         return Response(self.__getList__(request))
 #Get a place with a given id
     #PUT modify a place
@@ -106,7 +108,7 @@ class newPlaces(APIView):
 class modifyProjectPlace(APIView):
     permission_classes = (IsAuthenticated,)
     def put(self,request,pk,format=None):
-        if data['permissions']['project']['modify']:
+        if request.user.has_perm('modify_place'):
             places=request.data['places']
             ser=projectPlaceSerializer(request.user,data=request.data,partial=True)
 
@@ -119,7 +121,7 @@ class modifyProjectPlace(APIView):
 
     def delete(self,request,pk,format=None):
         #check existance
-        if data['permissions']['project']['modify']:
+        if request.user.has_perm('modify_place'):
             place = projectPlaces.objects.filter(name=pk,user=request.user)
             place.status = "Inactive"
             ser = projectPlaceSerializer(request.user,data=place)

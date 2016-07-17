@@ -1,6 +1,5 @@
 Project
-  POD users
-    ?? Is this supposed to change access ??
+  POD users    ?? Is this supposed to change access ??
     DELETE - remove project (forever or disable??)
       api/project/{pk} = delete project by project ID
   Project Role types

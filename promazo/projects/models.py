@@ -20,6 +20,12 @@ class projectRoles(baseModel):
     numHours = models.IntegerField() #there should not be hours estimates over 32767 hrs.
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+        ("create_role","create a new role"),
+        ("modify_role","change an existing role"),
+        )
 ####################################################
 #Project Place
 class projectPlaces(baseModel):
@@ -41,6 +47,12 @@ class projectPlaces(baseModel):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+        ("create_place","create a new place"),
+        ("modify_place","change a new place"),
+        )
 ####################################################
 #Project
 class projects(baseModel):
@@ -51,6 +63,14 @@ class projects(baseModel):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        permissions = (
+        ("create_project","create a new project"),
+        ("modify_project","change a new project"),
+        )
+
+
 ####################################################
 #Project Tasks
 class projectTasks(baseModel):
@@ -61,3 +81,9 @@ class projectTasks(baseModel):
 
     def __str__(self):
         return self.taskName
+
+    class Meta:
+        permissions = (
+        ("create_task","creates a new task"),
+        ("modify_task","change an existing task"),
+        )
