@@ -1,0 +1,73 @@
+Project
+  /api/project/{pk}/
+    DELETE - close the project (pod leaders only)
+    PATCH and PUT - Update a project (pod users)
+  /api/project/
+    GET - get a list of projects for a user that they are assigned to
+    POST - Create a new project (Pod Managers)
+
+Project Role Typec - Read only, no modify
+  /api/project/roletype/
+    GET a full list of all role types
+  /api/project/roletype/{pk}
+    GET a single record
+
+Project Roles
+  /api/project/projectrole/
+    POST - create a project role (pod managers only)
+      Should require a project_id
+  /api/project/projectroles/
+    GET - returns a list of projectroles
+      Whole list assigned to user if no project_id is given
+      One item by proect_id otherwise
+
+  /api/project/projectrole/{pk}/
+    PATCH - modify a specific project role
+    DELETE - remove a role
+
+Project Place
+  /api/project/place/
+    POST - create create new places with project_role_id
+  /api/project/places/
+    GET - returns a list of places
+      if no arguments, return places for user
+      project_id => get the places for a project
+      project_role_id => give record for that id
+      Optionals:
+        free -> true/false arg. that allows people to determine what they have been assigned to (true would imply no)
+  /api/project/place/{pk}
+    PATCH - odify a specific project place
+    DELETE - don't delete project record, mark it as disabled
+Tasks
+
+
+MODELS:
+Project
+  profile ??
+  owner
+  roles
+  name
+  description
+  status
+
+Project Tasks
+  project*
+  taskName
+  status
+  PercentageCompleted (value or text)
+
+ProjectRole
+  name
+  ProjectRoleType*
+  No. Hours
+
+Project Place
+  *Project Role
+  userStartDate
+  EndDate
+  Status
+  Nohours
+  Notes
+
+ProjectRoleType
+  Name

@@ -1,0 +1,57 @@
+Project
+  POD users
+    ?? Is this supposed to change access ??
+    DELETE - remove project (forever or disable??)
+      api/project/{pk} = delete project by project ID
+  Project Role types
+    GET - Read only for user interface
+      api/project/roletype = full list
+      api/project/roletype/{pk} = single record ided with pk
+  Update project
+    PATCH/PUT - pod users only to updates
+      /api/project/{pk} = updates things by id of pk
+  get a project list when given pod
+    ?? How do we find the POD id ??
+    GET - returns the project
+      /api/project/ = returns the list of projects attached to pod
+  Create a new project
+    POST - a new request to generate a project
+      /api/project/ = post the objects
+
+  Tasks
+    Create a task (POD staff only)
+      POST - generate task
+        /api/projects/task/ =  creates task object
+    Modify/Remove Tasks IDed by pk
+      PUT/PATCH - Modify task
+      DELETE - remove task
+        /api/project/task/{pk}/
+    Get a list of tasks for a project
+      GET - Get tasks attached to a project ID
+        /api/project/tasks/{pk}/ =
+
+  Project Roles
+    Create a Project Role (a position available in the project for assignment to students) also creates "Project place records" (??)
+      POST - given a post item given in data
+        /api/project/projectrole/
+    Modify project by ID
+      PUT
+        /api/project/projecrole/{pk}
+    List all projects based on objects
+      project_id -> get id for that project
+      no argument -> all roles for the current user
+        /api/project/projectroles/ = also pass an argument... somehow
+
+  Project Place
+    List places for project
+      no arg. -> list places for current user
+        /api/projects/projectroles/
+    Create a project Place
+      POST - with project_role_id
+        /api/project/places/
+    Modify project
+      PUT
+        /api/project/place/{pk}
+    "Delete" place
+      DELETE - don't remove record, just mark as disable
+        /api/project/place/{pk}
