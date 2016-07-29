@@ -1,0 +1,268 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$I5Z5amMyBF0L$Sry95xHIo4H2VMFsmYcPO0+QW0uCzixJd5BZM51O0WA=",
+        "last_login": "2016-07-29T07:58:56.062Z",
+        "is_superuser": true,
+        "username": "promazo",
+        "first_name": "",
+        "last_name": "",
+        "email": "promazo@promazo.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2016-07-29T07:56:52.421Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "1ux5m3juhcpca3tbo28h4vm8by1fi0u5",
+    "fields": {
+        "session_data": "OGM5YjEyN2Y3Y2JmYjc2NTI1ZWUxYzgyN2ZmZjFiYTVkYWI2NDRhNzp7Il9hdXRoX3VzZXJfaGFzaCI6IjAxMGQzZTU4MDg0ZDgwNWQzZDdlOWYzZTZiNDAxMTk0NmRkNTFlNzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=",
+        "expire_date": "2016-08-12T07:58:56.120Z"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 1,
+    "fields": {
+        "created": "2016-07-29T07:59:21.129Z",
+        "updated": "2016-07-29T07:59:21.129Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "CreateProjects"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 2,
+    "fields": {
+        "created": "2016-07-29T08:01:02.289Z",
+        "updated": "2016-07-29T08:01:02.289Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "TestApplicants"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 3,
+    "fields": {
+        "created": "2016-07-29T08:01:23.184Z",
+        "updated": "2016-07-29T08:01:23.184Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "ApplicantChangeToAccepted"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 4,
+    "fields": {
+        "created": "2016-07-29T08:01:48.698Z",
+        "updated": "2016-07-29T08:01:48.698Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "ApplicantChangeToInterview1"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 5,
+    "fields": {
+        "created": "2016-07-29T08:02:05.231Z",
+        "updated": "2016-07-29T08:02:05.231Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "CreateProjectRole"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 6,
+    "fields": {
+        "created": "2016-07-29T08:02:23.692Z",
+        "updated": "2016-07-29T08:02:23.692Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "ViewApplicants"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 7,
+    "fields": {
+        "created": "2016-07-29T08:02:35.550Z",
+        "updated": "2016-07-29T08:02:35.550Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "InterviewApplicants"
+    }
+},
+{
+    "model": "pod.podpermissions",
+    "pk": 8,
+    "fields": {
+        "created": "2016-07-29T08:02:45.704Z",
+        "updated": "2016-07-29T08:02:45.704Z",
+        "updated_by": [
+            "promazo"
+        ],
+        "permission": "CreateTests"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2016-07-29T07:59:21.130Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "1",
+        "object_repr": "CreateProjects",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2016-07-29T08:01:02.290Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "2",
+        "object_repr": "TestApplicants",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2016-07-29T08:01:23.185Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "3",
+        "object_repr": "ApplicantChangeToAccepted",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2016-07-29T08:01:48.699Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "4",
+        "object_repr": "ApplicantChangeToInterview1",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2016-07-29T08:02:05.231Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "5",
+        "object_repr": "CreateProjectRole",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2016-07-29T08:02:23.693Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "6",
+        "object_repr": "ViewApplicants",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2016-07-29T08:02:35.551Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "7",
+        "object_repr": "InterviewApplicants",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2016-07-29T08:02:45.706Z",
+        "user": [
+            "promazo"
+        ],
+        "content_type": [
+            "pod",
+            "podpermissions"
+        ],
+        "object_id": "8",
+        "object_repr": "CreateTests",
+        "action_flag": 1,
+        "change_message": "Added."
+    }
+}
+]

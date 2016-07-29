@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'skills',
     'pod',
     'microsite',
+    'projects',
+    'application_tests'
 
 
 ]
