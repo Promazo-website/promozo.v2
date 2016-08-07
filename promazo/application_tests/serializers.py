@@ -5,10 +5,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from .models import *
 
-class QuestionSerializer(serializers.Serializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
 
-class ApplicationTestSerializer(serializers.Serializer):
+class ApplicationTestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationTests

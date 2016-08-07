@@ -1,0 +1,86 @@
+<div ng-controller="TestsController">
+    <md-card>
+        <md-toolbar class="md-toolbar-tools">
+            <div>Manage Questions and Tests</div><div flex></div>
+            <md-button ng-if="testsPage=='tests'" ng-click="toggle_CreateTest();">New Test</md-button>
+            <md-button ng-if="testsPage=='questions'" ng-click="toggle_CreateQuestion();">New Question</md-button>
+            <md-button ng-click="setTestsPage('tests')">Tests</md-button>
+            <md-button ng-click="setTestsPage('questions')">Questions</md-button>
+            <md-button class="md-raised md-primary md-icon-button"><md-icon ng-click="TestsHelp()">help</md-icon></md-button>
+        </md-toolbar>
+        <md-content>
+            <div ng-switch="testsPage">
+                <div ng-switch-when="tests">
+                    <fieldset ng-show="showCreateTest">
+                        <legend>New Test</legend>
+                        <md-input-container class="md-block">
+                            <input type="text" ng-model="newTest.name" placeholder="Test name/Description">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <md-select ng-model="newTest.questions" placeholder="choose one or more questions">
+                                <md-option ng-repeat="question in AllQuestions track by $index" value={{question.id}}>{{question.question}}</md-option>
+                            </md-select>
+
+                        </md-input-container>
+                    </fieldset>
+                    <fieldset>
+                        <legend>My Tests</legend>
+                    <md-list>
+                        <md-list-item ng-repeat="test in MyTestsList">
+                            <md-button ng-if="!test.public" class="md-raised md-icon-button"><md-icon>vpn_key</md-icon></md-button>
+                            <md-button ng-if="test.public" class="md-raised md-icon-button"><md-icon>share_screen</md-icon></md-button>
+                            <div>{{test.name}}</div>
+                            <div>::{{test.questions.length}}</div>
+                        </md-list-item>
+                    </md-list>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Public Tests</legend>
+                    <md-list>
+                        <md-list-item ng-repeat="test in PublicTests">
+                            <md-button ng-if="!test.public" class="md-raised md-icon-button"><md-icon>vpn_key</md-icon></md-button>
+                            <md-button ng-if="test.public" class="md-raised md-icon-button"><md-icon>share_screen</md-icon></md-button>
+                            <div>{{test.name}}</div>
+                            <div>::{{test.questions.length}}</div>
+                        </md-list-item>
+                    </md-list>
+                    </fieldset>
+                    <br>
+                </div>
+
+                <div ng-switch-when="questions">
+                    <fieldset>
+                          <legend>My Questions</legend>
+                    <md-list>
+                        <md-list-item ng-repeat="question in MyQuestionsList">
+                            <md-button ng-if="!question.public" class="md-raised md-icon-button"><md-icon>vpn_key</md-icon></md-button>
+                            <md-button ng-if="question.public" class="md-raised md-icon-button"><md-icon>share_screen</md-icon></md-button>
+                            <div>{{question.question}}</div>
+                        </md-list-item>
+                    </md-list>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Public Questions</legend>
+                    <md-list>
+                        <md-list-item ng-repeat="question in PublicQuestions">
+                            <md-button ng-if="!question.public" class="md-raised md-icon-button"><md-icon>vpn_key</md-icon></md-button>
+                            <md-button ng-if="question.public" class="md-raised md-icon-button"><md-icon>share_screen</md-icon></md-button>
+                            <div>{{question.question}}</div>
+                        </md-list-item>
+                    </md-list>
+                    </fieldset>
+                    <br>
+                </div>
+
+
+                <div ng-switch-when="EditTest"></div>
+
+
+                <div ng-switch-when="EditQuestion"></div>
+
+            </div>
+        </md-content>
+    </md-card>
+</div>

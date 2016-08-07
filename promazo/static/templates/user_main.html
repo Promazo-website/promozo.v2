@@ -1,8 +1,8 @@
 
 
 <md-toolbar layout="row" style="position: fixed; top: 0;" md-whiteframe="2"  ng-controller="toolbarController" class="student_toolbar">
-    <md-button ng-click="SideNavOpen('left')"><md-icon>menu</md-icon></md-button>
-    <md-button ng-click="setCurrentPage('home')"><md-icon>home</md-icon></md-button>
+    <md-button class="md-icon-button" ng-click="SideNavOpen('left')"><md-icon>menu</md-icon></md-button>
+    <md-button  class="md-icon-button" ng-click="setCurrentPage('home')"><md-icon>home</md-icon></md-button>
 
         <div flex></div>
 
@@ -26,5 +26,11 @@
     <div flex ng-include="'/static/templates/edit_profile_forms.html'"></div>
     <div ng-include="'/static/templates/skillQuestions.html'"></div>
     <div flex ng-include="'/static/templates/home_page.html'"></div>
+    <div ng-switch="currentPage">
+        <span ng-switch-when="ManageTests">
+            <div ng-include="'/static/templates/ManageQuestions.html'"></div>
+        </span>
+
+    </div>
 </md-content>
 </div>

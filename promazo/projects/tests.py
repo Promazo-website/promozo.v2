@@ -10,6 +10,7 @@ User=get_user_model()
 class UserTestCase(TestCase):
     #set up data
     def setup(self):
+        pass
 ##Project attributes
 
 #DELETE /api/project/{pk}/ to remove the project

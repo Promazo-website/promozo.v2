@@ -15,19 +15,18 @@ class baseModel(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(User,null=True)
 
     class Meta:
         abstract=True
 
-class Question(baseModel):
+class Question(baseModel,userModel):
     question = models.TextField()
     public = models.BooleanField(default=False)
 
     def __str__(self):
         return self.question
 
-class ApplicationTests(baseModel):
+class ApplicationTests(baseModel,userModel):
     name = models.CharField(max_length=200)
     questions =models.ManyToManyField(Question)
     public = models.BooleanField(default=False)
