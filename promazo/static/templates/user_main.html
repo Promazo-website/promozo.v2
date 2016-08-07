@@ -1,8 +1,8 @@
 
 
-<md-toolbar layout="row" style="position: fixed; top: 0;" md-whiteframe="2"  ng-controller="toolbarController" class="student_toolbar">
-    <md-button class="md-icon-button" ng-click="SideNavOpen('left')"><md-icon>menu</md-icon></md-button>
-    <md-button  class="md-icon-button" ng-click="setCurrentPage('home')"><md-icon>home</md-icon></md-button>
+<md-toolbar style="position: fixed; top: 0;" md-whiteframe="2"  ng-controller="toolbarController" class="md-toolbar-tools">
+    <md-button class="md-raised md-icon-button md-primary" ng-click="SideNavOpen('left')"><md-icon>menu</md-icon></md-button>
+    <md-button  class="md-raised md-icon-button md-primary" ng-click="setCurrentPage('home')"><md-icon>home</md-icon></md-button>
 
         <div flex></div>
 
@@ -21,7 +21,7 @@
 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
     <div ng-include="'/static/templates/right_menu.html'"></div>
 </md-sidenav>
-<md-content flex style="margin-top:10px;">
+<md-content flex style="margin-top:10px;background-color: transparent">
 
     <div flex ng-include="'/static/templates/edit_profile_forms.html'"></div>
     <div ng-include="'/static/templates/skillQuestions.html'"></div>

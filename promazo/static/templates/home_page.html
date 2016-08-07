@@ -3,8 +3,10 @@
         <div layout="column" flex>
         <!-- column 1 -->
             <md-card md-whiteframe="1">
-                <md-card-title class="md-headline">My Pods</md-card-title>
-                <md-divider></md-divider>
+                <md-toolbar class="md-toolbar-tools inner-toolbar" md-whiteframe="1">
+                    <div class="md-headline">My Pods</div>
+                </md-toolbar>
+
                 <md-list>
                     <md-list-item ng-repeat="pod in currentPods">
                         {{pod.name}}
@@ -14,8 +16,9 @@
             </md-card>
 
             <md-card md-whiteframe="1">
-                <md-card-title class="md-headline">My Projects</md-card-title>
-                <md-divider></md-divider>
+                <md-toolbar class="md-toolbar-tools inner-toolbar" md-whiteframe="1">
+                    <div class="md-headline">My Projects</div>
+                </md-toolbar>
                 <md-list>
                     <md-list-item ng-repeat="pod in currentPods">
                         {{pod.name}}
@@ -29,8 +32,9 @@
         <div layout="column"flex>
         <!-- column 2 -->
             <md-card md-whiteframe="1">
-                <md-card-title class="md-headline">Messages</md-card-title>
-                <md-divider></md-divider>
+                <md-toolbar class="md-toolbar-tools inner-toolbar" md-whiteframe="1">
+                    <div class="md-headline">Messages</div>
+                </md-toolbar>
                 <md-list>
                     <md-list-item ng-repeat="pod in currentPods">
                         {{pod.name}}
@@ -40,8 +44,9 @@
             </md-card>
 
             <md-card md-whiteframe="1">
-                <md-card-title class="md-headline">Applications</md-card-title>
-                <md-divider></md-divider>
+                <md-toolbar class="md-toolbar-tools inner-toolbar" md-whiteframe="1">
+                    <div class="md-headline">Applications</div>
+                </md-toolbar>
                 <md-list>
                     <md-list-item ng-repeat="pod in currentPods">
                         {{pod.name}}

@@ -7,10 +7,6 @@
 body, html {
     background-color: gainsboro !important;
 }
-
-md-content {
-    background-color: transparent;
-}
 .cropArea {
     background: #E4E4E4;
     overflow: hidden;
@@ -269,4 +265,19 @@ ul.skills-list li:before {
     float: left;
     width: 1.6em;
     color: #8eb425;
+}
+.inner-toolbar {
+    border-radius: 4px 4px 0 0 !important;
+    box-shadow: 0 1px rgba(255, 255, 255, 0.1);
+}
+.inner-container {
+    border-radius: 4px;
+    padding: 10px;
+}
+md-card {
+    border-radius: 5px;
+}
+
+fieldset {
+    margin-bottom: 8px;
 }

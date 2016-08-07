@@ -1,6 +1,6 @@
 <div ng-controller="TestsController">
-    <md-card>
-        <md-toolbar class="md-toolbar-tools">
+    <md-card >
+        <md-toolbar class="md-toolbar-tools inner-toolbar" md-whiteframe="1">
             <div>Manage Questions and Tests</div><div flex></div>
             <md-button ng-if="testsPage=='tests'" ng-click="toggle_CreateTest();">New Test</md-button>
             <md-button ng-if="testsPage=='questions'" ng-click="toggle_CreateQuestion();">New Question</md-button>
@@ -8,7 +8,7 @@
             <md-button ng-click="setTestsPage('questions')">Questions</md-button>
             <md-button class="md-raised md-primary md-icon-button"><md-icon ng-click="TestsHelp()">help</md-icon></md-button>
         </md-toolbar>
-        <md-content>
+        <md-content  class="inner-container">
             <div ng-switch="testsPage">
                 <div ng-switch-when="tests">
                     <fieldset ng-show="showCreateTest">
@@ -17,11 +17,16 @@
                             <input type="text" ng-model="newTest.name" placeholder="Test name/Description">
                         </md-input-container>
                         <md-input-container class="md-block">
-                            <md-select ng-model="newTest.questions" placeholder="choose one or more questions">
-                                <md-option ng-repeat="question in AllQuestions track by $index" value={{question.id}}>{{question.question}}</md-option>
-                            </md-select>
+                            <md-select ng-model="newTest.questions" placeholder="choose one or more questions" multiple>
+                                <md-optgroup label="Questions">
+                                    <md-option ng-repeat="question in AllQuestions track by $index" ng-value="question.id">{{question.question}}</md-option>
+                                </md-optgroup>
 
+                            </md-select>
                         </md-input-container>
+                        <div layout="column">
+                            <md-button class="md-raised md-primary" ng-click="CreateTest()">Create</md-button>
+                        </div>
                     </fieldset>
                     <fieldset>
                         <legend>My Tests</legend>
@@ -29,8 +34,14 @@
                         <md-list-item ng-repeat="test in MyTestsList">
                             <md-button ng-if="!test.public" class="md-raised md-icon-button"><md-icon>vpn_key</md-icon></md-button>
                             <md-button ng-if="test.public" class="md-raised md-icon-button"><md-icon>share_screen</md-icon></md-button>
-                            <div>{{test.name}}</div>
-                            <div>::{{test.questions.length}}</div>
+                            <div layout="column">
+                            <div> Test Name:{{test.name}}</div>
+                            <div>Number of Questions: {{test.questions.length}}</div>
+                            </div>
+                            <div class="md-secondary">
+                                <md-button class="md-raised md-primary md-icon-button" ng-click="DeleteTest(test)"><md-icon>delete</md-icon></md-button>
+                                <md-button class="md-raised md-primary md-icon-button" ng-click="EditTest(test)"><md-icon>edit</md-icon></md-button>
+                            </div>
                         </md-list-item>
                     </md-list>
                     </fieldset>
@@ -50,6 +61,15 @@
                 </div>
 
                 <div ng-switch-when="questions">
+                    <fieldset ng-show="showCreateQuestion">
+                        <legend>New Question</legend>
+                        <md-input-container class="md-block">
+                            <textarea ng-model="newQuestion.question" rows="3" placeholder="Your Question">{{newQuestion.question}}</textarea>
+                        </md-input-container>
+                        <div layout="column">
+                            <md-button class="md-raised md-primary" ng-click="CreateQuestion()">Create</md-button>
+                        </div>
+                    </fieldset>
                     <fieldset>
                           <legend>My Questions</legend>
                     <md-list>
@@ -57,6 +77,10 @@
                             <md-button ng-if="!question.public" class="md-raised md-icon-button"><md-icon>vpn_key</md-icon></md-button>
                             <md-button ng-if="question.public" class="md-raised md-icon-button"><md-icon>share_screen</md-icon></md-button>
                             <div>{{question.question}}</div>
+                            <div class="md-secondary">
+                                <md-button class="md-raised md-primary md-icon-button" ng-click="DeleteQuestion(question)"><md-icon>delete</md-icon></md-button>
+                                <md-button class="md-raised md-primary md-icon-button" ng-click="EditQuestion(question)"><md-icon>edit</md-icon></md-button>
+                            </div>
                         </md-list-item>
                     </md-list>
                     </fieldset>
@@ -75,10 +99,38 @@
                 </div>
 
 
-                <div ng-switch-when="EditTest"></div>
+                <div ng-switch-when="EditTest">
+                    <fieldset>
+                        <legend>Edit Test</legend>
+                        <md-input-container class="md-block">
+                            <input type="text" ng-model="currentTest.name" placeholder="Test name/Description">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <md-select ng-model="currentTest.questions" placeholder="choose one or more questions" multiple>
+                                <md-optgroup label="Questions">
+                                    <md-option ng-repeat="question in AllQuestions track by $index" ng-value="question.id">{{question.question}}</md-option>
+                                </md-optgroup>
+
+                            </md-select>
+                        </md-input-container>
+                        <div layout="column">
+                            <md-button class="md-raised md-primary" ng-click="UpdateTest(currentTest)">Update</md-button>
+                        </div>
+                    </fieldset>
+                </div>
 
 
-                <div ng-switch-when="EditQuestion"></div>
+                <div ng-switch-when="EditQuestion">
+                    <fieldset>
+                        <legend>New Question</legend>
+                        <md-input-container class="md-block">
+                            <textarea ng-model="currentQuestion.question" rows="3" placeholder="Your Question">{{currentQuestion.question}}</textarea>
+                        </md-input-container>
+                        <div layout="column">
+                            <md-button class="md-raised md-primary" ng-click="UpdateQuestion(currentQuestion)">Update</md-button>
+                        </div>
+                    </fieldset>
+                </div>
 
             </div>
         </md-content>
