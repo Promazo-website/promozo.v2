@@ -1,0 +1,30 @@
+<div ng-controller="ProjectsController">
+    <md-card >
+        <md-toolbar class="md-toolbar-tools inner-toolbar" md-whiteframe="1">
+            <div>Manage Projectss</div><div flex></div>
+            <md-button ng-if="testsPage=='tests'" ng-click="toggle_CreateTest();">New Test</md-button>
+            <md-button ng-if="testsPage=='questions'" ng-click="toggle_CreateQuestion();">New Question</md-button>
+            <md-button ng-click="">Tests</md-button>
+            <md-button ng-click="">Questions</md-button>
+            <md-button class="md-raised md-primary md-icon-button"><md-icon ng-click="TestsHelp()">help</md-icon></md-button>
+        </md-toolbar>
+        <md-content  class="inner-container">
+            <div ng-switch="projectsPage">
+                <div ng-switch-when="Projects"></div>
+                <div ng-switch-when="Tasks"></div>
+                <div ng-switch-when="Roles"></div>
+                <div ng-switch-when="Places"></div>
+                <div ng-switch-when="EditProject"></div>
+                <div ng-switch-when="EditTask"></div>
+                <div ng-switch-when="EditRole"></div>
+                <div ng-switch-when="EditPlace"></div>
+
+
+
+
+
+
+            </div>
+        </md-content>
+    </md-card>
+</div>

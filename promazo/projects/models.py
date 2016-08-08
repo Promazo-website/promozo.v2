@@ -66,11 +66,11 @@ class ProjectPlace(statusField):
     A record denoting the person who is assigned to a role in a project.
     Thus a role might be assigned to multiple people
     """
-    user = models.ForeignKey(User)
-    startdate =models.DateField(blank=True,null=True)
+    user = models.ForeignKey(User, blank=True, null=True)
+    startdate = models.DateField(blank=True,null=True)
     enddate = models.DateField(blank=True,null=True)
     ProjectRole = models.ForeignKey(ProjectRole)
-    hours =models.IntegerField(default=0)
+    hours = models.IntegerField(default=0)
     note = models.TextField()
 
     def __str__(self):

@@ -3,6 +3,7 @@
  */
 promazo.factory('ProjectTaskResource', function ($resource) {
     return $resource('/api/projecttask/:id',{ id: '@_id' },{
-        update: {method: 'PATCH'}
+        update: {method: 'PATCH'},
+        list: {method:'GET', isArray:true, url:'/api/projecttask/:id/project/',params:{id:'@_id'}}
   });
 });
