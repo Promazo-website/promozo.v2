@@ -1,7 +1,7 @@
 /**
  * Created by marc on 22/05/16.
  */
-promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,AuthService, ProfileService,$mdSidenav,PodService,$mdMedia) {
+promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,AuthService, ProfileService,$mdSidenav,$mdMedia) {
     $scope.currentUser = null;
     $scope.currentPage= 'home';
     $scope.currentProfile=null;
@@ -9,7 +9,6 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
     $scope.currrentBusiness=null;
     $scope.currentUniversity=null;
     $scope.currentScore=0;
-    $scope.currentPods=null;
     $scope.callType=null;
     $scope.DateHash=null;
     $scope.UserHash=null;
@@ -24,15 +23,6 @@ promazo.controller('homeController',function( $scope,$http,$mdToast,$timeout,Aut
             $scope.setCurrentUser(data);
         });
 
-    $scope.$watch('currentUser', function(New,Old) {
-        if(New!=null) {
-            PodService.get_user_pods()
-                .then(function (data) {
-                    $scope.currentPods = data;
-                });
-        }
-    });
-    
     $scope.$watch('currentProfile',function(New,Old){
         ProfileService.get_user_score()
             .then(function(data){

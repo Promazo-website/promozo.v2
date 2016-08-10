@@ -5,6 +5,11 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from .models import *
 
+class userSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+
+
 class ProjectRoleTypeSerializer(serializers.Serializer):
     class Meta:
         model = ProjectRoleType

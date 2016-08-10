@@ -14,15 +14,14 @@ class podRoleSerializer(serializers.ModelSerializer):
         model=podRole
 
 class podSerializer(serializers.ModelSerializer):
+    members_count =  serializers.IntegerField(read_only=True)
     class Meta:
         model=pod
 
-class podPermissions(serializers.ModelSerializer):
-    class Meta:
-        model=podPermissions
-
 class podMembersSerializer(serializers.ModelSerializer):
-    user= userSerializer()
-    role= podRoleSerializer
     class Meta:
         model=podMembers
+
+class podPermissionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=podPermissions

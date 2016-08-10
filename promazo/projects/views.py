@@ -25,8 +25,11 @@ class ProjectsViewSet(viewsets.ModelViewSet):
         queryset = Project.objects.filter(pod__in=[x.pod for x in podMembers.objects.filter(member=request.user)])
         ser = ProjectSerializer(queryset,many=True)
         return Response(ser.data)
-
-
+    @detail_route(methods=['GET'])
+    def available_users(self, request):
+        queryset = User.objects.filter(is_active=True).exclude(id__in=[x.user.id for x in ProjectPlace.objects.filter(ProjectRole__project=self.get_object())])
+        ser = userSerializer(queryset, manu=True)
+        return Response(ser.data)
 
 class ProjectTaskViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)

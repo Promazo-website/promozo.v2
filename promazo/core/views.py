@@ -9,8 +9,14 @@ from .models import *
 from .serializers import *
 from .UserRegistration import NewUserReg
 from rest_framework import generics
+from rest_framework import viewsets
 
 User = get_user_model()
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserModelSerializer
+    queryset = User.objects.all()
 
 class StudentDetails(generics.RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,)

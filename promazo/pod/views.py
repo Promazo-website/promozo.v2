@@ -1,42 +1,58 @@
-from django.shortcuts import render
-from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
+
 from .models import *
 from .serializers import *
-from rest_framework import generics
+
+from rest_framework.decorators import detail_route, list_route
+from rest_framework import viewsets
 # Create your views here.
 
 #list of pod members
 
-class podMemberList(generics.RetrieveAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = podMembersSerializer
-    def get_queryset(self):
-        return podMembers.objects.filter(pod__id=self.kwargs['pk'])
-
-# list pods
-
-class podList(generics.ListAPIView):
+class PodViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = podSerializer
     queryset = pod.objects.all()
-
-#list of user pods
-
-class userPodList(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = podSerializer
-    def get_queryset(self):
-        return [x.pod for x in podMembers.objects.filter(member=self.request.user)]
-
-# has user permission * for pod *
-
-class userHasPerm(APIView):
-    permission_classes = (IsAuthenticated,)
-    def get(self,request):
+    @detail_route(methods=['GET'])
+    def permission(self, request, pk):
         try:
-            return Response(podMembers.objects.get(pod__if=request.GET['pod'],user=request.user).has_permission(request.GET['permission']))
+            rec=podMembers.objects.get(pod=self.get_object(),member=request.user)
+            return Response(rec.has_permission(request.GET['permission']))
         except:
             return Response(False)
+    @list_route()
+    def mypods(self, request):
+        queryset = [x.pod for x in podMembers.objects.filter(member=request.user)]
+        ser = podSerializer(queryset,many=True)
+        return Response(ser.data)
+
+    @detail_route(methods=['GET'])
+    def available_users(self,request,pk):
+        queryset =  User.objects.filter(is_active=True).exclude(id__in=[x.member.id for x in podMembers.objects.filter(pod__id=pk)])
+        ser = userSerializer(queryset,many=True)
+        return Response(ser.data)
+
+
+class PodMembersViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = podMembersSerializer
+    queryset = podMembers.objects.all()
+    @detail_route(methods=['GET'])
+    def members(self,request, pk):
+        queryset=podMembers.objects.filter(pod__id=pk)
+        ser=podMembersSerializer(queryset,many=True)
+        return Response(ser.data)
+
+
+
+class PodRolesViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = podRoleSerializer
+    queryset = podRole.objects.all()
+
+class PodPermissionsViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = podPermissionsSerializer
+    queryset = podPermissions.objects.all()
