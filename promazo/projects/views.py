@@ -61,3 +61,8 @@ class ProjectPlaceViewSet(viewsets.ModelViewSet):
         queryset = ProjectPlace.objects.filter(ProjectRole__id=pk)
         ser = ProjectPlaceSerializer(queryset, many=True)
         return Response(ser.data)
+    @detail_route()
+    def project(self,request, pk):
+        queryset = ProjectPlace.objects.filter(ProjectRole__project__id=pk)
+        ser = ProjectPlaceSerializer(queryset, many=True)
+        return Response(ser.data)

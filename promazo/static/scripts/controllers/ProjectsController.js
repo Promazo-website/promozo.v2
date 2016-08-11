@@ -1,8 +1,9 @@
 /**
  * Created by marc on 8/7/16.
  */
-promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectResource,ProjectPlaceResource,
-                                               ProjectTaskResource,ProjectRoleResource) {
+promazo.controller('ProjectsController',function( $scope,$log,$mdDialog,ProjectResource,ProjectPlaceResource,
+                                               ProjectTaskResource,SkillResource,
+                                                  ProjectRoleResource,PodsResource,PodsRoleTypesResource) {
     
 
     $scope.ConfirmDelete = $mdDialog.confirm()
@@ -11,7 +12,15 @@ promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectReso
         .ok("It's ok, Delete it")
         .cancel("'Oh no. don't do it");
 
-    $scope.projectsPage="projects";
+    $scope.SkillsList=SkillResource.query();
+    $scope.RoleTypeList = PodsRoleTypesResource.query();
+    $scope.PodList = PodsResource.mypods();
+    $scope.fabMenu="false";
+    $scope.projectsPage="Projects";
+
+    $scope.setProjectPage = function(page) {
+        $scope.projectsPage = page;
+    }
     $scope.currentProject={};
     $scope.currentTask ={};
     $scope.currertRole ={};
@@ -22,12 +31,7 @@ promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectReso
     $scope.showCreateRole=false;
     $scope.showCreatePlace=false;
     
-    $scope.showEditProject=false;
-    $scope.showEditTask=false;
-    $scope.showEditRole=false;
-    $scope.showEditPlace=false;
-    
-    
+
     $scope.ProjectList =  ProjectResource.query({id:'all'});
     $scope.TaskList=[];
     $scope.RoleList=[];
@@ -64,6 +68,10 @@ promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectReso
     $scope.toggle_CreatePlace = function(){
         $scope.showCreatePlace = toggleVal($scope.showCreatePlace);
     };
+    
+    $scope.ShowProjects = function() {
+        $scope.projectsPage="Projects";
+    };
 
     $scope.CreateProject = function(){
         $scope.newProject.$save(function(data){
@@ -75,34 +83,35 @@ promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectReso
 
     $scope.EditProject = function(project){
         $scope.currentProject=project;
-        $scope.showEditProject=true;
+        $scope.projectsPage="EditProject";
     };
 
     $scope.UpdateProject = function() {
-        $scope.currentProject.$update(function(){
+        $scope.currentProject.$update({id:$scope.currentProject.id},function(){
             $scope.ProjectList =  ProjectResource.query({id:'all'});
-            $scope.showEditProject=false;
+            $scope.projectsPage="Projects";
             $scope.openToast('Project Updated');
         })
     };
     
     $scope.ShowTasks = function (project) {
-        $scope.newTask= new ProjectTaskResource({project:project.id});
+        $scope.projectsPage="Tasks";
+        $scope.newTask= new ProjectTaskResource({project:project.id,updated_by:$scope.currentUser.id});
         $scope.currentProject = project;
         $scope.TaskList = ProjectTaskResource.list({id:project.id});
-        $scope.projectsPage='tasks';
+
 
     };
 
     $scope.EditTask = function (task) {
         $scope.currentTask=task;
-        $scope.showEditTask=true;
+        $scope.projectsPage="EditTask";
     };
 
     $scope.UpdateTask = function () {
-        $scope.currentTask.$update( function(){
-            $scope.TaskList = ProjectTaskResource.list({id:project.id});
-            $scope.showEditTask=false;
+        $scope.currentTask.$update({id:$scope.currentTask.id}, function(){
+            $scope.TaskList = ProjectTaskResource.list({id:$scope.currentProject.id});
+            $scope.projectsPage="Tasks";
         })
     };
 
@@ -116,22 +125,22 @@ promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectReso
 
     $scope.ShowRoles = function (project) {
         $scope.currentProject = project;
-        $scope.newRole= new ProjectRoleResource({project:project.id});
-        $scope.RolesList = ProjectRoleResource.list({id:project.id});
-        $scope.projectsPage='roles';
+        $scope.newRole= new ProjectRoleResource({project:project.id,updated_by:$scope.currentUser.id});
+        $scope.RoleList = ProjectRoleResource.list({id:project.id});
+        $scope.projectsPage='Roles';
 
     };
 
     $scope.EditRole = function (role) {
         $scope.currentRole=role;
-        $scope.showEditRole=true;
+        $scope.projectsPage="EditRole";
 
     };
 
     $scope.UpdateRole = function() {
-        $scope.currentRole.$update(function(){
-            $scope.RolesList = ProjectRoleResource.list({id:project.id});
-            $scope.showEditRole=false;
+        $scope.currentRole.$update({id:$scope.currentRole.id},function(){
+            $scope.RolesList = ProjectRoleResource.list({id:$scope.currentProject.id});
+            $scope.projectsPage="Roles";
             $scope.openToast('Role Updated')
         })
     };
@@ -144,32 +153,42 @@ promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectReso
         })
     };
 
-    $scope.ShowPlaces = function (role) {
-        $scope.currentRole = role;
-        $scope.newPlace = new ProjectPlaceResource({ProjectRole: role.id});
-        $scope.PlacesList = ProjectPlaceResource.list({id:role.id});
-        $scope.projectsPage='places';
+    $scope.ShowPlaces = function (project) {
+        $scope.currentProject=project;
+        $scope.RoleList =  ProjectRoleResource.list({id:$scope.currentProject.id});
+        $scope.newPlaces={number:0,role:null,start_date:null,end_date:null};
+        $scope.PlacesList = ProjectPlaceResource.list({id:$scope.currentProject.id});
+        $scope.projectsPage='Places';
 
     };
 
     $scope.EditPlace = function (place) {
         $scope.currentPlace = place;
-        $scope.showEditPlace=true;
+        $scope.projectsPage="EditPlace";
     };
 
     $scope.UpdatePlace = function() {
-        $scope.currentPlace.$update(function() {
-            $scope.PlacesList = ProjectPlaceResource.list({id:$scope.currentRole.id});
-            $scope.showEditPlace=false;
+        $scope.currentPlace.$update({id:$scope.currentPlace.id},function() {
+            $scope.PlacesList = ProjectPlaceResource.list({id:$scope.currentProject.id});
+            $scope.projectsPage="Places";
         })
     };
 
     $scope.CreatePlace = function(){
-        $scope.newPlace.$save(function(data){
-            $scope.PlaceList =  ProjectRoleResource.list({id:$scope.currentRole.id});
-            $scope.showCreatePlace=false;
-            $scope.openToast('Place Created');
-        })
+        var count =Number($scope.newPlaces.number);
+        for(var i=0; i < count; i++) {
+            newPlace = new ProjectPlaceResource({startdate:$scope.newPlaces.start_date,
+                enddate:$scope.newPlaces.end_date,
+                ProjectRole:$scope.newPlaces.role,
+                updated_by:$scope.currentUser.id});
+            newPlace.$save(function(){
+                $scope.PlacesList = ProjectPlaceResource.list({id:$scope.currentProject.id});
+                $scope.showCreatePlace=false;
+                $scope.openToast('Places Created');
+            });
+            
+        }
+
     };
 
     $scope.DeleteProject = function(project){
@@ -203,8 +222,10 @@ promazo.controller('TestsController',function( $scope,$log,$mdDialog,ProjectReso
         $mdDialog.show($scope.ConfirmDelete)
             .then(function(){
                 place.$delete({id:place.id}, function(){
-                    $scope.PlaceList =  ProjectPlaceResource.list({id:$scope.currentRole.id});
+                    $scope.PlacesList =  ProjectPlaceResource.list({id:$scope.currentProject.id});
                 })
             })
     };
+
+
 });

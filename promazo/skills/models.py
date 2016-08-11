@@ -19,12 +19,9 @@ class skills(baseModel):
 
     A TypeB skill can be upgraded to a TypeA
 
-    When it comes to scores, All skills are scored out of 100. Score_type can be used
-    to assign the score to a particular area in the GPA system, thus weight the scores
     """
     name = models.CharField(max_length=150)
-    type = models.CharField(max_length=20)
-    score_type=models.CharField(max_length=20)
+    type = models.CharField(max_length=20,default='TypeB')
 
     def __str__(self):
         return self.name
