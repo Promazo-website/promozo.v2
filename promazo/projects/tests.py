@@ -1,16 +1,27 @@
 from django.test import TestCase
-
-# Create your tests here.
-
-from django.test import TestCase
 from rest_framework.test import APIClient
 from django.contrib.auth import get_user_model
 User=get_user_model()
+
+# Create your tests here.
+
 # Unit tests for projects portion
 class UserTestCase(TestCase):
     #set up data
-    def setup(self):
-        pass
+    def setUp(self):
+        #Make anunauthenticated user
+        self.student_user = APIClient()
+        self.student_user.login(username='teststudent',password='test1234')
+
+
+        #Make a user with super permissions for sending successful requests
+        admin = User.objects.create_superuser(username='admin',email='',password='password')
+        admin.save()
+
+        self.super_user = APIClient()
+        self.super_user.force_authenticate(user=admin)
+
+
 ##Project attributes
 
 #DELETE /api/project/{pk}/ to remove the project
