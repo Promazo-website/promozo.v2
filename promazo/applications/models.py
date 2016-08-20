@@ -11,7 +11,7 @@ class Application(models.Model):
     role = models.ForeignKey(ProjectRole)
     attachedDoc = models.FileField(upload_to='application_docs/')
     cover_letter = models.TextField()
-    status = models.CharField(default='Applied')
+    status = models.CharField(default='Applied',max_length=20)
 
     def __str__(self):
         return "%s for %s" % (self.user.username, self.role.name)
@@ -32,11 +32,23 @@ class AssignedTest(models.Model):
     def __str__(self):
         return "test for role %s" % self.role.name
 
-class ApplicantTestResults:
-    applicant =models.ForeignKey(User, related_name="results_for")
+class ApplicantTestResults(models.Model):
+    application =models.ForeignKey(Application, related_name="results_for")
     interviewer = models.ForeignKey(User, related_name="recorded_by")
     test = models.ForeignKey(AssignedTest)
     question = models.ForeignKey(Question)
     answer = models.TextField()
 
+class ApplicationCases(models.Model):
+    role = models.ForeignKey(ProjectRole)
+    attachedDoc = models.FileField(upload_to='application_docs/')
+    details = models.TextField()
+    start_date = models.DateTimeField(blank=True,null=True)
+    stop_date = models.DateTimeField(blank=True,null=True)
 
+class ApplicationCaseResults(models.Model):
+    application = models.ForeignKey(Application)
+    case = models.ForeignKey(ApplicationCases)
+    attachedDoc = models.FileField(upload_to='application_docs/')
+    details = models.TextField()
+    upload_date = models.DateTimeField(blank=True, null=True)
