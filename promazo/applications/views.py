@@ -47,6 +47,7 @@ class AssignedTestViewSet(viewsets.ModelViewSet):
         return Response(ser.data)
 
 class ApplicantTestResultsViewSet(viewsets.ModelViewSet):
+
     permission_classes = (IsAuthenticated,)
     serializer_class = ApplicantTestResultsSerializer
     queryset = ApplicantTestResults.objects.all()
@@ -58,6 +59,7 @@ class ApplicantTestResultsViewSet(viewsets.ModelViewSet):
 
 
 class ApplicationCasesViewSet(viewsets.ModelViewSet):
+
     permission_classes = (IsAuthenticated,)
     serializer_class = ApplicationCasesSerializer
     queryset = ApplicationCases.objects.all()
@@ -69,6 +71,7 @@ class ApplicationCasesViewSet(viewsets.ModelViewSet):
 
 
 class ApplicationCaseResultsViewSet(viewsets.ModelViewSet):
+
     permission_classes = (IsAuthenticated,)
     serializer_class = ApplicationCaseResultsSerializer
     queryset = ApplicationCaseResults.objects.all()
