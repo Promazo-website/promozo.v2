@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'pod',
     'microsite',
     'projects',
-    'application_tests'
+    'application_tests',
     'applications',
 
 
