@@ -8,6 +8,8 @@ from rest_framework.views import APIView
 from .models import *
 from .serializers import *
 from rest_framework import generics
+from rest_framework import viewsets
+
 
 User = get_user_model()
 
@@ -59,7 +61,7 @@ class newSkills(userSkills):
     permission_classes = (IsAuthenticated,)
     def post(self,request,format=None):
         if 'name' in request.data:
-            newrec=skills.objects.create(name=request.data['name'],type='TypeB')
+            newrec=skills.objects.create(name=request.data['name'])
             newrec2=skillScores.objects.create(skill=newrec,user=request.user)
         return Response(self.__getList__(request))
     def get(self,request):
@@ -102,3 +104,8 @@ class questionsDetails(generics.DestroyAPIView):
     serializer_class = userSkillAnswersSerializer
     def get_queryset(self):
         return userSkillAnswers.objects.filter(user=self.request.user)
+
+class SkillsViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = skillsSerializer
+    queryset = skills.objects.all()

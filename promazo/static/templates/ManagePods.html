@@ -80,7 +80,7 @@
                             </div>
                             <div class="md-secondary">
                                 <md-input-container>
-                                        <md-select ng-model="members.role" md-on-close="members.$update({id:members.id})">
+                                        <md-select ng-model="members.role" md-on-close="members.$update()">
                                             <md-option ng-repeat="role in RoleList" ng-value="role.id" placeholder="user">{{role.name}}</md-option>
                                         </md-select>
                                 </md-input-container>

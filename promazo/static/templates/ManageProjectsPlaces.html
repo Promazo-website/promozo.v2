@@ -1,0 +1,62 @@
+                    <fieldset ng-show="showCreatePlace">
+                        <legend>Create Places</legend>
+                        <md-input-container class="md-block">
+                            <md-select ng-model="newPlaces.role" placeholder="Role">
+                                <md-option ng-repeat="role in RoleList" ng-value="role.id">{{role.name}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <md-select ng-model="newPlaces.number" placeholder="number of places">
+                                <md-option ng-value="1">1</md-option>
+                                <md-option ng-value="2">2</md-option>
+                                <md-option ng-value="3">3</md-option>
+                                <md-option ng-value="4">4</md-option>
+                                <md-option ng-value="5">5</md-option>
+                                <md-option ng-value="6">6</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <input type="text" mdc-datetime-picker date="true" time="false"  ng-model="newPlaces.start_date" placeholder="Start date">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <input type="text" mdc-datetime-picker date="true" time="false"  ng-model="newPlaces.end_date" placeholder="End date">
+                        </md-input-container>
+                        <div layout="column">
+                            <md-button  class="md-raised md-primary" ng-click="CreatePlace()">Create</md-button>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Roles</legend>
+                        <md-list>
+                            <md-list-item ng-repeat="place in PlacesList" style="padding-top:10px;padding-bottom: 10px;">
+                                <div flex layout="column">
+                                    <div class="md-subheader">Assigned:</div>
+                                    <div ng-controller="UserController" ng-init="setUser(place.user)">{{user.username}}</div>
+                                    <div class="md-subheader">Role:</div>
+                                    <div ng-controller="ProjectRoleController" ng-init="setRole(place.ProjectRole)">{{role.name}}</div>
+                                </div>
+                                <div flex layout="column">
+                                    <div class="md-subheader">Start Date:</div>
+                                    <div ng-bind="place.startdate"></div>
+                                    <div class="md-subheader">End Date:</div>
+                                    <div ng-bind="place.enddate"></div>
+                                </div>
+
+                            <div class="md-secondary" ng-controller="FabMenuController" ng-cloak>
+                                <md-fab-speed-dial md-direction="{{menu.direction}}" ng-class="menu.mode" md-open="menu.isOpen">
+                                    <md-fab-trigger>
+                                        <md-button class="md-fab md-primary">
+
+                                            <md-icon>menu</md-icon>
+                                        </md-button>
+                                    </md-fab-trigger>
+                                    <md-fab-actions>
+                                        <md-button class="md-fab md-raised md-mini md-accent" ng-click="DeletePlace(place)"><md-icon>delete</md-icon></md-button>
+                                    </md-fab-actions>
+                                </md-fab-speed-dial>
+
+                            </div>
+                            <md-divider ng-if="!$last"></md-divider>
+                            </md-list-item>
+                        </md-list>
+                    </fieldset>

@@ -5,6 +5,8 @@ promazo.controller('UserController',function( $scope,$log,UserResource) {
     $scope.user={};
     
     $scope.setUser = function(userid){
-        $scope.user=UserResource.get({id:userid})
+        if(userid) {
+            $scope.user = UserResource.get({id: userid})
+        }
     }
 });

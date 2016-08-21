@@ -10,22 +10,25 @@ class userSerializer(serializers.ModelSerializer):
         model=User
 
 
-class ProjectRoleTypeSerializer(serializers.Serializer):
+class ProjectRoleTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectRoleType
 
-class ProjectSerializer(serializers.Serializer):
+class ProjectSerializer(serializers.ModelSerializer):
+    no_tasks = serializers.IntegerField(read_only=True)
+    no_roles = serializers.IntegerField(read_only=True)
+    no_places = serializers.IntegerField(read_only=True)
     class Meta:
         model = Project
 
-class ProjectTaskSerializer(serializers.Serializer):
+class ProjectTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectTask
 
-class ProjectRoleSerializer(serializers.Serializer):
+class ProjectRoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectRole
 
-class ProjectPlaceSerializer(serializers.Serializer):
+class ProjectPlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectPlace

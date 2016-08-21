@@ -3,7 +3,7 @@ from .views import *
 from rest_framework import routers
 #Comes from API/pod/
 
-router= routers.DefaultRouter()
+router= routers.DefaultRouter(trailing_slash=False)
 router.register(r'roletypes',ProjectRoleTypeViewSet)
 router.register(r'project', ProjectsViewSet)
 router.register(r'projecttask', ProjectTaskViewSet)
