@@ -14,6 +14,11 @@ class ProjectRoleTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectRoleType
 
+class AvailableRolesSerializer(serializers.ModelSerializer):
+    freePlaces = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = ProjectRole
+
 class ProjectSerializer(serializers.ModelSerializer):
     no_tasks = serializers.IntegerField(read_only=True)
     no_roles = serializers.IntegerField(read_only=True)

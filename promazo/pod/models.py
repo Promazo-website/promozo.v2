@@ -12,7 +12,7 @@ class podPermissions(baseModel):
 
 class podRole(baseModel):
     name = models.CharField(max_length=200)
-    permssions = models.ManyToManyField(podPermissions)
+    permissions = models.ManyToManyField(podPermissions)
     def __str__(self):
         return self.name
 

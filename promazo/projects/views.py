@@ -51,6 +51,11 @@ class ProjectRoleViewSet(viewsets.ModelViewSet):
         queryset = ProjectRole.objects.filter(project__id=pk)
         ser = ProjectRoleSerializer(queryset,many=True)
         return Response(ser.data)
+    @list_route()
+    def available(self,request):
+        ser=AvailableRolesSerializer(ProjectRole.objects.filter(status="active"),many=True)
+        return Response(ser.data)
+
 
 class ProjectPlaceViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)

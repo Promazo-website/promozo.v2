@@ -80,6 +80,9 @@ class ProjectRole(nameField,baseModel):
     def __str__(self):
         return self.name
 
+    def freePlaces(self):
+        return ProjectPlace.objects.filter(ProjectRole=self,user__isnull=True).count()
+
 class ProjectPlace(statusField):
     """
     A record denoting the person who is assigned to a role in a project.
