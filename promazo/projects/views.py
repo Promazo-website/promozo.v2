@@ -53,7 +53,7 @@ class ProjectRoleViewSet(viewsets.ModelViewSet):
         return Response(ser.data)
     @list_route()
     def available(self,request):
-        ser=AvailableRolesSerializer(ProjectRole.objects.filter(status="active"),many=True)
+        ser=AvailableRolesSerializer(ProjectRole.objects.filter(project__status="active"),many=True)
         return Response(ser.data)
 
 
