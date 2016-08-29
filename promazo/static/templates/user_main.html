@@ -1,21 +1,17 @@
 
 
-<md-toolbar style="position: fixed; top: 0;" md-whiteframe="2"  ng-controller="toolbarController" class="md-toolbar-tools">
-    <md-button class="md-raised md-icon-button md-primary" ng-click="SideNavOpen('left')"><md-icon>menu</md-icon></md-button>
-    <md-button  class="md-raised md-icon-button md-primary" ng-click="setCurrentPage('home')"><md-icon>home</md-icon></md-button>
-
+<md-toolbar style="position: fixed; top: 0;background-color: rgba(0, 0, 0, 0.5); " md-whiteframe="1"  ng-controller="toolbarController" class="md-tall md-toolbar-tools">
+    <md-button class="md-icon-button" ng-click="SideNavOpen('left')" style="background:transparent;height:70px;width:70px;" >
+        <img style="height:60px;" src="/static/images/PM-Logo.png"/>
+    </md-button>
         <div flex></div>
+        <div style="color:whitesmoke" ng-include="'/static/templates/toolbar_fab.html'"></div>
 
-        <md-button ng-click="SideNavOpen('right')" layout="row" layout-align="space-between center" >
-            <div><img ng-src="{{ currentProfile.avatarImage }}" class="avatar_toolbar"></div>
-            <div> {{currentUser.username}} ({{currentScore}})</div>
-
-        </md-button>
 
 </md-toolbar>
 
-<div flex layout="row" style="margin-top: 65px;">
-<md-sidenav md-component-id="left" md-whiteframe="1" md-is-locked-open="$mdMedia('min-width:900px')">
+<div flex layout="row" style="margin-top: 120px;">
+<md-sidenav md-component-id="left" md-whiteframe="1">
     <div flex ng-include="'/static/templates/left_menu.html'"></div>
 </md-sidenav>
 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">

@@ -1,0 +1,48 @@
+            <div layout="column" layout-align="center end">
+            {{currentUser.username}}
+            </div>
+
+            <div ng-controller="FabMenuController" ng-cloak>
+                <md-fab-speed-dial md-direction="{{menu.direction}}" ng-class="menu.mode" md-open="menu.isOpen">
+                    <md-fab-trigger>
+                        <md-button aria-label="menu" style="background-color: rgba(0,0,0,0.5)" class="md-fab">
+                            <md-icon style="color:whitesmoke">menu</md-icon>
+                        </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                        <md-button aria-label="Edit User"  ng-click="setCurrentPage('edit_user')" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">User</md-tooltip>
+                            <md-icon aria-label="Edit Account">account_box</md-icon>
+                        </md-button>
+                        <md-button aria-label="Edit profile"  ng-click="setCurrentPage('edit_profile')" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">Profile</md-tooltip>
+                            <md-icon aria-label="Edit profile">face</md-icon>
+                        </md-button>
+                        <md-button aria-label="Edit avatar"  ng-click="setCurrentPage('edit_avatar')" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">Avatar</md-tooltip>
+                            <md-icon aria-label="Edit avatar">camera_alt</md-icon>
+                        </md-button>
+                        <md-button aria-label="Edit Skills"  ng-click="setCurrentPage('edit_skills')" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">Skills</md-tooltip>
+                            <md-icon aria-label="Edit skills">local_library</md-icon>
+                        </md-button>
+                        <md-button aria-label="Skills Questions"  ng-click="skillsQuestion()" ng-controller="skillsController" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">Skill Questions</md-tooltip>
+                            <md-icon aria-label="Edit skills">priority_high</md-icon>
+                        </md-button>
+                        <md-button aria-label="Manage Questions"  ng-click="setCurrentPage('ManageTests')" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">Tests</md-tooltip>
+                            <md-icon aria-label="Manage Questions">help_outline</md-icon>
+                        </md-button>
+                        <md-button aria-label="Manage Projects"  ng-click="setCurrentPage('ManageProjects')" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">Projects</md-tooltip>
+                            <md-icon aria-label="Manage projects">assignment</md-icon>
+                        </md-button>
+                        <md-button aria-label="Manage Pods"  ng-click="setCurrentPage('ManagePods')" class="md-fab md-raised md-mini">
+                            <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">Pods</md-tooltip>
+                            <md-icon aria-label="Manage Pods">person_pin</md-icon>
+                        </md-button>
+
+                    </md-fab-actions>
+                </md-fab-speed-dial>
+             </div>

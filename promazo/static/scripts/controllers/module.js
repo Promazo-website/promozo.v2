@@ -7,9 +7,9 @@ var promazo = angular.module('promazo', ['ngAnimate' , 'ngRoute', 'ngSanitize','
 promazo.config(function ($routeProvider, $locationProvider, $httpProvider, $mdThemingProvider,$mdIconProvider) {
 
     $mdThemingProvider.theme('default')
-        .primaryPalette('orange',{'default':'300'})
-        .accentPalette('purple')
-        .backgroundPalette('brown',{'default':'50'});
+        .primaryPalette('grey',{'default':'300'})
+        .accentPalette('grey')
+        .backgroundPalette('grey',{'default':'50'});
 
     $mdIconProvider
         .iconSet('Extras','/static/node_modules/mdi/mdi.svg');
